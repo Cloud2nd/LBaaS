@@ -3,8 +3,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>kr.co.beany</groupId>
-	<artifactId>beany-springmvc-tiles</artifactId>
+	<groupId>com.exactsix.lbaas</groupId>
+	<artifactId>lbaas-server</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
 
