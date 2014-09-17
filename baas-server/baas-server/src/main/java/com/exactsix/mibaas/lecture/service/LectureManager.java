@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.LectureDetailDto;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
+import com.exactsix.mibaas.lecture.dto.LectureReviewDto;
 
 @Service
 public class LectureManager {
@@ -15,6 +16,9 @@ public class LectureManager {
 
 	@Autowired
 	private LectureDetailService lectureDetailService;
+	
+	@Autowired
+	private LectureReviewService lectureReviewService;
 
 	public RestResponse createLecture(LectureDto lectureDto) {
 		return lectureService.createLecture(lectureDto);
@@ -31,5 +35,14 @@ public class LectureManager {
 	public RestResponse createOrUpdateLectureDetail(
 			LectureDetailDto lectureDetail) {
 		return lectureDetailService.createOrUpdateLectureDetail(lectureDetail);
+	}
+
+	public RestResponse getLectureReview(String lecturecode) {
+		return lectureReviewService.getLectureReview(lecturecode);
+	}
+
+	public RestResponse createOrUpdateLectureReview(
+			LectureReviewDto lectureReview) {
+		return lectureReviewService.createOrUpdateLectureReview(lectureReview);
 	}
 }

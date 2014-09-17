@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.exactsix.mibaas.common.response.RestResponse;
-import com.exactsix.mibaas.lecture.dto.LectureDetailDto;
-import com.exactsix.mibaas.lecture.repository.LectureDetailRepository;
-import com.exactsix.mibaas.lecture.repository.dto.LectureDetailRepositoryDto;
+import com.exactsix.mibaas.lecture.dto.LectureReviewDto;
+import com.exactsix.mibaas.lecture.repository.LectureReviewRepository;
+import com.exactsix.mibaas.lecture.repository.dto.LectureReviewRepositoryDto;
 
 /**
  * <pre>
- * Class Name  : LectureDetailService.java
+ * Class Name  : LectureReviewService.java
  * Description :
  * Modification Information
  * 
@@ -26,19 +26,19 @@ import com.exactsix.mibaas.lecture.repository.dto.LectureDetailRepositoryDto;
  *          Copyright (C) 2014 by Exact Lab All right reserved.
  */
 @Component
-public class LectureDetailService {
+public class LectureReviewService {
 
-	private LectureDetailRepository lectureDetailRepository;
+	private LectureReviewRepository lectureReviewRepository;
 
-	public LectureDetailService() {
+	public LectureReviewService() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	@Autowired
-	public LectureDetailService(LectureDetailRepository lectureDetailRepository) {
+	public LectureReviewService(LectureReviewRepository lectureReviewRepository) {
 		super();
-		this.lectureDetailRepository = lectureDetailRepository;
+		this.lectureReviewRepository = lectureReviewRepository;
 	}
 
 	/**
@@ -48,10 +48,10 @@ public class LectureDetailService {
 	 * 
 	 * @return
 	 */
-	public RestResponse getLectureDetail(String lecturecode) {
+	public RestResponse getLectureReview(String lecturecode) {
 
 		// Make couchbase key
-		String key = "lecture::" + lecturecode + "::detail";
+		String key = "lecture::" + lecturecode + "::review";
 
 		// Initialize Response Data
 		RestResponse response = new RestResponse();
@@ -59,9 +59,9 @@ public class LectureDetailService {
 		response.setMessage("ok");
 
 		// Get Data from Couchbase
-		LectureDetailRepositoryDto repositoryDto = null;
+		LectureReviewRepositoryDto repositoryDto = null;
 		try {
-			repositoryDto = lectureDetailRepository.findOne(key);
+			repositoryDto = lectureReviewRepository.findOne(key);
 		} catch (Exception e) {
 			response.setStatus(false);
 			response.setMessage("fail to connect");
@@ -69,13 +69,11 @@ public class LectureDetailService {
 		}
 
 		// Set Lecture Detail Infomation
-		LectureDetailDto dto = new LectureDetailDto();
-		dto.setAbout(repositoryDto.getAbout());
-		dto.setBackground(repositoryDto.getBackground());
-		dto.setFormat(repositoryDto.getFormat());
+		LectureReviewDto dto = new LectureReviewDto();
 		dto.setLectureCode(repositoryDto.getLectureCode());
-		dto.setLectureType(repositoryDto.getLectureType());
-		dto.setSyllabus(repositoryDto.getSyllabus());
+		dto.setCustomerCode(repositoryDto.getCustomerCode());
+		dto.setSubject(repositoryDto.getSubject());
+		dto.setCommenct(repositoryDto.getCommenct());
 
 		// Setting Lecture Detail Infomation to Response Data
 		response.setData(dto);
@@ -91,28 +89,26 @@ public class LectureDetailService {
 	 * 
 	 * @return
 	 */
-	public RestResponse createOrUpdateLectureDetail(
-			LectureDetailDto lectureDetail) {
+	public RestResponse createOrUpdateLectureReview(
+			LectureReviewDto lectureReview) {
 
 		// Make couchbase key
-		String key = "lecture::" + lectureDetail.getLectureCode() + "::detail";
+		String key = "lecture::" + lectureReview.getLectureCode() + "::review";
 
 		// Initialize Response Data
 		RestResponse response = new RestResponse();
 
 		// Get Data from Couchbase
-		LectureDetailRepositoryDto repositoryDto = new LectureDetailRepositoryDto();
+		LectureReviewRepositoryDto repositoryDto = new LectureReviewRepositoryDto();
 
 		repositoryDto.setKey(key);
-		repositoryDto.setLectureCode(lectureDetail.getLectureCode());
-		repositoryDto.setAbout(lectureDetail.getAbout());
-		repositoryDto.setBackground(lectureDetail.getBackground());
-		repositoryDto.setFormat(lectureDetail.getFormat());
-		repositoryDto.setLectureType(lectureDetail.getLectureType());
-		repositoryDto.setSyllabus(lectureDetail.getSyllabus());
+		repositoryDto.setLectureCode(lectureReview.getLectureCode());
+		repositoryDto.setCustomerCode(lectureReview.getCustomerCode());
+		repositoryDto.setSubject(lectureReview.getSubject());
+		repositoryDto.setCommenct(lectureReview.getCommenct());
 
 		try {
-			repositoryDto = lectureDetailRepository.save(repositoryDto);
+			repositoryDto = lectureReviewRepository.save(repositoryDto);
 			response.setStatus(true);
 			response.setMessage("ok");
 		} catch (Exception e) {

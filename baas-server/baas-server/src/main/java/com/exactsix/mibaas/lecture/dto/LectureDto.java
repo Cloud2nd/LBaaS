@@ -1,5 +1,8 @@
 package com.exactsix.mibaas.lecture.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 public class LectureDto {
 
 	private String lectureCode;
