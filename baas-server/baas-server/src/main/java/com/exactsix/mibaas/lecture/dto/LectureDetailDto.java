@@ -1,45 +1,14 @@
-package com.exactsix.mibaas.lecture.repository.dto;
+package com.exactsix.mibaas.lecture.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.couchbase.core.mapping.Document;
-import org.springframework.data.couchbase.core.mapping.Field;
 
-@Document
-public class LectureDetailRepositoryDto {
+public class LectureDetailDto {
 
-	@Id
-	private String key;
-
-	@Field
 	private String lectureCode;
-
-	@Field
 	private String about;
-
-	@Field
 	private String syllabus;
-
-	@Field
 	private String background;
-
-	@Field
 	private String format;
-
-	@Field
 	private String lectureType;
-
-	public LectureDetailRepositoryDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
 
 	public String getLectureCode() {
 		return lectureCode;
@@ -88,6 +57,5 @@ public class LectureDetailRepositoryDto {
 	public void setLectureType(String lectureType) {
 		this.lectureType = lectureType;
 	}
-
 
 }
