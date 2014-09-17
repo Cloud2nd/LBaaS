@@ -1,14 +1,11 @@
 package com.exactsix.mibaas.lecture.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.exactsix.mibaas.common.response.RestResponse;
-import com.exactsix.mibaas.lecture.dto.LectureDetailDto;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
-import com.exactsix.mibaas.lecture.repository.LectureDetailRepository;
 import com.exactsix.mibaas.lecture.repository.LectureRepository;
-import com.exactsix.mibaas.lecture.repository.dto.LectureDetailRepositoryDto;
 import com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto;
 
 /**
@@ -28,20 +25,17 @@ import com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto;
  * 
  *          Copyright (C) 2012 by BEANY All right reserved.
  */
-@Service
+@Component
 public class LectureService {
 
-	@Autowired
 	private LectureRepository lectureRepository;
-
-	@Autowired
-	private LectureDetailRepository lectureDetailRepository;
 
 	public LectureService() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	@Autowired
 	public LectureService(LectureRepository lectureRepository) {
 		super();
 		this.lectureRepository = lectureRepository;
@@ -105,88 +99,4 @@ public class LectureService {
 		return response;
 	}
 
-	/**
-	 * <pre>
-	 * Get Lecture Detail Infomation
-	 * </pre>
-	 * 
-	 * @return
-	 */
-	public RestResponse getLectureDetail(String lecturecode) {
-
-		// Make couchbase key
-		String key = "lecture::" + lecturecode + "::detail";
-
-		// Initialize Response Data
-		RestResponse response = new RestResponse();
-		response.setStatus(true);
-		response.setMessage("ok");
-
-		// Get Data from Couchbase
-		LectureDetailRepositoryDto repositoryDto = null;
-		try {
-			repositoryDto = lectureDetailRepository.findOne(key);
-		} catch (Exception e) {
-			response.setStatus(false);
-			response.setMessage("fail to connect");
-			return response;
-		}
-
-		// Set Lecture Detail Infomation
-		LectureDetailDto dto = new LectureDetailDto();
-		dto.setAbout(repositoryDto.getAbout());
-		dto.setBackground(repositoryDto.getBackground());
-		dto.setFormat(repositoryDto.getFormat());
-		dto.setLectureCode(repositoryDto.getLectureCode());
-		dto.setLectureType(repositoryDto.getLectureType());
-		dto.setSyllabus(repositoryDto.getSyllabus());
-
-		// Setting Lecture Detail Infomation to Response Data
-		response.setData(dto);
-
-		// return
-		return response;
-	}
-
-	/**
-	 * <pre>
-	 * Get Lecture Detail Infomation
-	 * </pre>
-	 * 
-	 * @return
-	 */
-	@SuppressWarnings("null")
-	public RestResponse createOrUpdateLectureDetail(LectureDetailDto lectureDetail) {
-
-		// Make couchbase key
-		String key = "lecture::" + lectureDetail.getLectureCode() + "::detail";
-
-		// Initialize Response Data
-		RestResponse response = new RestResponse();
-
-		// Get Data from Couchbase
-		LectureDetailRepositoryDto repositoryDto = null;
-
-
-		repositoryDto.setKey(key);
-		repositoryDto.setLectureCode(lectureDetail.getLectureCode());
-		repositoryDto.setAbout(lectureDetail.getAbout());
-		repositoryDto.setBackground(lectureDetail.getBackground());
-		repositoryDto.setFormat(lectureDetail.getFormat());
-		repositoryDto.setLectureType(lectureDetail.getLectureType());
-		repositoryDto.setSyllabus(lectureDetail.getSyllabus());
-
-		try {
-			repositoryDto = lectureDetailRepository.save(repositoryDto);
-			response.setStatus(true);
-			response.setMessage("ok");
-		} catch (Exception e) {
-			response.setStatus(false);
-			response.setMessage("fail to connect");
-			return response;
-		}
-
-		// return
-		return response;
-	}
 }

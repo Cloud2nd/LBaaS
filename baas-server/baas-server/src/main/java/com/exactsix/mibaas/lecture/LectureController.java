@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.LectureDetailDto;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
-import com.exactsix.mibaas.lecture.service.LectureService;
+import com.exactsix.mibaas.lecture.service.LectureManager;
 
 /**
  * <pre>
@@ -32,7 +32,7 @@ import com.exactsix.mibaas.lecture.service.LectureService;
 public class LectureController {
 
 	@Autowired
-	private LectureService lectureService;
+	private LectureManager lectureService;
 
 	/**
 	 * <pre>
@@ -53,7 +53,7 @@ public class LectureController {
 
 	/**
 	 * <pre>
-	 * 강좌 상세정보
+	 * 강좌 정보
 	 * </pre>
 	 * 
 	 * @param gridParam
@@ -90,7 +90,7 @@ public class LectureController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/lecture", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/lecture", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
 	RestResponse updateLectureList(@RequestBody LectureDto lectureDto) {
 		return null;
@@ -109,6 +109,8 @@ public class LectureController {
 	public @ResponseBody
 	RestResponse createOrUpdateLectureDetail(
 			@RequestBody LectureDetailDto lectureDetail) {
+		System.out.println("*&*&*&*&*&*");
+		System.out.println(lectureDetail.getLectureCode());
 		return lectureService.createOrUpdateLectureDetail(lectureDetail);
 	}
 
@@ -126,19 +128,6 @@ public class LectureController {
 		return lectureService.getLecture(lecturecode);
 	}
 
-	/**
-	 * <pre>
-	 * 강좌 삭제
-	 * </pre>
-	 * 
-	 * @param gridParam
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/lecture/{lecturekey}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	RestResponse deleteLecture() {
-		return null;
-	}
+	
 
 }
