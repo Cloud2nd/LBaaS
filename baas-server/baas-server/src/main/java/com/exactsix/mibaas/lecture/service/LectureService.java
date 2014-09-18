@@ -1,13 +1,25 @@
 package com.exactsix.mibaas.lecture.service;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Component;
 
 import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
 import com.exactsix.mibaas.lecture.repository.LectureRepository;
+import com.exactsix.mibaas.lecture.repository.dto.LectureEsDto;
 import com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
+import static org.elasticsearch.index.query.QueryBuilders.queryString;
+
+;
 /**
  * <pre>
  * Class Name  : LectureService.java
@@ -29,6 +41,9 @@ import com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto;
 public class LectureService {
 
 	private LectureRepository lectureRepository;
+
+	@Autowired
+	private ElasticsearchTemplate search;
 
 	public LectureService() {
 		super();
@@ -73,6 +88,26 @@ public class LectureService {
 
 	public RestResponse getLecture(String lecturecode) {
 
+		/*
+		 * SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(
+		 * matchAllQuery()).build();
+		 */
+
+		/*SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(
+				queryString("couchbaseDocument.doc.lectureCode").field("test1")).build();
+
+		List<LectureEsDto> sampleEntities = search.queryForList(searchQuery,
+				LectureEsDto.class);
+
+		System.out.println("***********************");
+		System.out.println("***********************");
+		System.out.println(sampleEntities.size());*/
+
+		/*
+		 * QueryBuilder qb =
+		 * QueryBuilders.multiMatchQuery("kimchy elasticsearch", "user",
+		 * "message");
+		 */
 		/*
 		 * Query query = new Query();
 		 * query.setKey(ComplexKey.of("lecture::aaa")); List<LectureDto>
