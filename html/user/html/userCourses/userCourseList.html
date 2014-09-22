@@ -58,16 +58,41 @@
         <li>
           <a href="../index.html"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">Dashboard</span></a>
         </li>
-        <li class="#">
-          <a href="#"><i class="menu-icon fa fa-youtube-play"></i>
+        <li class="mm-dropdown">
+          <a href=""><i class="menu-icon fa fa-tasks"></i>
             <span class="mm-text">학습 관리</span></a>
+            <ul>
+                <li>
+                  <a tabindex="-1" href="../userCourses/userCourseList.html"><i class="menu-icon fa fa-youtube-play"></i>
+                    <span class="mm-text">수강중인 강좌</span></a>
+                </li>
+                <li>
+                  <a tabindex="-1" href="../userCourses/completeCourse.html"><i class="menu-icon fa fa-check"></i>
+                    <span class="mm-text">완료한 강좌</span>
+                  </a>
+                </li>
+              </ul>
         </li>
-        <li class="#">
+        <li class="mm-dropdown">
+          <a href="#"><i class="menu-icon fa fa-group"></i>
+            <span class="mm-text">스터디 그룹</span></a>
+            <ul>
+                <li>
+                  <a tabindex="-1" href="#"><i class="menu-icon fa fa-book"></i>
+                    <span class="mm-text">진행중인 스터디</span></a>
+                </li>
+                <li>
+                  <a tabindex="-1" href="#"><i class="menu-icon fa fa-flag-checkered"></i>
+                    <span class="mm-text">완료된 스터디</span>
+                  </a>
+                </li>
+              </ul>
+        </li>
+        <li class="">
           <a href="#"><i class="menu-icon fa fa-user"></i>
-            <span class="mm-text">내 정보 관리</span></a>
+            <span class="mm-text">회원 정보 관리</span></a>
         </li>
       </ul>
-
     </div>
   </div>
 
@@ -78,13 +103,14 @@
       </div>
       <li><a href="#">Home</a></li>
       <li class="active"><a href="#">학습 관리</a></li>
+      <li class="active"><a href="#">수강중인 강좌</a></li>
     </ul>
 
     <div class="page-header">
       <div class="row">
         <h1 class="col-xs-12 col-sm-4 text-center text-left-sm">
           <i class="fa fa-youtube-play page-header-icon"></i>
-          &nbsp;&nbsp;학습 관리</h1>
+          &nbsp;&nbsp;수강중인 강좌</h1>
       </div>
     </div>
 
@@ -114,8 +140,8 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>강좌명</th>
-                  <th>코치</th>
+                  <th>강좌</th>
+                  <th>챕터수</th>
                   <th>시작날짜</th>
                   <th>상태</th>
                 </tr>
@@ -123,24 +149,30 @@
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>MySQL 첫걸음</td>
-                  <td>이형채</td>
+                  <td><a href="../userCourses/userLabList.html">MySQL 입문</a></td>
+                  <td>3</td>
                   <td>20140918</td>
-                  <td>수강중, 수강완료, 취소</td>
+                  <td>
+                    <button class="btn btn-success btn-xs">수강중</button>&nbsp;<button class="btn btn-danger btn-xs">수강취소</button>
+                  </td>
                 </tr>
                 <tr>
                   <td>1</td>
-                  <td>MySQL 첫걸음</td>
-                  <td>이형채</td>
+                  <td><a href="../userCourses/userLabList.html">MySQL 첫걸음</a></td>
+                  <td>11</td>
                   <td>20140918</td>
-                  <td>수강중, 수강완료, 취소</td>
+                  <td>
+                    <button class="btn btn-success btn-xs">수강중</button>&nbsp;<button class="btn btn-danger btn-xs">수강취소</button>
+                  </td>
                 </tr>
                 <tr>
                   <td>1</td>
-                  <td>MySQL 첫걸음</td>
-                  <td>이형채</td>
+                  <td><a href="../userCourses/userLabList.html">MySQL 첫걸음</a></td>
+                  <td>7</td>
                   <td>20140918</td>
-                  <td>수강중, 수강완료, 취소</td>
+                  <td>
+                    <button class="btn btn-success btn-xs">수강중</button>&nbsp;<button class="btn btn-danger btn-xs">수강취소</button>
+                  </td>
                 </tr>
               </tbody>
             </table>
