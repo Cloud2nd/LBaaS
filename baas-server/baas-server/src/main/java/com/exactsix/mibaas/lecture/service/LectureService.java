@@ -1,23 +1,13 @@
 package com.exactsix.mibaas.lecture.service;
 
-import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Component;
 
 import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
 import com.exactsix.mibaas.lecture.repository.LectureRepository;
-import com.exactsix.mibaas.lecture.repository.dto.LectureEsDto;
 import com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto;
-
-import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
-import static org.elasticsearch.index.query.QueryBuilders.queryString;
 
 ;
 /**

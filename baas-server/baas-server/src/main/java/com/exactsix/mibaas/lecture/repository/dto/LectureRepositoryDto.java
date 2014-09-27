@@ -22,12 +22,16 @@ public class LectureRepositoryDto {
 	@Field
 	private String lectureType;
 
+	@Field
+	private String lectureThumbnail;
+
 	public LectureRepositoryDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public LectureRepositoryDto(String key, String lectureCode, String lectureName) {
+	public LectureRepositoryDto(String key, String lectureCode,
+			String lectureName) {
 		super();
 		this.key = key;
 		this.lectureCode = lectureCode;
@@ -72,6 +76,14 @@ public class LectureRepositoryDto {
 
 	public void setLectureType(String lectureType) {
 		this.lectureType = lectureType;
+	}
+
+	public String getLectureThumbnail() {
+		return lectureThumbnail;
+	}
+
+	public void setLectureThumbnail(String lectureThumbnail) {
+		this.lectureThumbnail = lectureThumbnail;
 	}
 
 }

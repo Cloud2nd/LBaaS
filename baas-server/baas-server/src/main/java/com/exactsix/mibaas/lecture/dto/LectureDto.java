@@ -9,6 +9,7 @@ public class LectureDto {
 	private String lectureName;
 	private String lectureLanguage;
 	private String lectureType;
+	private String lectureThumbnail;
 
 	public String getLectureCode() {
 		return lectureCode;
@@ -40,6 +41,14 @@ public class LectureDto {
 
 	public void setLectureType(String lectureType) {
 		this.lectureType = lectureType;
+	}
+
+	public String getLectureThumbnail() {
+		return lectureThumbnail;
+	}
+
+	public void setLectureThumbnail(String lectureThumbnail) {
+		this.lectureThumbnail = lectureThumbnail;
 	}
 
 }
