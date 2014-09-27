@@ -16,12 +16,16 @@ public class LectureManager {
 
 	@Autowired
 	private LectureDetailService lectureDetailService;
-	
+
 	@Autowired
 	private LectureReviewService lectureReviewService;
 
 	public RestResponse createLecture(LectureDto lectureDto) {
 		return lectureService.createLecture(lectureDto);
+	}
+
+	public RestResponse getLectureList() {
+		return lectureService.getLectureList();
 	}
 
 	public RestResponse getLecture(String lecturecode) {

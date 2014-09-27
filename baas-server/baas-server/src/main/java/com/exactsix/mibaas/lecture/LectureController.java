@@ -32,7 +32,7 @@ import com.exactsix.mibaas.lecture.service.LectureManager;
 public class LectureController {
 
 	@Autowired
-	private LectureManager lectureService;
+	private LectureManager lectureManager;
 
 	/**
 	 * <pre>
@@ -44,11 +44,9 @@ public class LectureController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/lecture", method = RequestMethod.GET)
-	public @ResponseBody
-	RestResponse getLectureList() {
+	public @ResponseBody RestResponse getLectureList() {
 		//
-		// return lectureService.getLecture();
-		return null;
+		return lectureManager.getLectureList();
 	}
 
 	/**
@@ -61,9 +59,8 @@ public class LectureController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/lecture/{lecturekey}", method = RequestMethod.GET)
-	public @ResponseBody
-	RestResponse getLecture(@PathVariable String lecturekey) {
-		return lectureService.getLecture(lecturekey);
+	public @ResponseBody RestResponse getLecture(@PathVariable String lecturekey) {
+		return lectureManager.getLecture(lecturekey);
 	}
 
 	/**
@@ -76,9 +73,9 @@ public class LectureController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/lecture", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	RestResponse createLectureList(@RequestBody LectureDto lectureDto) {
-		return lectureService.createLecture(lectureDto);
+	public @ResponseBody RestResponse createLectureList(
+			@RequestBody LectureDto lectureDto) {
+		return lectureManager.createLecture(lectureDto);
 	}
 
 	/**
@@ -91,8 +88,8 @@ public class LectureController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/lecture", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	RestResponse updateLectureList(@RequestBody LectureDto lectureDto) {
+	public @ResponseBody RestResponse updateLectureList(
+			@RequestBody LectureDto lectureDto) {
 		return null;
 	}
 
@@ -106,12 +103,11 @@ public class LectureController {
 	 */
 
 	@RequestMapping(value = "/lecture/{lecturecode}/detail", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	RestResponse createOrUpdateLectureDetail(
+	public @ResponseBody RestResponse createOrUpdateLectureDetail(
 			@RequestBody LectureDetailDto lectureDetail) {
 		System.out.println("*&*&*&*&*&*");
 		System.out.println(lectureDetail.getLectureCode());
-		return lectureService.createOrUpdateLectureDetail(lectureDetail);
+		return lectureManager.createOrUpdateLectureDetail(lectureDetail);
 	}
 
 	/**
@@ -123,11 +119,9 @@ public class LectureController {
 	 * @return
 	 */
 	@RequestMapping(value = "/lecture/{lecturecode}/detail", method = RequestMethod.GET)
-	public @ResponseBody
-	RestResponse getLectureDetail(@PathVariable String lecturecode) {
-		return lectureService.getLecture(lecturecode);
+	public @ResponseBody RestResponse getLectureDetail(
+			@PathVariable String lecturecode) {
+		return lectureManager.getLecture(lecturecode);
 	}
-
-	
 
 }

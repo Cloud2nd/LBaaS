@@ -1,5 +1,8 @@
 package com.exactsix.mibaas.lecture.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Component;
@@ -7,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
 import com.exactsix.mibaas.lecture.repository.LectureRepository;
+import com.exactsix.mibaas.lecture.repository.dto.LectureEsDto;
 import com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto;
 
 ;
@@ -83,15 +87,18 @@ public class LectureService {
 		 * matchAllQuery()).build();
 		 */
 
-		/*SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(
-				queryString("couchbaseDocument.doc.lectureCode").field("test1")).build();
-
-		List<LectureEsDto> sampleEntities = search.queryForList(searchQuery,
-				LectureEsDto.class);
-
-		System.out.println("***********************");
-		System.out.println("***********************");
-		System.out.println(sampleEntities.size());*/
+		/*
+		 * SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(
+		 * queryString
+		 * ("couchbaseDocument.doc.lectureCode").field("test1")).build();
+		 * 
+		 * List<LectureEsDto> sampleEntities = search.queryForList(searchQuery,
+		 * LectureEsDto.class);
+		 * 
+		 * System.out.println("***********************");
+		 * System.out.println("***********************");
+		 * System.out.println(sampleEntities.size());
+		 */
 
 		/*
 		 * QueryBuilder qb =
@@ -124,4 +131,64 @@ public class LectureService {
 		return response;
 	}
 
+	/**
+	 * <pre>
+	 * 강좌 리스트를 불러오는 서비스 입니다.
+	 * </pre>
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public RestResponse getLectureList() {
+
+		List<LectureEsDto> sampleEntities = new ArrayList<LectureEsDto>();
+
+		LectureEsDto tmp1 = new LectureEsDto();
+		tmp1.set_id("lecture::test1");
+
+		LectureEsDto tmp2 = new LectureEsDto();
+		tmp2.set_id("lecture::test2");
+
+		LectureEsDto tmp3 = new LectureEsDto();
+		tmp3.set_id("lecture::test3");
+
+		LectureEsDto tmp4 = new LectureEsDto();
+		tmp4.set_id("lecture::test4");
+
+		LectureEsDto tmp5 = new LectureEsDto();
+		tmp5.set_id("lecture::test5");
+
+		sampleEntities.add(tmp1);
+		sampleEntities.add(tmp2);
+		sampleEntities.add(tmp3);
+		sampleEntities.add(tmp4);
+		sampleEntities.add(tmp5);
+
+		String[] tests = { "lecture::test1", "lecture::test2", "lecture::test1" };
+
+		// Get DB
+		RestResponse response = new RestResponse();
+		response.setStatus(true);
+		response.setMessage("ok");
+
+		List<LectureDto> lectureList = new ArrayList<LectureDto>();
+
+		for (String test : tests) {
+			LectureRepositoryDto repositoryDto = lectureRepository
+					.findOne(test);
+
+			// setting lecture dto
+			LectureDto lectureDto = new LectureDto();
+			lectureDto.setLectureName(repositoryDto.getLectureName());
+			lectureDto.setLectureCode(repositoryDto.getLectureCode());
+			lectureDto.setLectureLanguage(repositoryDto.getLectureLanguage());
+			lectureDto.setLectureType(repositoryDto.getLectureType());
+			lectureList.add(lectureDto);
+		}
+
+		response.setData(lectureList);
+
+		// return
+		return response;
+	}
 }
