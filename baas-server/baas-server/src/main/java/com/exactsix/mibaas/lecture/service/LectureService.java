@@ -164,7 +164,7 @@ public class LectureService {
 		sampleEntities.add(tmp4);
 		sampleEntities.add(tmp5);
 
-		String[] tests = { "lecture::test1", "lecture::test2", "lecture::test1" };
+		String[] tests = { "lecture::test1", "lecture::test2" };
 
 		// Get DB
 		RestResponse response = new RestResponse();
