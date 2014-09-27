@@ -1,4 +1,4 @@
-package com.exactsix.mibaas.user;
+package com.exactsix.mibaas.login;
 
 import javax.annotation.Resource;
 
@@ -13,7 +13,7 @@ import com.exactsix.mibaas.common.response.RestResponse;
 
 /**
  * <pre>
- * Class Name  : UserController.java
+ * Class Name  : LoginController.java
  * Description :
  * Modification Information
  * 
@@ -26,25 +26,12 @@ import com.exactsix.mibaas.common.response.RestResponse;
  */
 @RequestMapping("/api")
 @Controller
-public class UserController {
+public class LoginController {
 
-	@Resource(name = "receiverService")
-	private ReceiverService receiverService;
-
-	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public @ResponseBody RestResponse list() {
 		//
 		return null;
 	}
-	
-	@RequestMapping(value = "/users/{userkey}", method = RequestMethod.GET)
-	public @ResponseBody RestResponse getPermmision(@PathVariable String spacekey) {
-		return null;
-	}
-	
-	@RequestMapping(value = "/users", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody RestResponse addPermission(){
-		return null;
-	}
+
 }
