@@ -11,14 +11,10 @@ public class LoginService {
 	public RestResponse getLogin() {
 
 		UserDto user = new UserDto();
-		user.setEmail("dave.han1002@gmail.com");
-		user.setUsername("한정수");
-
 		RestResponse response = new RestResponse();
 		response.setStatus(true);
 		response.setMessage("success login");
 		response.setData(user);
-
 		return response;
 	}
 
