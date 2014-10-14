@@ -4,11 +4,8 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
       
     <import resource="context/context-common.xml" />
-    <import resource="context/context-datasource.xml" />
-    <import resource="context/context-mapper.xml" />
     <import resource="context/context-message.xml" />
     <import resource="context/context-properties.xml" />
-    <import resource="context/context-transaction.xml" />
     <import resource="context/context-elasticsearch.xml" />
 
 </beans>  
