@@ -1,5 +1,7 @@
 package com.exactsix.mibaas.email.service;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,18 @@ public class EmailService {
 
 	@Value("#{envProp['aws.amazon.secret']}")
 	private String secretKey;
+
+	private AWSCredentials credentials;
+
+	private AmazonSimpleEmailServiceClient client;
+
+	@PostConstruct
+	private void init() {
+		credentials = new BasicAWSCredentials(accessKey, secretKey);
+		client = new AmazonSimpleEmailServiceClient(credentials);
+		Region REGION = Region.getRegion(Regions.US_EAST_1);
+		client.setRegion(REGION);
+	}
 
 	static final String FROM = "dave.han1002@gmail.com";
 	static final String TO = "jshan@osci.kr";
@@ -50,18 +64,7 @@ public class EmailService {
 				.withDestination(destination).withMessage(message);
 
 		try {
-			AWSCredentials credentials = new BasicAWSCredentials(accessKey,
-					secretKey);
-
-			AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(
-					credentials);
-
-			Region REGION = Region.getRegion(Regions.US_EAST_1);
-			client.setRegion(REGION);
-
-			// Send the email.
 			SendEmailResult result = client.sendEmail(request);
-			System.out.println("Email sent!");
 		} catch (Exception ex) {
 			System.out.println("The email was not sent.");
 			System.out.println("Error message: " + ex.getMessage());
