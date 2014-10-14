@@ -105,8 +105,6 @@ public class LectureController {
 	@RequestMapping(value = "/lecture/{lecturecode}/detail", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody RestResponse createOrUpdateLectureDetail(
 			@RequestBody LectureDetailDto lectureDetail) {
-		System.out.println("*&*&*&*&*&*");
-		System.out.println(lectureDetail.getLectureCode());
 		return lectureManager.createOrUpdateLectureDetail(lectureDetail);
 	}
 
@@ -121,7 +119,7 @@ public class LectureController {
 	@RequestMapping(value = "/lecture/{lecturecode}/detail", method = RequestMethod.GET)
 	public @ResponseBody RestResponse getLectureDetail(
 			@PathVariable String lecturecode) {
-		return lectureManager.getLecture(lecturecode);
+		return lectureManager.getLectureDetail(lecturecode);
 	}
 
 }
