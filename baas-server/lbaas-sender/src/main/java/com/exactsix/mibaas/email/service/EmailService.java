@@ -1,7 +1,10 @@
 package com.exactsix.mibaas.email.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
@@ -10,16 +13,23 @@ import com.amazonaws.services.simpleemail.model.Content;
 import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+import com.amazonaws.services.simpleemail.model.SendEmailResult;
 import com.exactsix.mibaas.common.response.RestResponse;
 
 @Service
 public class EmailService {
 
+	@Value("#{envProp['aws.amazon.key']}")
+	private String accessKey;
+
+	@Value("#{envProp['aws.amazon.secret']}")
+	private String secretKey;
+
 	static final String FROM = "dave.han1002@gmail.com";
 	static final String TO = "jshan@osci.kr";
 
-	static final String BODY = "This email was sent through Amazon SES by using the AWS SDK for Java.";
-	static final String SUBJECT = "Amazon SES test (AWS SDK for Java)";
+	static final String BODY = "회원가입 해주셔서 감사합니다.";
+	static final String SUBJECT = "Welcome Coursevil";
 
 	public RestResponse sendMail() {
 
@@ -40,20 +50,17 @@ public class EmailService {
 				.withDestination(destination).withMessage(message);
 
 		try {
+			AWSCredentials credentials = new BasicAWSCredentials(accessKey,
+					secretKey);
 
-			AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient();
+			AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(
+					credentials);
 
 			Region REGION = Region.getRegion(Regions.US_EAST_1);
 			client.setRegion(REGION);
 
-			
-			AWSCredentials credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
-			AmazonSimpleEmailServiceClient sesClient = new AmazonSimpleEmailServiceClient(credentials);
-			SendEmailResult result = sesClient.sendEmail(request);
-
-			
 			// Send the email.
-			client.sendEmail(request);
+			SendEmailResult result = client.sendEmail(request);
 			System.out.println("Email sent!");
 		} catch (Exception ex) {
 			System.out.println("The email was not sent.");

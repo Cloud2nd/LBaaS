@@ -1,16 +1,13 @@
-package com.exactsix.mibaas.user;
+package com.exactsix.mibaas.sender;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.email.service.EmailService;
-import com.exactsix.mibaas.user.dto.UserDto;
 
 /**
  * <pre>
@@ -27,7 +24,7 @@ import com.exactsix.mibaas.user.dto.UserDto;
  */
 @RequestMapping("/api")
 @Controller
-public class UserController {
+public class SenderController {
 
 	@Autowired
 	private EmailService loginService;
