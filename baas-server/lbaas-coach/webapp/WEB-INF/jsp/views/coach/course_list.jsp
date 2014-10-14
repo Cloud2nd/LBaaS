@@ -72,7 +72,7 @@ function getData(){
 	$.ajax({
 		type : 'get',
 		async : false,
-		url : 'http://119.81.162.219:8080/api/lecture',
+		url : 'http://dev.api.coursevil.org/api/lecture',
 		cache : false,
 		contentType : "application/json; charset=UTF-8",
 		dataType : "json",
