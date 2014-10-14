@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper">
+
+	<resultMap id="resultMap" type="com.exactsix.mibaas.user.dto.UserDto">
+		<result property="email" column="EMAIL" />
+		<result property="userName" column="USER_NAME" />
+		<result property="passwd" column="PASSWD" />
+		<result property="hassedPasswd" column="HASHED_PASSWD" />
+		<result property="lastLogon" column="LAST_LOGON" />
+	</resultMap>
+
+	<select id="getUser" parameterType="String" resultMap="resultMap">
+		SELECT EMAIL,USER_NAME from users_tbl where email = #{email}
+	</select>
+
+	<insert id="insertUser" parameterType="com.exactsix.mibaas.user.dto.UserDto">
+		INSERT INTO users_tbl
+		(
+		EMAIL
+		,USER_NAME
+		,PASSWD
+		,HASHED_PASSWD
+		) VALUES (
+		#{email}
+		,#{userName}
+		,#{passwd}
+		,#{hashedPasswd}
+		)
+	</insert>
+
+	<update id="updateUser" parameterType="com.exactsix.mibaas.user.dto.UserDto">
+		UPDATE users_tbl
+		SET
+		USER_NAME = #{userName}
+		,PASSWD = #{passwd}
+		,HASHED_PASSWD = #{hashedPasswd}
+		WHERE
+		EMAIL = #{email}
+	</update>
+
+</mapper>
