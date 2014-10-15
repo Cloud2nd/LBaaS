@@ -23,44 +23,87 @@
   </div>
 </div>
 
+
 <div class="row">
-      <div class="col-md-12">
-        <form class="form-horizontal" name="jq-validation-form" id="jq-validation-form" novalidate="novalidate">
-          <div class="form-group">
-            <label for="jq-validation-email" class="col-sm-2 control-label">강좌</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="lectureCode" name="lectureCode" placeholder="제목을 입력하세요.">
-            </div>
-          </div>
+	<div class="col-sm-12">
 
-          <div class="form-group">
-            <label for="jq-validation-text" class="col-sm-2 control-label">강좌 설명</label>
-            <div class="col-sm-10">
-              <textarea class="form-control" name="lectureName" id="lectureName" placeholder="본 강좌에 대한 설명을 간략히 적어주세요."></textarea>
-            </div>
-          </div>
+		<form id="lecture-regist-form" class="panel form-horizontal">
+			<div class="panel-body">
+				<div class="form-group">
+					<label for="inputEmail2" class="col-sm-2 control-label">강좌명</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="lectureName" name="lectureName" placeholder="강좌명을 입력해주세요">
+					</div>
+				</div> <!-- / .form-group -->
+				<div class="form-group">
+					<label for="asdasdas" class="col-sm-2 control-label">강좌설명</label>
+					<div class="col-sm-10">
+						<textarea id="lectureDescription" name="lectureDescription" class="form-control"></textarea>
+						<p class="help-block">강좌 설명을 적어주세요</p>
+					</div>
+				</div> <!-- / .form-group -->
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button  type="button" id="simplepost" class="btn btn-primary">강좌 등록</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+				<!-- 강의 Type -->
+				<div class="form-group">
+					<label class="col-sm-2 control-label">강좌Type</label>
+					<div class="col-sm-10">
+						<div class="radio">
+							<label>
+								<input type="radio" name="lectureType" id="lectureTypeMovie" value="MOVIE" class="px" checked="">
+								<span class="lbl">동영상강좌</span>
+							</label>
+						</div> <!-- / .radio -->
+						<div class="radio">
+							<label>
+								<input type="radio" name="lectureType" id="lectureTypeText" value="TEXT" class="px">
+								<span class="lbl">File</span>
+							</label>
+						</div> <!-- / .radio -->
+					</div> <!-- / .col-sm-10 -->
+				</div> <!-- / .form-group -->
+
+				<!-- 언어 선택 -->
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Language</label>
+					<div class="col-sm-10">
+						<div class="radio">
+							<label>
+								<input type="radio" name="lectureLanguage" id="languageKR" value="KR" class="px" checked="">
+								<span class="lbl">Korean</span>
+							</label>
+						</div> <!-- / .radio -->
+						<div class="radio">
+							<label>
+								<input type="radio" name="lectureLanguage" id="languageEN" value="EN" class="px">
+								<span class="lbl">English</span>
+							</label>
+						</div> <!-- / .radio -->
+					</div> <!-- / .col-sm-10 -->
+				</div> <!-- / .form-group -->
+
+				<div class="form-group" style="margin-bottom: 0;">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="button" id="lectureRegistBtn" class="btn btn-primary">강좌 등록</button>
+					</div>
+				</div> <!-- / .form-group -->
+			</div>
+		</form>
+	<!-- /10. $FORM_EXAMPLE -->
+
+	</div>
+</div>
+
 
 
 <script type="text/javascript">
 
 $(document).ready(function() { 
-            // bind 'myForm' and provide a simple callback function 
 	
-	$("#simplepost").click(function(e){
+	$("#lectureRegistBtn").click(function(e){
 
-		 var json_val = JSON.stringify($("#jq-validation-form").serializeObject());
-
-
-		 $.ajax({
+		  var json_val = JSON.stringify($("#lecture-regist-form").serializeObject());
+		  
+		  $.ajax({
 			type : 'POST',
 			async : false,
 			url : 'http://dev.api.coursevil.org/api/lecture',
@@ -73,10 +116,9 @@ $(document).ready(function() {
 			},
 			error: function (jqXHR, textStatus, errorThrown)
 			{
-				alert("에러");
+				alert("에러"+errorThrown);
 			}
 		});
-
 	});
     
 }); 
