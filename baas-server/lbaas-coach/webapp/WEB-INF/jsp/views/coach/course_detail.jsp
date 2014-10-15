@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/TagLib.jspf" %>
 
-<script>
-	init.push(function(){
-		$( "#ui-menu-demo" ).menu();
-	});
-</script>
-
 <ul class="breadcrumb breadcrumb-page">
   <div class="breadcrumb-label text-light-gray">
 	You are here:
@@ -19,7 +13,7 @@
 
 <div class="page-header">
   <div class="row">
-	<h1 class="col-xs-12 col-sm-4 text-center text-left-sm" id="LectureCodeHead">
+	<h1 class="col-xs-12 col-md-8 text-center text-left-sm" id="LectureCodeHead">
 	  <i class="fa fa-file-text page-header-icon"></i>
 	  test</h1>
   </div>
@@ -31,44 +25,142 @@
   </div>
 </div>
 
-<div class="panel-heading">
-	<span class="panel-title">Course Infomation</span>
+<div class="row">
+	<div class="panel">
+		<div class="panel-body">
+			<ul id="uidemo-tabs-default-demo" class="nav nav-tabs">
+				<li class="active">
+					<a href="#uidemo-tabs-default-demo-home1" data-toggle="tab">기본정보</a>
+				</li>
+				<li class="">
+					<a href="#uidemo-tabs-default-demo-home2" data-toggle="tab">상세정보</a>
+				</li>
+				<li class="">
+					<a href="#uidemo-tabs-default-demo-home3" data-toggle="tab">상세정보2</a>
+				</li>
+				<li class="">
+					<a href="#uidemo-tabs-default-demo-home4" data-toggle="tab">챕터관리</a>
+				</li>
+				<li class="">
+					<a href="#uidemo-tabs-default-demo-home5" data-toggle="tab">수강생관리</a>
+				</li>
+			</ul>
+
+			<div class="tab-content tab-content-bordered">
+			    <!-- 강좌 기본 정보 -->
+				<div class="tab-pane fade active in" id="uidemo-tabs-default-demo-home1">
+					
+					<div class="panel-body form-horizontal">
+						<div class="form-group">
+							<label for="lectureCode" class="col-sm-2 text-right">Lecture Code</label>
+							<div class="col-sm-10">
+								<p>Lecture Code</p>
+							</div>
+						</div> <!-- / .form-group -->
+
+						<div class="form-group">
+							<label for="lectureName" class="col-sm-2 text-right">Lecture Name</label>
+							<div class="col-sm-10">
+								<p>lectureName</p>
+							</div>
+						</div> <!-- / .form-group -->
+
+						<div class="form-group">
+							<label for="lectureName" class="col-sm-2 text-right">Language</label>
+							<div class="col-sm-10">
+								<p>lectureName</p>
+							</div>
+						</div> <!-- / .form-group -->
+
+						<div class="form-group">
+							<label for="lectureName" class="col-sm-2 text-right">Type</label>
+							<div class="col-sm-10">
+								<p>lectureName</p>
+							</div>
+						</div> <!-- / .form-group -->
+
+						<div class="form-group">
+							<label for="lectureName" class="col-sm-2 text-right">Lecture Name</label>
+							<div class="col-sm-10">
+								<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+							</div>
+						</div> <!-- / .form-group -->
+
+					</div>
+				</div> <!-- / .tab-pane -->
+
+
+				<!-- 강좌 기본 정보 -->
+				<div class="tab-pane fade" id="uidemo-tabs-default-demo-home2">
+					<div class="panel-body form-horizontal">
+						<div class="form-group">
+							<label for="lectureCode" class="col-sm-2 text-right">About the Course</label>
+							<div class="col-sm-10">
+								<p>Lecture Code</p>
+							</div>
+						</div> <!-- / .form-group -->
+
+						<div class="form-group">
+							<label for="lectureName" class="col-sm-2 text-right">Lecture Name</label>
+							<div class="col-sm-10">
+								<p>lectureName</p>
+							</div>
+						</div> <!-- / .form-group -->
+
+						<div class="form-group">
+							<label for="lectureName" class="col-sm-2 text-right">Language</label>
+							<div class="col-sm-10">
+								<p>lectureName</p>
+							</div>
+						</div> <!-- / .form-group -->
+
+						<div class="form-group">
+							<label for="lectureName" class="col-sm-2 text-right">Type</label>
+							<div class="col-sm-10">
+								<p>lectureName</p>
+							</div>
+						</div> <!-- / .form-group -->
+
+						<div class="form-group">
+							<label for="lectureName" class="col-sm-2 text-right">Lecture Name</label>
+							<div class="col-sm-10">
+								<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+							</div>
+						</div> <!-- / .form-group -->
+
+					</div>
+				</div> <!-- / .tab-pane -->
+
+
+				<!-- 강좌 기본 정보 -->
+				<div class="tab-pane fade" id="uidemo-tabs-default-demo-home3">
+					<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>	
+				</div> <!-- / .tab-pane -->
+
+
+				<!-- 강좌 기본 정보 -->
+				<div class="tab-pane fade" id="uidemo-tabs-default-demo-home4">
+					<p>챕터관리</p>	
+				</div> <!-- / .tab-pane -->
+
+				<!-- 강좌 기본 정보 -->
+				<div class="tab-pane fade widget-followers" id="uidemo-tabs-default-demo-home5">
+					<div class="follower">
+						<img src="/assets/demo/avatars/1.jpg" alt="" class="follower-avatar">
+						<div class="body">
+							<div class="follower-controls">
+								<a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>&nbsp;&nbsp;Following</span></a>
+							</div>
+							<a href="#" class="follower-name">John Doe</a><br>
+							<a href="#" class="follower-username">@jdoe</a>
+						</div>
+					</div>
+				</div> <!-- / .tab-pane -->
+				
+			</div> <!-- / .tab-content -->
+		</div>
+	</div>
 </div>
-
-<div class="panel-body form-horizontal">
-	<div class="form-group">
-		<label for="lectureCode" class="col-sm-2 control-label">Lecture Code</label>
-		<div class="col-sm-10">
-			<input id="lectureCodeValue" type="text" class="form-control" id="inputEmail2" placeholder="Lecture Code" disabled>
-		</div>
-	</div> <!-- / .form-group -->
-
-	<div class="form-group">
-		<label for="lectureName" class="col-sm-2 control-label">Lecture Name</label>
-		<div class="col-sm-10">
-			<input id="lectureNameValue" type="text" class="form-control" id="inputEmail2" placeholder="Lecture Name" disabled>
-		</div>
-	</div> <!-- / .form-group -->
-
-	<div class="form-group">
-		<label for="lectureName" class="col-sm-2 control-label">Lecture Description</label>
-		<div class="col-sm-10">
-			<textarea id="lectureDescValue" class="form-control" name="jq-validation-text" id="jq-validation-text" placeholder="본 강좌에 대한 설명을 간략히 적어주세요." disabled></textarea>
-		</div>
-	</div> <!-- / .form-group -->
-
-	<div style="margin-bottom: 0;">
-		<div class="col-sm-offset-2 col-sm-10">
-			<button id="edit" class="btn btn-primary" onclick="edit();">Edit</button>
-			<button id="cancel" class="btn btn-primary" onclick="cancel();">Cancel</button>
-			<button id="update" class="btn btn-primary" onclick="update();">Update</button>
-		</div>
-	</div> <!-- / .form-group -->
-
-</div>
-
-
-
 
 
 
