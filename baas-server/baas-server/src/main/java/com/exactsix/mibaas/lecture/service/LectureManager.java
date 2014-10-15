@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exactsix.mibaas.common.response.RestResponse;
+import com.exactsix.mibaas.lecture.dto.EntrollDto;
 import com.exactsix.mibaas.lecture.dto.LectureDetailDto;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
 import com.exactsix.mibaas.lecture.dto.LectureReviewDto;
@@ -19,6 +20,9 @@ public class LectureManager {
 
 	@Autowired
 	private LectureReviewService lectureReviewService;
+
+	@Autowired
+	private LectureEntrollService lectureEntrollService;
 
 	public RestResponse createLecture(LectureDto lectureDto) {
 		return lectureService.createLecture(lectureDto);
@@ -48,5 +52,15 @@ public class LectureManager {
 	public RestResponse createOrUpdateLectureReview(
 			LectureReviewDto lectureReview) {
 		return lectureReviewService.createOrUpdateLectureReview(lectureReview);
+	}
+
+	public RestResponse createEntrollLecture(EntrollDto entrollDto) {
+
+		return lectureEntrollService.createEntrollLecture(entrollDto);
+	}
+
+	public RestResponse removeEntrollLecture(EntrollDto entrollDto) {
+
+		return lectureEntrollService.removeEntrollLecture(entrollDto);
 	}
 }
