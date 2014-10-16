@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.LectureDetailDto;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
-import com.exactsix.mibaas.lecture.service.LectureElasticSearchService;
 import com.exactsix.mibaas.lecture.service.LectureManager;
 import com.exactsix.mibaas.lecture.service.LectureService;
+import com.exactsix.mibaas.lecture.service.search.LectureElasticSearchService;
 
 /**
  * <pre>
@@ -54,6 +54,14 @@ public class LectureController {
 		//
 		return lectureManager.getLectureList();
 	}
+	
+	@RequestMapping(value = "/lecture/inprogress", method = RequestMethod.GET)
+	public @ResponseBody
+	RestResponse getProgressCourseList() {
+		//
+		return lectureManager.getProgressCourseList();
+	}
+	
 
 	/**
 	 * <pre>

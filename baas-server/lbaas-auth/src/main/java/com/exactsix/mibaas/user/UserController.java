@@ -43,7 +43,7 @@ public class UserController {
 	private HttpServletRequest context;
 
 	@RequestMapping(value = "/usermanagement/login", method = RequestMethod.POST)
-	public @ResponseBody RestResponse login(@RequestBody UserDto userDto) {
+	public @ResponseBody RestResponse login() {
 		
 		String body = null;
 	    StringBuilder stringBuilder = new StringBuilder();

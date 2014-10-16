@@ -16,6 +16,9 @@ public class LectureEntrollRepositoryDto {
 	@Field
 	private String userCode;
 
+	@Field
+	private String status;
+
 	public LectureEntrollRepositoryDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -51,6 +54,14 @@ public class LectureEntrollRepositoryDto {
 
 	public void setUserCode(String userCode) {
 		this.userCode = userCode;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

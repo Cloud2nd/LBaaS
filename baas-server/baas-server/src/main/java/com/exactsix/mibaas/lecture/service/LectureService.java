@@ -10,6 +10,7 @@ import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
 import com.exactsix.mibaas.lecture.repository.LectureRepository;
 import com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto;
+import com.exactsix.mibaas.lecture.service.search.LectureElasticSearchService;
 
 ;
 /**
@@ -167,4 +168,37 @@ public class LectureService {
 		// return
 		return response;
 	}
+	
+	public RestResponse getProgressCourseList() {
+
+		List<String> keys = search.getProgressCourse();
+		String[] tests = keys.toArray(new String[keys.size()]);
+
+		// Get DB
+		RestResponse response = new RestResponse();
+		response.setStatus(true);
+		response.setMessage("ok");
+
+		List<LectureDto> lectureList = new ArrayList<LectureDto>();
+
+		for (String test : tests) {
+			LectureRepositoryDto repositoryDto = lectureRepository
+					.findOne(test);
+
+			// setting lecture dto
+			LectureDto lectureDto = new LectureDto();
+			lectureDto.setLectureName(repositoryDto.getLectureName());
+			lectureDto.setLectureCode(repositoryDto.getLectureCode());
+			lectureDto.setLectureLanguage(repositoryDto.getLectureLanguage());
+			lectureDto.setLectureType(repositoryDto.getLectureType());
+			lectureList.add(lectureDto);
+		}
+
+		response.setData(lectureList);
+
+		// return
+		return response;
+	}
+	
+	//
 }

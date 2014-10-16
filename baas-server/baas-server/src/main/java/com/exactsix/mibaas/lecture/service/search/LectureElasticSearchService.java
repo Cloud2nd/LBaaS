@@ -1,10 +1,12 @@
-package com.exactsix.mibaas.lecture.service;
+package com.exactsix.mibaas.lecture.service.search;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.elasticsearch.action.search.MultiSearchResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -42,11 +44,40 @@ public class LectureElasticSearchService {
 				.execute().actionGet();
 
 		List<String> keys = new ArrayList<String>();
-		
+
 		for (SearchHit hit : response.getHits()) {
 			keys.add(hit.getId());
 		}
-		
+
+		return keys;
+
+	}
+
+	public List<String> getProgressCourse() {
+
+		SearchResponse response = client
+				.prepareSearch()
+				.setQuery(
+						QueryBuilders
+								.matchQuery("couchbaseDocument.doc._class",
+										"com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto"))
+				.setQuery(
+						QueryBuilders
+								.matchQuery("couchbaseDocument.doc.status",
+										"approve"))
+				.setQuery(
+						QueryBuilders
+								.matchQuery("couchbaseDocument.doc.userCode",
+										"dave"))
+				.execute().actionGet();
+
+		List<String> keys = new ArrayList<String>();
+
+		for (SearchHit hit : response.getHits()) {
+			keys.add(hit.getId());
+			System.out.println(hit.getId());
+		}
+
 		return keys;
 
 	}

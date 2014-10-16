@@ -31,6 +31,10 @@ public class LectureManager {
 	public RestResponse getLectureList() {
 		return lectureService.getLectureList();
 	}
+	
+	public RestResponse getProgressCourseList() {
+		return lectureService.getProgressCourseList();
+	}
 
 	public RestResponse getLecture(String lecturecode) {
 		return lectureService.getLecture(lecturecode);
