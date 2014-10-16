@@ -80,7 +80,6 @@ public class UserController {
 		return body;
 		//
 		//return loginService.getLogin(userDto);
-		return null;
 	}
 
 	@RequestMapping(value = "/usermanagement/{username}", method = RequestMethod.GET)
