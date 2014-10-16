@@ -13,10 +13,10 @@
             <pattern>%t&gt; [%d{yyyy-MM-dd HH:mm:ss}] [%c{1}] [%L] [%p] %m %n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>DEBUG</level>
+            <level>INFO</level>
         </filter>
     </appender>
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="stdout" />
     </root>
 </configuration>

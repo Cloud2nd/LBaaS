@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.LectureDetailDto;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
+import com.exactsix.mibaas.lecture.service.LectureElasticSearchService;
 import com.exactsix.mibaas.lecture.service.LectureManager;
+import com.exactsix.mibaas.lecture.service.LectureService;
 
 /**
  * <pre>
@@ -34,6 +36,9 @@ public class LectureController {
 	@Autowired
 	private LectureManager lectureManager;
 
+	@Autowired
+	private LectureElasticSearchService service;
+
 	/**
 	 * <pre>
 	 * 강좌 리스트
@@ -44,7 +49,8 @@ public class LectureController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/lecture", method = RequestMethod.GET)
-	public @ResponseBody RestResponse getLectureList() {
+	public @ResponseBody
+	RestResponse getLectureList() {
 		//
 		return lectureManager.getLectureList();
 	}
@@ -59,7 +65,8 @@ public class LectureController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/lecture/{lecturekey}", method = RequestMethod.GET)
-	public @ResponseBody RestResponse getLecture(@PathVariable String lecturekey) {
+	public @ResponseBody
+	RestResponse getLecture(@PathVariable String lecturekey) {
 		return lectureManager.getLecture(lecturekey);
 	}
 
@@ -73,8 +80,8 @@ public class LectureController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/lecture", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody RestResponse createLectureList(
-			@RequestBody LectureDto lectureDto) {
+	public @ResponseBody
+	RestResponse createLectureList(@RequestBody LectureDto lectureDto) {
 		return lectureManager.createLecture(lectureDto);
 	}
 
@@ -88,8 +95,8 @@ public class LectureController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/lecture", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody RestResponse updateLectureList(
-			@RequestBody LectureDto lectureDto) {
+	public @ResponseBody
+	RestResponse updateLectureList(@RequestBody LectureDto lectureDto) {
 		return null;
 	}
 
@@ -103,7 +110,8 @@ public class LectureController {
 	 */
 
 	@RequestMapping(value = "/lecture/{lecturecode}/detail", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody RestResponse createOrUpdateLectureDetail(
+	public @ResponseBody
+	RestResponse createOrUpdateLectureDetail(
 			@RequestBody LectureDetailDto lectureDetail) {
 		return lectureManager.createOrUpdateLectureDetail(lectureDetail);
 	}
@@ -117,9 +125,16 @@ public class LectureController {
 	 * @return
 	 */
 	@RequestMapping(value = "/lecture/{lecturecode}/detail", method = RequestMethod.GET)
-	public @ResponseBody RestResponse getLectureDetail(
-			@PathVariable String lecturecode) {
+	public @ResponseBody
+	RestResponse getLectureDetail(@PathVariable String lecturecode) {
 		return lectureManager.getLectureDetail(lecturecode);
+	}
+
+	@RequestMapping(value = "/lecture/elk", method = RequestMethod.GET)
+	public @ResponseBody
+	String getElk() {
+		service.test();
+		return "OK";
 	}
 
 }

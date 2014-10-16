@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Component;
 
 import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
 import com.exactsix.mibaas.lecture.repository.LectureRepository;
-import com.exactsix.mibaas.lecture.repository.dto.LectureEsDto;
 import com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto;
 
 ;
@@ -37,7 +35,7 @@ public class LectureService {
 	private LectureRepository lectureRepository;
 
 	@Autowired
-	private ElasticsearchTemplate search;
+	private LectureElasticSearchService search;
 
 	public LectureService() {
 		super();
@@ -141,30 +139,8 @@ public class LectureService {
 	 */
 	public RestResponse getLectureList() {
 
-		List<LectureEsDto> sampleEntities = new ArrayList<LectureEsDto>();
-
-		LectureEsDto tmp1 = new LectureEsDto();
-		tmp1.set_id("lecture::test1");
-
-		LectureEsDto tmp2 = new LectureEsDto();
-		tmp2.set_id("lecture::test2");
-
-		LectureEsDto tmp3 = new LectureEsDto();
-		tmp3.set_id("lecture::test3");
-
-		LectureEsDto tmp4 = new LectureEsDto();
-		tmp4.set_id("lecture::test4");
-
-		LectureEsDto tmp5 = new LectureEsDto();
-		tmp5.set_id("lecture::test5");
-
-		sampleEntities.add(tmp1);
-		sampleEntities.add(tmp2);
-		sampleEntities.add(tmp3);
-		sampleEntities.add(tmp4);
-		sampleEntities.add(tmp5);
-
-		String[] tests = { "lecture::test1", "lecture::test2" };
+		List<String> keys = search.test();
+		String[] tests = keys.toArray(new String[keys.size()]);
 
 		// Get DB
 		RestResponse response = new RestResponse();

@@ -6,6 +6,5 @@
     <import resource="context/context-common.xml" />
     <import resource="context/context-message.xml" />
     <import resource="context/context-properties.xml" />
-    <import resource="context/context-elasticsearch.xml" />
 
 </beans>  
