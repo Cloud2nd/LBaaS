@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.email.service.EmailService;
+import com.exactsix.mibaas.sns.service.MobilePushService;
 
 /**
  * <pre>
@@ -28,10 +29,26 @@ public class SenderController {
 
 	@Autowired
 	private EmailService loginService;
+	
+	@Autowired
+	private MobilePushService snsService;
 
 	@RequestMapping(value = "/email/send", method = RequestMethod.GET)
 	public @ResponseBody RestResponse login() {
 		return loginService.sendMail();
 	}
+	
+	@RequestMapping(value = "/mobile/send", method = RequestMethod.GET)
+	public @ResponseBody String mobile() {
+		 snsService.regist();
+		 return "OK";
+	}
+	
+	@RequestMapping(value = "/mobile/sen", method = RequestMethod.GET)
+	public @ResponseBody String send() {
+		 snsService.send();
+		 return "OK";
+	}
+
 
 }
