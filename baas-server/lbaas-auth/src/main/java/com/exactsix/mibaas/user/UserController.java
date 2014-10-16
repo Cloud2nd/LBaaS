@@ -50,7 +50,7 @@ public class UserController {
 	    BufferedReader bufferedReader = null;
 
 	    try {
-	        InputStream inputStream = request.getInputStream();
+	        InputStream inputStream = context.getInputStream();
 	        if (inputStream != null) {
 	            bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 	            char[] charBuffer = new char[128];
@@ -62,13 +62,13 @@ public class UserController {
 	            stringBuilder.append("");
 	        }
 	    } catch (IOException ex) {
-	        throw ex;
+	        
 	    } finally {
 	        if (bufferedReader != null) {
 	            try {
 	                bufferedReader.close();
 	            } catch (IOException ex) {
-	                throw ex;
+	                
 	            }
 	        }
 	    }
