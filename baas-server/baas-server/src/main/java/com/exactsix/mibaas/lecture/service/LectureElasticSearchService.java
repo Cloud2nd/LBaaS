@@ -28,7 +28,7 @@ public class LectureElasticSearchService {
 				.put("cluster.name", "exactsix").build();
 		client = new TransportClient()
 				.addTransportAddress(new InetSocketTransportAddress(
-						"119.81.150.66", 9300));
+						"elk01.xwmooc.net", 9300));
 	}
 
 	public List<String> test() {
