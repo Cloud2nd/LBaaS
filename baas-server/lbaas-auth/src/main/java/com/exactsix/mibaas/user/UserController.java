@@ -38,48 +38,11 @@ public class UserController {
 
 	@Autowired
 	private LoginService loginService;
-	
-	@Autowired
-	private HttpServletRequest context;
+
 
 	@RequestMapping(value = "/usermanagement/login", method = RequestMethod.POST)
-	public @ResponseBody String login() {
-		
-		String body = null;
-	    StringBuilder stringBuilder = new StringBuilder();
-	    BufferedReader bufferedReader = null;
-
-	    try {
-	        InputStream inputStream = context.getInputStream();
-	        if (inputStream != null) {
-	            bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-	            char[] charBuffer = new char[128];
-	            int bytesRead = -1;
-	            while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-	                stringBuilder.append(charBuffer, 0, bytesRead);
-	            }
-	        } else {
-	            stringBuilder.append("");
-	        }
-	    } catch (IOException ex) {
-	        
-	    } finally {
-	        if (bufferedReader != null) {
-	            try {
-	                bufferedReader.close();
-	            } catch (IOException ex) {
-	                
-	            }
-	        }
-	    }
-
-	    body = stringBuilder.toString();
-	    
-	    System.out.println(body);
-
-		return body;
-		//
-		//return loginService.getLogin(userDto);
+	public @ResponseBody RestResponse login(@RequestBody UserDto userDto) {
+		return loginService.getLogin(userDto);
 	}
 
 	@RequestMapping(value = "/usermanagement/{username}", method = RequestMethod.GET)

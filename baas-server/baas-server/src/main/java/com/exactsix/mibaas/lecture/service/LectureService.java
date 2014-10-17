@@ -168,11 +168,17 @@ public class LectureService {
 		// return
 		return response;
 	}
-	
+
 	public RestResponse getProgressCourseList() {
 
 		List<String> keys = search.getProgressCourse();
-		String[] tests = keys.toArray(new String[keys.size()]);
+
+		List<String> lectureKeys = new ArrayList<String>();
+		for (String key : keys) {
+			String[] tmp = key.split("::");
+			lectureKeys.add(getKey(tmp[1]));
+		}
+		String[] tests = lectureKeys.toArray(new String[lectureKeys.size()]);
 
 		// Get DB
 		RestResponse response = new RestResponse();
@@ -200,5 +206,12 @@ public class LectureService {
 		return response;
 	}
 	
+	private String getKey(String lectureCode) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("lecture::");
+		sb.append(lectureCode);
+		return sb.toString();
+	}
+
 	//
 }
