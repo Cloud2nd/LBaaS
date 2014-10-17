@@ -38,9 +38,6 @@ public class LectureController {
 	private LectureManager lectureManager;
 
 	@Autowired
-	private LectureElasticSearchService service;
-	
-	@Autowired
 	private HttpServletRequest context;
 
 	/**
@@ -58,14 +55,13 @@ public class LectureController {
 		//
 		return lectureManager.getLectureList();
 	}
-	
+
 	@RequestMapping(value = "/lecture/inprogress", method = RequestMethod.GET)
 	public @ResponseBody
 	RestResponse getProgressCourseList() {
 		//
 		return lectureManager.getProgressCourseList();
 	}
-	
 
 	/**
 	 * <pre>
@@ -141,14 +137,5 @@ public class LectureController {
 	RestResponse getLectureDetail(@PathVariable String lecturecode) {
 		return lectureManager.getLectureDetail(lecturecode);
 	}
-
-	@RequestMapping(value = "/lecture/elk", method = RequestMethod.GET)
-	public @ResponseBody
-	String getElk() {
-		service.test();
-		return "OK";
-	}
-	
-	
 
 }
