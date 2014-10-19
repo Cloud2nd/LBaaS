@@ -62,21 +62,14 @@ Uploads chart
 			<h4 class="padding-sm no-padding-t padding-xs-hr"><i class="fa fa-cloud-upload text-primary"></i>&nbsp;&nbsp;Uploads</h4>
 			<!-- Without margin -->
 			<ul class="list-group no-margin">
-				<!-- Without left and right borders, extra small horizontal padding, without background, no border radius -->
 				<li class="list-group-item no-border-hr padding-xs-hr no-bg no-border-radius">
-					Documents <span class="label label-pa-purple pull-right">34</span>
+					Course <span class="label label-pa-purple pull-right">34</span>
 				</li> <!-- / .list-group-item -->
-				<!-- Without left and right borders, extra small horizontal padding, without background -->
 				<li class="list-group-item no-border-hr padding-xs-hr no-bg">
-					Audio <span class="label label-danger pull-right">128</span>
-				</li> <!-- / .list-group-item -->
-				<!-- Without left and right borders, without bottom border, extra small horizontal padding, without background -->
-				<li class="list-group-item no-border-hr no-border-b padding-xs-hr no-bg">
-					Videos <span class="label label-success pull-right">12</span>
+					Chapters <span class="label label-danger pull-right">128</span>
 				</li> <!-- / .list-group-item -->
 			</ul>
 		</div> <!-- /.stat-cell -->
-		<!-- Primary background, small padding, vertically centered text -->
 		<div class="stat-cell col-sm-8 bg-primary padding-sm valign-middle">
 			<div id="hero-graph" class="graph" style="height: 230px;"></div>
 		</div>
@@ -273,7 +266,7 @@ Uploads chart
 				<script>
 					init.push(function () {
 						$("#stats-sparklines-2").pixelSparkline(
-							[275,490,397,487,339,403,402,312,300,294,411,367,319,416,355,416,371,479,279,361,312,269,402,327,474,422,375,283,384,372], {
+							[10,20,15,20,10], {
 							type: 'bar',
 							height: '36px',
 							width: '100%',

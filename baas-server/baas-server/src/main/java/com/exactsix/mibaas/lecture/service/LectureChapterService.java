@@ -1,6 +1,7 @@
 package com.exactsix.mibaas.lecture.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +62,6 @@ public class LectureChapterService {
 	 */
 	public RestResponse createChpater(ChapterDto chapterDto) {
 
-		// make lecture repository data
-
 		// make response message
 		RestResponse response = new RestResponse();
 		chapterDto.setChapterCode(LectureUtil.getUUID());
@@ -115,6 +114,9 @@ public class LectureChapterService {
 		repositoryDto.setChapterName(chapterDto.getChapterName());
 		repositoryDto.setChapterDescription(chapterDto.getChapterDescription());
 		repositoryDto.setChapterFile(chapterDto.getChapterFile());
+		repositoryDto.setCreated(new Date());
+		repositoryDto.setUpdated(new Date());
+		repositoryDto.setStatus("create");
 
 		// save db
 		repositoryDto = lectureChapterRepository.save(repositoryDto);

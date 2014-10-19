@@ -1,5 +1,7 @@
 package com.exactsix.mibaas.lecture.dto;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -10,6 +12,7 @@ public class ChapterDto {
 	private String chapterName;
 	private String chapterDescription;
 	private String chapterFile;
+	private int chapterOrder;
 
 	public String getLectureCode() {
 		return lectureCode;
@@ -49,6 +52,14 @@ public class ChapterDto {
 
 	public void setChapterFile(String chapterFile) {
 		this.chapterFile = chapterFile;
+	}
+
+	public int getChapterOrder() {
+		return chapterOrder;
+	}
+
+	public void setChapterOrder(int chapterOrder) {
+		this.chapterOrder = chapterOrder;
 	}
 
 }
