@@ -126,14 +126,14 @@ public class LectureChapterService {
 		response.setStatus(true);
 		response.setMessage("ok");
 
-		//lectureChapterRepository.findAll(keys);
+		// lectureChapterRepository.findAll(keys);
 		List<ChapterDto> chapterList = new ArrayList<ChapterDto>();
 
 		for (String test : tests) {
 
 			LectureChapterRepositoryDto repositoryDto = lectureChapterRepository
 					.findOne(test);
-			
+
 			System.out.println(repositoryDto.getChapterOrder());
 
 			// setting lecture dto
@@ -239,7 +239,7 @@ public class LectureChapterService {
 		@Override
 		public int compare(ChapterDto arg0, ChapterDto arg1) {
 			// TODO Auto-generated method stub
-			return arg0.getChapterStatus().compareTo(arg1.getChapterStatus());
+			return arg0.getChapterOrder() - arg1.getChapterOrder();
 		}
 	}
 
