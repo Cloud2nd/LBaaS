@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exactsix.mibaas.common.response.RestResponse;
+import com.exactsix.mibaas.lecture.dto.ChapterDto;
 import com.exactsix.mibaas.lecture.dto.EntrollDto;
 import com.exactsix.mibaas.lecture.dto.LectureDetailDto;
 import com.exactsix.mibaas.lecture.dto.LectureDto;
@@ -24,6 +25,10 @@ public class LectureManager {
 	@Autowired
 	private LectureEntrollService lectureEntrollService;
 
+	@Autowired
+	private LectureChapterService chapterService;
+
+	// Lecture
 	public RestResponse createLecture(LectureDto lectureDto) {
 		return lectureService.createLecture(lectureDto);
 	}
@@ -31,7 +36,7 @@ public class LectureManager {
 	public RestResponse getLectureList() {
 		return lectureService.getLectureList();
 	}
-	
+
 	public RestResponse getProgressCourseList() {
 		return lectureService.getProgressCourseList();
 	}
@@ -58,6 +63,7 @@ public class LectureManager {
 		return lectureReviewService.createOrUpdateLectureReview(lectureReview);
 	}
 
+	// Entroll
 	public RestResponse createEntrollLecture(EntrollDto entrollDto) {
 
 		return lectureEntrollService.createEntrollLecture(entrollDto);
@@ -66,5 +72,15 @@ public class LectureManager {
 	public RestResponse removeEntrollLecture(EntrollDto entrollDto) {
 
 		return lectureEntrollService.removeEntrollLecture(entrollDto);
+	}
+
+	// Chapter
+	public RestResponse createChapter(ChapterDto chapterDto) {
+		return chapterService.createChpater(chapterDto);
+	}
+
+	// Chapter
+	public RestResponse getChapter(String lectureCode) {
+		return chapterService.getChapter(lectureCode);
 	}
 }

@@ -202,7 +202,6 @@
 	</div> <!-- / .modal-dialog -->
 </div> <!-- /.modal -->
 
-
 <!-- Success -->
 <div id="uidemo-modals-alerts-success" class="modal modal-alert modal-success fade">
 	<div class="modal-dialog">

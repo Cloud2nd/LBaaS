@@ -1,5 +1,9 @@
 package com.exactsix.mibaas.lecture.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +11,7 @@ import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.ChapterDto;
 import com.exactsix.mibaas.lecture.repository.LectureChapterRepository;
 import com.exactsix.mibaas.lecture.repository.dto.LectureChapterRepositoryDto;
+import com.exactsix.mibaas.lecture.service.search.LectureElasticSearchService;
 
 ;
 /**
@@ -31,6 +36,9 @@ public class LectureChapterService {
 
 	private LectureChapterRepository lectureChapterRepository;
 
+	@Autowired
+	private LectureElasticSearchService search;
+
 	public LectureChapterService() {
 		super();
 	}
@@ -51,30 +59,49 @@ public class LectureChapterService {
 	 * @return
 	 * @throws Exception
 	 */
-	public RestResponse createLecture(ChapterDto chapterDto) {
+	public RestResponse createChpater(ChapterDto chapterDto) {
 
 		// make lecture repository data
-		create(chapterDto);
 
 		// make response message
 		RestResponse response = new RestResponse();
+		chapterDto.setChapterCode(getUUID());
+		create(chapterDto);
 		response.setStatus(true);
 		response.setMessage("챕터가 정상적으로 등록되었습니다");
 
 		return response;
 	}
 
-	
-
 	public RestResponse getChapter(String lecturecode) {
+
+		List<String> keys = search.getChapters();
+		String[] tests = keys.toArray(new String[keys.size()]);
 
 		// Get DB
 		RestResponse response = new RestResponse();
 		response.setStatus(true);
 		response.setMessage("ok");
+
+		List<ChapterDto> chapterList = new ArrayList<ChapterDto>();
+
+		for (String test : tests) {
+			LectureChapterRepositoryDto repositoryDto = lectureChapterRepository
+					.findOne(test);
+
+			// setting lecture dto
+			ChapterDto chapterDto = new ChapterDto();
+			chapterDto.setLectureCode(repositoryDto.getLectureCode());
+			chapterDto.setChapterCode(repositoryDto.getChapterCode());
+			chapterDto.setChapterName(repositoryDto.getChapterName());
+			chapterList.add(chapterDto);
+		}
+
+		response.setData(chapterList);
+
 		return response;
 	}
-	
+
 	private boolean create(ChapterDto chapterDto) {
 
 		LectureChapterRepositoryDto repositoryDto = new LectureChapterRepositoryDto();
@@ -97,5 +124,10 @@ public class LectureChapterService {
 		sb.append("::chapter::");
 		sb.append("a001");
 		return sb.toString();
+	}
+
+	private String getUUID() {
+		UUID idOne = UUID.randomUUID();
+		return idOne.toString();
 	}
 }

@@ -1,7 +1,6 @@
 package com.exactsix.mibaas.lecture;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.ChapterDto;
-import com.exactsix.mibaas.lecture.service.LectureService;
+import com.exactsix.mibaas.lecture.service.LectureManager;
 
 /**
  * <pre>
@@ -31,24 +30,7 @@ import com.exactsix.mibaas.lecture.service.LectureService;
 public class LectureChapterController {
 
 	@Autowired
-	private LectureService lectureService;
-
-	/**
-	 * <pre>
-	 * 강좌 챕터 등록
-	 * </pre>
-	 * 
-	 * @param gridParam
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/chapter/{lecturecode}/chapters", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	RestResponse getChapters(@RequestBody ChapterDto chapterDto) {
-		return null;
-	}
-
-	
+	private LectureManager lectureManager;
 
 	/**
 	 * <pre>
@@ -59,12 +41,27 @@ public class LectureChapterController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/chapter/{lecturecode}/chapters", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/lecture/{lecturecode}/chapters", method = RequestMethod.GET)
 	public @ResponseBody
 	RestResponse getUserToLecture(@PathVariable String lecturecode) {
-		return null;
+		return lectureManager.getChapter(lecturecode);
 	}
-	
+
+	/**
+	 * <pre>
+	 * 강좌 챕터 등록
+	 * </pre>
+	 * 
+	 * @param gridParam
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/lecture/{lecturecode}/chapter", method = RequestMethod.POST)
+	public @ResponseBody
+	RestResponse getChapters(@RequestBody ChapterDto chapterDto) {
+		return lectureManager.createChapter(chapterDto);
+	}
+
 	/**
 	 * <pre>
 	 * 강좌 챕터 상세
@@ -74,12 +71,13 @@ public class LectureChapterController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/chapter/{lecturecode}/{chaptercode}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/lecture/{lecturecode}/{chaptercode}", method = RequestMethod.GET)
 	public @ResponseBody
-	RestResponse getChapter(@PathVariable String lecturecode, @PathVariable String chaptercode) {
+	RestResponse getChapter(@PathVariable String lecturecode,
+			@PathVariable String chaptercode) {
 		return null;
 	}
-	
+
 	/**
 	 * <pre>
 	 * 강좌 챕터 삭제
@@ -89,9 +87,10 @@ public class LectureChapterController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/chapter/{lecturecode}/{chaptercode}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/lecture/{lecturecode}/{chaptercode}", method = RequestMethod.DELETE)
 	public @ResponseBody
-	RestResponse deleteUserToLecture(@PathVariable String lecturecode, @PathVariable String chaptercode) {
+	RestResponse deleteUserToLecture(@PathVariable String lecturecode,
+			@PathVariable String chaptercode) {
 		return null;
 	}
 }
