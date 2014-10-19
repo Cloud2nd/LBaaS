@@ -2,10 +2,9 @@
 <%@ include file="/WEB-INF/jsp/common/TagLib.jspf" %>
 
 <script>
-
 var lectureCode = "${lectureCode}";
-
 </script>
+
 <ul class="breadcrumb breadcrumb-page">
   <div class="breadcrumb-label text-light-gray">
 	You are here:
@@ -110,7 +109,7 @@ var lectureCode = "${lectureCode}";
 				<div class="tab-pane fade" id="lecture-chapter">
 					<div>
    					    <div class="pannel-header">
-							<button class="btn btn-primary">챕터등록</button>
+							<button id="chapterRegistBtn" class="btn btn-primary">챕터등록</button>
 						</div>
 						<div class="panel-body">
 							<table class="table">
@@ -187,6 +186,41 @@ var lectureCode = "${lectureCode}";
 	</div> <!-- / .modal-dialog -->
 </div> <!-- /.modal -->
 
+<div id="chapterModal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+			</div>
+			<div class="modal-body">
+				<form id="chapter-regist-form" class="panel form-horizontal">
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="inputEmail2" class="col-sm-2 control-label">챕터명</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="chapterName" name="chapterName" placeholder="챕터명을 입력해주세요">
+								<input type="hidden" class="form-control" id="lectureCode" name="lectureCode" value="${lectureCode}">
+							</div>
+						</div> <!-- / .form-group -->
+						<div class="form-group">
+							<label for="asdasdas" class="col-sm-2 control-label">챕터설명</label>
+							<div class="col-sm-10">
+								<textarea id="lectureDescription" name="chapterDescription" class="form-control"></textarea>
+								<p class="help-block">챕터 설명을 적어주세요</p>
+							</div>
+						</div> <!-- / .form-group -->
+					</div>
+				</form>
+			</div> <!-- / .modal-body -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="chapterModalRegistBtn" class="btn btn-primary">Save Chapter</button>
+			</div>
+		</div> <!-- / .modal-content -->
+	</div> <!-- / .modal-dialog -->
+</div> <!-- /.modal -->
+
 <!-- Success -->
 <div id="uidemo-modals-alerts-success" class="modal modal-alert modal-success fade">
 	<div class="modal-dialog">
@@ -194,10 +228,10 @@ var lectureCode = "${lectureCode}";
 			<div class="modal-header">
 				<i class="fa fa-check-circle"></i>
 			</div>
-			<div class="modal-title">Some alert title</div>
-			<div class="modal-body">Some alert text</div>
+			<div class="modal-title">성공</div>
+			<div class="modal-body">정상적으로 처리되었습니다.</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+				<button type="button" id="successBtn" class="btn btn-success">OK</button>
 			</div>
 		</div> <!-- / .modal-content -->
 	</div> <!-- / .modal-dialog -->
@@ -236,10 +270,33 @@ $(document).ready(function() {
 		 $('#myModal').modal('hide');
 	});
 
+	$('#chapterRegistBtn').click(function(e){
+
+		$('#chapterName').val("");
+		$('#chapterDescription').text("");
+		$('#chapterModal').modal('show');
+	});
+
+	$('#chapterModalRegistBtn').click(function(e){
+		registeChapter();
+	});
+	
+
 	$("#editChapterBtn").click(function(e){
 		 // Ajax 호출
 		 $('#myModal').modal('show');
 	});
+
+
+	$("#successBtn").click(function(e){
+		 // Ajax 호출
+		 $('#uidemo-modals-alerts-success').modal('hide');
+
+		 // 현재탭 확인하여 
+		 getChapterData();
+	});
+
+    
 
 	getDefaultData();
 
@@ -259,7 +316,7 @@ function getDefaultData(){
 		},
 
 		error : function(data, status, err) {
-			alert('error');
+			//에러처리
 		}
 	});
 	
@@ -278,7 +335,7 @@ function getDetailData(){
 		},
 
 		error : function(data, status, err) {
-			alert('error');
+			// 에러처리
 		}
 	});
 	
@@ -298,7 +355,33 @@ function getChapterData(){
 		},
 
 		error : function(data, status, err) {
-			alert('error');
+			//에러처리
+		}
+	});
+	
+}
+
+function registeChapter(){
+
+	var json_val = JSON.stringify($("#chapter-regist-form").serializeObject());
+
+	var urlValue = 'http://dev.api.coursevil.org/api/lecture/'+lectureCode+'/chapter';
+	
+	 $.ajax({
+		type : 'POST',
+		async : false,
+		url : urlValue,
+		cache : false,
+		contentType : "application/json; charset=UTF-8",
+		data : json_val,
+		success: function(data, textStatus, jqXHR)
+		{
+			$('#chapterModal').modal('hide');
+			getRefreshChapter();
+		},
+		error: function (jqXHR, textStatus, errorThrown)
+		{
+			// 에러처리
 		}
 	});
 	
@@ -325,7 +408,6 @@ function generateDetail(data){
 
 function generateChapter(data){
 
-
 	var chapterList = $("#chapterList");
 	chapterList.html("");
 
@@ -336,8 +418,6 @@ function generateChapter(data){
 	});	
 
 }
-
-
 
 function getChapterList(index, code, name, description){
 	var innerDiv = '';
@@ -360,8 +440,29 @@ function getChapterList(index, code, name, description){
 }
 
 
-function update(){
-	alert("업데이트 요청되었습니다.");
+function getRefreshChapter(){
+	$('#uidemo-modals-alerts-success').modal('show');	
 }
+
+
+
+/* form data to json */
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+ 
 </script>
 
