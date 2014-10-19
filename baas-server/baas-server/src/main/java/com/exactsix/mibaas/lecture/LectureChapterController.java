@@ -41,7 +41,7 @@ public class LectureChapterController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/lecture/{lecturecode}/chapters", method = RequestMethod.GET)
+	@RequestMapping(value = "/chapter/{lecturecode}", method = RequestMethod.GET)
 	public @ResponseBody
 	RestResponse getUserToLecture(@PathVariable String lecturecode) {
 		return lectureManager.getChapters(lecturecode);
@@ -56,7 +56,7 @@ public class LectureChapterController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/lecture/{lecturecode}/chapter", method = RequestMethod.POST)
+	@RequestMapping(value = "/chapter/{lecturecode}", method = RequestMethod.POST)
 	public @ResponseBody
 	RestResponse getChapters(@RequestBody ChapterDto chapterDto) {
 		return lectureManager.createChapter(chapterDto);
@@ -71,7 +71,7 @@ public class LectureChapterController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/lecture/{lecturecode}/{chaptercode}", method = RequestMethod.GET)
+	@RequestMapping(value = "/chapter/{lecturecode}/{chaptercode}", method = RequestMethod.GET)
 	public @ResponseBody
 	RestResponse getChapter(@PathVariable String lectureCode,
 			@PathVariable String chapterCode) {
@@ -87,7 +87,7 @@ public class LectureChapterController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/lecture/{lecturecode}/{chaptercode}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/chapter/{lecturecode}/{chaptercode}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	RestResponse deleteUserToLecture(@PathVariable String lecturecode,
 			@PathVariable String chaptercode) {
@@ -98,7 +98,7 @@ public class LectureChapterController {
 		return lectureManager.deleteChapter(dto);
 	}
 
-	@RequestMapping(value = "/lecture/{lecturecode}/{chaptercode}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/chapter/{lecturecode}/{chaptercode}", method = RequestMethod.PUT)
 	public @ResponseBody
 	RestResponse updateChapter(@PathVariable String lecturecode,
 			@PathVariable String chaptercode, @RequestBody ChapterDto chapterDto) {
