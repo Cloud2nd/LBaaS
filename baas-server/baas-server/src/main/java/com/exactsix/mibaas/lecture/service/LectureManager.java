@@ -83,4 +83,12 @@ public class LectureManager {
 	public RestResponse getChapter(String lectureCode) {
 		return chapterService.getChapter(lectureCode);
 	}
+
+	public RestResponse updateChapter(ChapterDto chapterDto) {
+		return chapterService.updateChpater(chapterDto);
+	}
+
+	public RestResponse deleteChapter(ChapterDto chapterDto) {
+		return chapterService.deleteChpater(chapterDto);
+	}
 }

@@ -91,6 +91,19 @@ public class LectureChapterController {
 	public @ResponseBody
 	RestResponse deleteUserToLecture(@PathVariable String lecturecode,
 			@PathVariable String chaptercode) {
-		return null;
+
+		ChapterDto dto = new ChapterDto();
+		dto.setChapterCode(chaptercode);
+		dto.setLectureCode(lecturecode);
+		return lectureManager.deleteChapter(dto);
+	}
+
+	@RequestMapping(value = "/lecture/{lecturecode}/{chaptercode}", method = RequestMethod.PUT)
+	public @ResponseBody
+	RestResponse updateChapter(@PathVariable String lecturecode,
+			@PathVariable String chaptercode, @RequestBody ChapterDto chapterDto) {
+		chapterDto.setChapterCode(chaptercode);
+		chapterDto.setLectureCode(lecturecode);
+		return lectureManager.deleteChapter(chapterDto);
 	}
 }

@@ -1,6 +1,8 @@
 package com.exactsix.mibaas.lecture.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -72,6 +74,48 @@ public class LectureChapterService {
 		return response;
 	}
 
+	/**
+	 * <pre>
+	 * 강좌 수정
+	 * </pre>
+	 * 
+	 * @param lectureDto
+	 * @return
+	 * @throws Exception
+	 */
+	public RestResponse updateChpater(ChapterDto chapterDto) {
+
+		// make response message
+		RestResponse response = new RestResponse();
+		chapterDto.setChapterCode(LectureUtil.getUUID());
+		update(chapterDto);
+		response.setStatus(true);
+		response.setMessage("챕터가 정상적으로 수정되었습니다");
+
+		return response;
+	}
+
+	/**
+	 * <pre>
+	 * 강좌 삭제
+	 * </pre>
+	 * 
+	 * @param lectureDto
+	 * @return
+	 * @throws Exception
+	 */
+	public RestResponse deleteChpater(ChapterDto chapterDto) {
+
+		// make response message
+		RestResponse response = new RestResponse();
+		chapterDto.setChapterCode(LectureUtil.getUUID());
+		delete(chapterDto);
+		response.setStatus(true);
+		response.setMessage("챕터가 정상적으로 삭제되었습니다");
+
+		return response;
+	}
+
 	public RestResponse getChapter(String lecturecode) {
 
 		List<String> keys = search.getChapters(lecturecode);
@@ -85,6 +129,7 @@ public class LectureChapterService {
 		List<ChapterDto> chapterList = new ArrayList<ChapterDto>();
 
 		for (String test : tests) {
+
 			LectureChapterRepositoryDto repositoryDto = lectureChapterRepository
 					.findOne(test);
 
@@ -96,9 +141,11 @@ public class LectureChapterService {
 			chapterDto.setChapterDescription(repositoryDto
 					.getChapterDescription());
 			chapterDto.setChapterFile(repositoryDto.getChapterFile());
+			chapterDto.setChapterStatus(repositoryDto.getStatus());
 			chapterList.add(chapterDto);
 		}
 
+		Collections.sort(chapterList, new ChapterComparator());
 		response.setData(chapterList);
 
 		return response;
@@ -114,13 +161,57 @@ public class LectureChapterService {
 		repositoryDto.setChapterName(chapterDto.getChapterName());
 		repositoryDto.setChapterDescription(chapterDto.getChapterDescription());
 		repositoryDto.setChapterFile(chapterDto.getChapterFile());
+		repositoryDto.setChapterOrder(chapterDto.getChapterOrder());
+		repositoryDto.setStatus("create");
 		repositoryDto.setCreated(new Date());
 		repositoryDto.setUpdated(new Date());
-		repositoryDto.setStatus("create");
 
 		// save db
 		repositoryDto = lectureChapterRepository.save(repositoryDto);
+
 		return true;
+	}
+
+	private boolean update(ChapterDto chapterDto) {
+
+		String lectureCode = chapterDto.getLectureCode();
+		String chapterCode = chapterDto.getChapterCode();
+
+		LectureChapterRepositoryDto repositoryDto = lectureChapterRepository
+				.findOne(LectureUtil.getChapterKey(lectureCode, chapterCode));
+
+		repositoryDto.setChapterName(chapterDto.getChapterName());
+		repositoryDto.setChapterDescription(chapterDto.getChapterDescription());
+		repositoryDto.setChapterFile(chapterDto.getChapterFile());
+		repositoryDto.setChapterOrder(chapterDto.getChapterOrder());
+		repositoryDto.setStatus("edited");
+		repositoryDto.setUpdated(new Date());
+
+		// save db
+		repositoryDto = lectureChapterRepository.save(repositoryDto);
+
+		return true;
+	}
+
+	private boolean delete(ChapterDto chapterDto) {
+
+		String lectureCode = chapterDto.getLectureCode();
+		String chapterCode = chapterDto.getChapterCode();
+
+		// save db
+		lectureChapterRepository.delete(LectureUtil.getChapterKey(lectureCode,
+				chapterCode));
+
+		return true;
+	}
+
+	public class ChapterComparator implements Comparator<ChapterDto> {
+
+		@Override
+		public int compare(ChapterDto arg0, ChapterDto arg1) {
+			// TODO Auto-generated method stub
+			return arg0.getChapterStatus().compareTo(arg1.getChapterStatus());
+		}
 	}
 
 }

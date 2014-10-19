@@ -40,7 +40,7 @@ public class LectureElasticSearchService {
 						QueryBuilders
 								.matchQuery("couchbaseDocument.doc._class",
 										"com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto"))
-				.execute().actionGet();
+				.setFrom(0).setSize(200).execute().actionGet();
 
 		List<String> keys = new ArrayList<String>();
 
@@ -66,7 +66,7 @@ public class LectureElasticSearchService {
 				.setQuery(
 						QueryBuilders.matchQuery(
 								"couchbaseDocument.doc.userCode", "dave"))
-				.execute().actionGet();
+				.setFrom(0).setSize(200).execute().actionGet();
 
 		List<String> keys = new ArrayList<String>();
 
@@ -90,7 +90,7 @@ public class LectureElasticSearchService {
 						"couchbaseDocument.doc.lectureCode", lectureCode));
 
 		SearchResponse response = client.prepareSearch().setQuery(queryBuilder)
-				.execute().actionGet();
+				.setFrom(0).setSize(200).execute().actionGet();
 
 		List<String> keys = new ArrayList<String>();
 
