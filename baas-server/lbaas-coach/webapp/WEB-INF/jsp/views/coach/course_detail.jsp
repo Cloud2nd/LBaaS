@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/TagLib.jspf" %>
 
+<script>
+
+var lectureCode = "${lectureCode}";
+
+</script>
 <ul class="breadcrumb breadcrumb-page">
   <div class="breadcrumb-label text-light-gray">
 	You are here:
   </div>
   <li><a href="/">Home</a></li>
   <li><a href="/course/list">강좌 관리</a></li>
-  <li class="active"><a href="#">MySQL 입문</a></li>
+  <li class="active"><a href="#">Mysql</a></li>
 </ul>
 
 
@@ -36,7 +41,7 @@
 					<a href="#lectur-detail" data-toggle="tab">상세정보</a>
 				</li>
 				<li class="">
-					<a href="#lectur-chapter" data-toggle="tab">챕터정보</a>
+					<a href="#lecture-chapter" data-toggle="tab">챕터정보</a>
 				</li>
 				<li class="">
 					<a href="#uidemo-tabs-default-demo-home5" data-toggle="tab">수강생관리</a>
@@ -102,7 +107,7 @@
 
 			
 				<!-- 강좌 챕터 정보 -->
-				<div class="tab-pane fade" id="lectur-chapter">
+				<div class="tab-pane fade" id="lecture-chapter">
 					<div>
    					    <div class="pannel-header">
 							<button class="btn btn-primary">챕터등록</button>
@@ -118,28 +123,8 @@
 										<th>Order</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td>1</td>
-										<td>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br/>설명<br/>ㄴㅁㅇㄹ밍;너ㅣㅏㅁㅇ널ㅇㄴ;ㅣㅇㄻ너ㅏㅣ;ㅁㄴㅇ;ㅓㅣㅏㅏㅣㅇㅁㄴ러ㅓㅣㅏㅇㅁㄹㄴ;ㅓㅣ</td>
-										<td>Create</td>
-										<td><button class="btn btn-primary">Edit</button></td>
-										<td><button class="btn btn-primary">Up</button>&nbsp;<button class="btn btn-primary">Down</button></td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>Jacob</td>
-										<td>Create</td>
-										<td><button class="btn btn-primary">Edit</button></td>
-										<td><button class="btn btn-primary">Up</button>&nbsp;<button class="btn btn-primary">Down</button></td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Larry</td>
-										<td>Create</td>
-										<td><button class="btn btn-primary" id="editChapterBtn">Edit</button></td>
-										<td><button class="btn btn-primary">Up</button>&nbsp;<button class="btn btn-primary">Down</button></td>
-									</tr>
+								<tbody id="chapterList">
+									
 								</tbody>
 							</table>
 						</div>
@@ -226,9 +211,7 @@
 $(document).ready(function() { 
 
 	$('a[href="#uidemo-tabs-default-demo-home5"]').click(function() { 
-
-		alert("You clicked Profile tab!");
-
+		
     });
 
 	$('a[href="#lectur-default"]').click(function() { 
@@ -237,6 +220,10 @@ $(document).ready(function() {
 
 	$('a[href="#lectur-detail"]').click(function() { 
 		getDetailData();
+    });
+
+	$('a[href="#lecture-chapter"]').click(function() { 
+		getChapterData();
     });
 	
 	/*$('a[data-toggle="tab"]').click('shown', function (e) {
@@ -247,9 +234,6 @@ $(document).ready(function() {
 
 		  //getData();
 		 $('#myModal').modal('hide');
-	     //$('#uidemo-modals-alerts-success').modal('show');
-		 $(".alert").alert('close')
-		
 	});
 
 	$("#editChapterBtn").click(function(e){
@@ -262,10 +246,11 @@ $(document).ready(function() {
 }); 
 	
 function getDefaultData(){
+
 	$.ajax({
 		type : 'get',
 		async : false,
-		url : 'http://dev.api.coursevil.org/api/lecture/test1',
+		url : 'http://dev.api.coursevil.org/api/lecture/'+lectureCode,
 		cache : false,
 		contentType : "application/json; charset=UTF-8",
 		dataType : "json",
@@ -284,7 +269,7 @@ function getDetailData(){
 	$.ajax({
 		type : 'get',
 		async : false,
-		url : 'http://dev.api.coursevil.org/api/lecture/test1/detail',
+		url : 'http://dev.api.coursevil.org/api/lecture/'+lectureCode+'/detail',
 		cache : false,
 		contentType : "application/json; charset=UTF-8",
 		dataType : "json",
@@ -298,6 +283,27 @@ function getDetailData(){
 	});
 	
 }
+
+function getChapterData(){
+
+	$.ajax({
+		type : 'get',
+		async : false,
+		url : 'http://dev.api.coursevil.org/api/lecture/'+lectureCode+'/chapters',
+		cache : false,
+		contentType : "application/json; charset=UTF-8",
+		dataType : "json",
+		success : function(data) {
+			generateChapter(data);
+		},
+
+		error : function(data, status, err) {
+			alert('error');
+		}
+	});
+	
+}
+
 function generate(data){
 
 	var courseData = data.data;
@@ -317,30 +323,42 @@ function generateDetail(data){
 	$("#lectureDetailFormatValue").html(detail.format);
 }
 
+function generateChapter(data){
 
 
-function edit(){
+	var chapterList = $("#chapterList");
+	chapterList.html("");
 
-	var editBtn = $("#courselist");
-
-	$("#lectureNameValue").attr('disabled', false);
-	$("#lectureDescValue").attr('disabled', false);
-
-	$("#cancel").show();
-	$("#update").show();
-	$("#edit").hide();
-}
-
-function cancel(){
-	
-	$("#lectureNameValue").attr('disabled', true);
-	$("#lectureDescValue").attr('disabled', true);
-
-	$("#cancel").hide();
-	$("#update").hide();
-	$("#edit").show();
+	var chapter = data.data;
+	$.each(chapter, function(index){
+		var obj=chapter[index];
+		chapterList.append(getChapterList(index+1, obj.lectureCode, obj.chapterName, obj.chapterDescription));
+	});	
 
 }
+
+
+
+function getChapterList(index, code, name, description){
+	var innerDiv = '';
+	innerDiv = innerDiv + '<tr>';
+	innerDiv = innerDiv + '<td>';
+	innerDiv = innerDiv + index;
+	innerDiv = innerDiv + '</td>';
+	innerDiv = innerDiv + '<td>';
+	innerDiv = innerDiv + name + '<br/>' + description;
+	innerDiv = innerDiv + '</td>';
+	innerDiv = innerDiv + '<td>';
+	innerDiv = innerDiv + 'intall';
+	innerDiv = innerDiv + '</td>';
+	innerDiv = innerDiv + '<td>';
+	innerDiv = innerDiv + '<button class="btn btn-primary" id="editChapterBtn">Edit</button>';
+	innerDiv = innerDiv + '</td>';
+	innerDiv = innerDiv + '<td><button class="btn btn-primary">Up</button>&nbsp;<button class="btn btn-primary">Down</button></td>';
+	innerDiv = innerDiv + '</tr>';
+	return innerDiv
+}
+
 
 function update(){
 	alert("업데이트 요청되었습니다.");

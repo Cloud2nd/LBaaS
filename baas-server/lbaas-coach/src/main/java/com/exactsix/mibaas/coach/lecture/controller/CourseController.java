@@ -1,6 +1,8 @@
 package com.exactsix.mibaas.coach.lecture.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -13,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *    ────────────   ─────────   ───────────────────────────────
  *    2014. 9. 28.   Dave             CoachController
  * </pre>
- *
+ * 
  * @author Dave
  * @since 2014. 9. 27.
  * @version 1.0
- *
+ * 
  *          Copyright (C) 2012 by ExactSix Lab All right reserved.
  */
 @RequestMapping("/course")
@@ -34,8 +36,10 @@ public class CourseController {
 		return "coach/course_create";
 	}
 
-	@RequestMapping(value = "/detail")
-	public String deatil() throws Exception {
+	@RequestMapping(value = "/detail/{lecturecode}")
+	public String deatil(@PathVariable String lecturecode, ModelMap model)
+			throws Exception {
+		model.addAttribute("lectureCode", lecturecode);
 		return "coach/course_detail";
 	}
 

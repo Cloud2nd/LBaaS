@@ -51,7 +51,6 @@
 			  <th>대기인원</th>
 			  <th>상태</th>
 			  <th>Detail</th>
-			  <th>Chapter</th>
 			</tr>
 		  </thead>
 		  <tbody id="courselist">
@@ -121,10 +120,7 @@ function getCourseList(code, name, language, type, thumbnail){
 	innerDiv = innerDiv + '시작';
 	innerDiv = innerDiv + '</td>';
 	innerDiv = innerDiv + '<td>';
-	innerDiv = innerDiv + '<a href="/course/detail">'+"강좌상세"+'</a>';
-	innerDiv = innerDiv + '</td>';
-	innerDiv = innerDiv + '<td>';
-	innerDiv = innerDiv + '<a href="/course/detail">'+"챕터정보"+'</a>';
+	innerDiv = innerDiv + '<a href="/course/detail/'+code+'">'+"강좌상세"+'</a>';
 	innerDiv = innerDiv + '</td>';
 	innerDiv = innerDiv + '</tr>';
 	return innerDiv
