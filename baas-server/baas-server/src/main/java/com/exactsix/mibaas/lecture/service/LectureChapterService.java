@@ -116,7 +116,7 @@ public class LectureChapterService {
 		return response;
 	}
 
-	public RestResponse getChapter(String lecturecode) {
+	public RestResponse getChapters(String lecturecode) {
 
 		List<String> keys = search.getChapters(lecturecode);
 		String[] tests = keys.toArray(new String[keys.size()]);
@@ -147,6 +147,30 @@ public class LectureChapterService {
 
 		Collections.sort(chapterList, new ChapterComparator());
 		response.setData(chapterList);
+
+		return response;
+	}
+
+	public RestResponse getChapter(String lectureCode, String chapterCode) {
+
+		// Get DB
+		RestResponse response = new RestResponse();
+		response.setStatus(true);
+		response.setMessage("ok");
+
+		LectureChapterRepositoryDto repositoryDto = lectureChapterRepository
+				.findOne(LectureUtil.getChapterKey(lectureCode, chapterCode));
+
+		// setting lecture dto
+		ChapterDto chapterDto = new ChapterDto();
+		chapterDto.setLectureCode(repositoryDto.getLectureCode());
+		chapterDto.setChapterCode(repositoryDto.getChapterCode());
+		chapterDto.setChapterName(repositoryDto.getChapterName());
+		chapterDto.setChapterDescription(repositoryDto.getChapterDescription());
+		chapterDto.setChapterFile(repositoryDto.getChapterFile());
+		chapterDto.setChapterStatus(repositoryDto.getStatus());
+
+		response.setData(chapterDto);
 
 		return response;
 	}

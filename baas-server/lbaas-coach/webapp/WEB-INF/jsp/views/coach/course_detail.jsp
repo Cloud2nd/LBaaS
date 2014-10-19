@@ -152,12 +152,12 @@ var lectureCode = "${lectureCode}";
 
 
 
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+<div id="eidtChapterModal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+				<h4 class="modal-title" id="myModalLabel">챕터 수정</h4>
 			</div>
 			<div class="modal-body">
 				<form id="lecture-regist-form" class="panel form-horizontal">
@@ -257,15 +257,14 @@ $(document).ready(function() {
     });
 
 	$('a[href="#lecture-chapter"]').click(function() { 
-		getChapterData();
+		getChapterListData();
     });
-	
+
 	/*$('a[data-toggle="tab"]').click('shown', function (e) {
 		alert(e.target);
 	});*/
 
 	$("#lectureRegistBtn").click(function(e){
-
 		  //getData();
 		 $('#myModal').modal('hide');
 	});
@@ -341,7 +340,7 @@ function getDetailData(){
 	
 }
 
-function getChapterData(){
+function getChapterListData(){
 
 	$.ajax({
 		type : 'get',
@@ -414,9 +413,10 @@ function generateChapter(data){
 	var chapter = data.data;
 	$.each(chapter, function(index){
 		var obj=chapter[index];
-		chapterList.append(getChapterList(index+1, obj.lectureCode, obj.chapterName, obj.chapterDescription));
+		chapterList.append(getChapterList(index+1, obj.chapterCode, obj.chapterName, obj.chapterDescription));
 	});	
 
+	getEvent();
 }
 
 function getChapterList(index, code, name, description){
@@ -432,7 +432,7 @@ function getChapterList(index, code, name, description){
 	innerDiv = innerDiv + 'intall';
 	innerDiv = innerDiv + '</td>';
 	innerDiv = innerDiv + '<td>';
-	innerDiv = innerDiv + '<button class="btn btn-primary" id="editChapterBtn">Edit</button>';
+	innerDiv = innerDiv + '<button class="btn btn-primary" name="editChapterBtn" chapterCode=\"'+code+'\">Edit</button>';
 	innerDiv = innerDiv + '</td>';
 	innerDiv = innerDiv + '<td><button class="btn btn-primary">Up</button>&nbsp;<button class="btn btn-primary">Down</button></td>';
 	innerDiv = innerDiv + '</tr>';
@@ -443,7 +443,6 @@ function getChapterList(index, code, name, description){
 function getRefreshChapter(){
 	$('#uidemo-modals-alerts-success').modal('show');	
 }
-
 
 
 /* form data to json */
@@ -464,5 +463,13 @@ $.fn.serializeObject = function()
     return o;
 };
  
+function getEvent(){
+
+	$( "button[name='editChapterBtn']" ).bind( "click", function(e) {
+
+		$('#eidtChapterModal').modal('show');
+		 
+	})
+}
 </script>
 

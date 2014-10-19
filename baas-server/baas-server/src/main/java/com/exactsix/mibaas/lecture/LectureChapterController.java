@@ -44,7 +44,7 @@ public class LectureChapterController {
 	@RequestMapping(value = "/lecture/{lecturecode}/chapters", method = RequestMethod.GET)
 	public @ResponseBody
 	RestResponse getUserToLecture(@PathVariable String lecturecode) {
-		return lectureManager.getChapter(lecturecode);
+		return lectureManager.getChapters(lecturecode);
 	}
 
 	/**
@@ -73,9 +73,9 @@ public class LectureChapterController {
 	 */
 	@RequestMapping(value = "/lecture/{lecturecode}/{chaptercode}", method = RequestMethod.GET)
 	public @ResponseBody
-	RestResponse getChapter(@PathVariable String lecturecode,
-			@PathVariable String chaptercode) {
-		return null;
+	RestResponse getChapter(@PathVariable String lectureCode,
+			@PathVariable String chapterCode) {
+		return lectureManager.getChapter(lectureCode, chapterCode);
 	}
 
 	/**

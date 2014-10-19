@@ -80,8 +80,12 @@ public class LectureManager {
 	}
 
 	// Chapter
-	public RestResponse getChapter(String lectureCode) {
-		return chapterService.getChapter(lectureCode);
+	public RestResponse getChapters(String lectureCode) {
+		return chapterService.getChapters(lectureCode);
+	}
+	
+	public RestResponse getChapter(String lectureCode, String chapterCode) {
+		return chapterService.getChapter(lectureCode,chapterCode);
 	}
 
 	public RestResponse updateChapter(ChapterDto chapterDto) {
