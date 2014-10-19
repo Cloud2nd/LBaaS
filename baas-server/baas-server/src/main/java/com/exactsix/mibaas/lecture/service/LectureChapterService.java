@@ -126,6 +126,7 @@ public class LectureChapterService {
 		response.setStatus(true);
 		response.setMessage("ok");
 
+		//lectureChapterRepository.findAll(keys);
 		List<ChapterDto> chapterList = new ArrayList<ChapterDto>();
 
 		for (String test : tests) {
@@ -144,6 +145,7 @@ public class LectureChapterService {
 					.getChapterDescription());
 			chapterDto.setChapterFile(repositoryDto.getChapterFile());
 			chapterDto.setChapterStatus(repositoryDto.getStatus());
+			chapterDto.setChapterOrder(repositoryDto.getChapterOrder());
 			chapterList.add(chapterDto);
 		}
 
@@ -171,6 +173,7 @@ public class LectureChapterService {
 		chapterDto.setChapterDescription(repositoryDto.getChapterDescription());
 		chapterDto.setChapterFile(repositoryDto.getChapterFile());
 		chapterDto.setChapterStatus(repositoryDto.getStatus());
+		chapterDto.setChapterOrder(repositoryDto.getChapterOrder());
 
 		response.setData(chapterDto);
 

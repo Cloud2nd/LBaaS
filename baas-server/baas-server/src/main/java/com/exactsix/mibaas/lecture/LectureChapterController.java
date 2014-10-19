@@ -104,6 +104,6 @@ public class LectureChapterController {
 			@PathVariable String chaptercode, @RequestBody ChapterDto chapterDto) {
 		chapterDto.setChapterCode(chaptercode);
 		chapterDto.setLectureCode(lecturecode);
-		return lectureManager.deleteChapter(chapterDto);
+		return lectureManager.updateChapter(chapterDto);
 	}
 }
