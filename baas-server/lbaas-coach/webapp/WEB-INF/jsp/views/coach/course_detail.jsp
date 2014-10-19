@@ -117,7 +117,7 @@ var lectureCode = "${lectureCode}";
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>챕터</th>
+										<th width="30%">챕터</th>
 										<th>Status</th>
 										<th>Edit</th>
 										<th>Order</th>
@@ -346,7 +346,7 @@ function getChapterList(index, code, name, description){
 	innerDiv = innerDiv + index;
 	innerDiv = innerDiv + '</td>';
 	innerDiv = innerDiv + '<td>';
-	innerDiv = innerDiv + name + '<br/>' + description;
+	innerDiv = innerDiv + name;
 	innerDiv = innerDiv + '</td>';
 	innerDiv = innerDiv + '<td>';
 	innerDiv = innerDiv + 'intall';
