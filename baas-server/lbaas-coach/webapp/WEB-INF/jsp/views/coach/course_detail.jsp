@@ -195,31 +195,47 @@ var selectedChapterCode = "";
 				<h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
 			</div>
 			<div class="modal-body">
+				
 				<form id="chapter-regist-form" class="panel form-horizontal">
-					<div class="panel-body">
-						<div class="form-group">
-							<label for="inputEmail2" class="col-sm-2 control-label">챕터명</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="chapterName" name="chapterName" placeholder="챕터명을 입력해주세요">
-								<input type="hidden" class="form-control" id="lectureCode" name="lectureCode" value="${lectureCode}">
-							</div>
-						</div> <!-- / .form-group -->
-						<div class="form-group">
-							<label for="asdasdas" class="col-sm-2 control-label">챕터설명</label>
-							<div class="col-sm-10">
-								<textarea id="lectureDescription" name="chapterDescription" class="form-control"></textarea>
-								<p class="help-block">챕터 설명을 적어주세요</p>
-							</div>
-						</div> <!-- / .form-group -->
-					</div>
+					<div class="form-group">
+						<label for="inputEmail2" class="col-sm-2 control-label">챕터명</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="chapterName" name="chapterName" placeholder="챕터명을 입력해주세요">
+							<input type="hidden" class="form-control" id="lectureCode" name="lectureCode" value="${lectureCode}">
+						</div>
+					</div> <!-- / .form-group -->
+					<div class="form-group">
+						<label for="asdasdas" class="col-sm-2 control-label">챕터설명</label>
+						<div class="col-sm-10">
+							<textarea id="lectureDescription" name="chapterDescription" class="form-control"></textarea>
+							<p class="help-block">챕터 설명을 적어주세요</p>
+						</div>
+					</div> <!-- / .form-group -->
 				</form>
+
+				<div class="row">
+						<form action="//dummy.html">
+
+							<div class="col-sm-8">
+								<input name="file" type="file" multiple="" />
+							</div>
+							<div class="col-sm-2">
+								<button type="button" id="upload" class="btn btn-primary">Upload</button>
+							</div>
+						</form>
+					</div>
+
+				
 			</div> <!-- / .modal-body -->
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" id="chapterModalRegistBtn" class="btn btn-primary">Save Chapter</button>
 			</div>
+
+			
 		</div> <!-- / .modal-content -->
 	</div> <!-- / .modal-dialog -->
+
 </div> <!-- /.modal -->
 
 <!-- Success -->
@@ -517,4 +533,3 @@ function editChapter(){
 
 }
 </script>
-

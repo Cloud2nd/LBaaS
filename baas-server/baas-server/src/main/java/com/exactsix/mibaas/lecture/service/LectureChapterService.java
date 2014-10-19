@@ -107,7 +107,6 @@ public class LectureChapterService {
 
 		// make response message
 		RestResponse response = new RestResponse();
-		chapterDto.setChapterCode(LectureUtil.getUUID());
 		delete(chapterDto);
 		response.setStatus(true);
 		response.setMessage("챕터가 정상적으로 삭제되었습니다");

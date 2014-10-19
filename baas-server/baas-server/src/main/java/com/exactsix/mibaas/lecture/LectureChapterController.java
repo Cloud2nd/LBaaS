@@ -105,9 +105,6 @@ public class LectureChapterController {
 
 		chapterDto.setChapterCode(chaptercode);
 		chapterDto.setLectureCode(lecturecode);
-		
-		System.out.println(chapterDto.getLectureCode());
-		System.out.println(chapterDto.getChapterCode());
 		return lectureManager.updateChapter(chapterDto);
 	}
 }
