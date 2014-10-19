@@ -102,8 +102,12 @@ public class LectureChapterController {
 	public @ResponseBody
 	RestResponse updateChapter(@PathVariable String lecturecode,
 			@PathVariable String chaptercode, @RequestBody ChapterDto chapterDto) {
+
 		chapterDto.setChapterCode(chaptercode);
 		chapterDto.setLectureCode(lecturecode);
+		
+		System.out.println(chapterDto.getLectureCode());
+		System.out.println(chapterDto.getChapterCode());
 		return lectureManager.updateChapter(chapterDto);
 	}
 }

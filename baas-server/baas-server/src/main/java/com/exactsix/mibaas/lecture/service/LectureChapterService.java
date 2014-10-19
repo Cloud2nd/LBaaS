@@ -87,7 +87,6 @@ public class LectureChapterService {
 
 		// make response message
 		RestResponse response = new RestResponse();
-		chapterDto.setChapterCode(LectureUtil.getUUID());
 		update(chapterDto);
 		response.setStatus(true);
 		response.setMessage("챕터가 정상적으로 수정되었습니다");
@@ -205,17 +204,16 @@ public class LectureChapterService {
 
 		String lectureCode = chapterDto.getLectureCode();
 		String chapterCode = chapterDto.getChapterCode();
-
+		
 		LectureChapterRepositoryDto repositoryDto = lectureChapterRepository
 				.findOne(LectureUtil.getChapterKey(lectureCode, chapterCode));
-
+		
 		repositoryDto.setChapterName(chapterDto.getChapterName());
 		repositoryDto.setChapterDescription(chapterDto.getChapterDescription());
 		repositoryDto.setChapterFile(chapterDto.getChapterFile());
-		repositoryDto.setChapterOrder(chapterDto.getChapterOrder());
 		repositoryDto.setStatus("edited");
 		repositoryDto.setUpdated(new Date());
-
+		
 		// save db
 		repositoryDto = lectureChapterRepository.save(repositoryDto);
 

@@ -3,6 +3,7 @@
 
 <script>
 var lectureCode = "${lectureCode}";
+var selectedChapterCode = "";
 </script>
 
 <ul class="breadcrumb breadcrumb-page">
@@ -160,18 +161,18 @@ var lectureCode = "${lectureCode}";
 				<h4 class="modal-title" id="myModalLabel">챕터 수정</h4>
 			</div>
 			<div class="modal-body">
-				<form id="lecture-regist-form" class="panel form-horizontal">
+				<form id="chapter-edit-form" class="panel form-horizontal">
 					<div class="panel-body">
 						<div class="form-group">
 							<label for="inputEmail2" class="col-sm-2 control-label">챕터명</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="lectureName" name="lectureName" placeholder="강좌명을 입력해주세요">
+								<input type="text" class="form-control" id="editChapterName" name="chapterName" placeholder="강좌명을 입력해주세요">
 							</div>
 						</div> <!-- / .form-group -->
 						<div class="form-group">
 							<label for="asdasdas" class="col-sm-2 control-label">챕터설명</label>
 							<div class="col-sm-10">
-								<textarea id="lectureDescription" name="lectureDescription" class="form-control"></textarea>
+								<textarea id="editChapterDescription" name="chapterDescription" class="form-control"></textarea>
 								<p class="help-block">강좌 설명을 적어주세요</p>
 							</div>
 						</div> <!-- / .form-group -->
@@ -180,7 +181,7 @@ var lectureCode = "${lectureCode}";
 			</div> <!-- / .modal-body -->
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" id="lectureRegistBtn" class="btn btn-primary">Save changes</button>
+				<button type="button" id="chapterEditBtn" class="btn btn-primary">Save changes</button>
 			</div>
 		</div> <!-- / .modal-content -->
 	</div> <!-- / .modal-dialog -->
@@ -264,9 +265,11 @@ $(document).ready(function() {
 		alert(e.target);
 	});*/
 
-	$("#lectureRegistBtn").click(function(e){
+	$("#chapterEditBtn").click(function(e){
 		  //getData();
-		 $('#myModal').modal('hide');
+		 //$('#myModal').modal('hide');
+		 $('#eidtChapterModal').modal('hide');
+		 editChapter();
 	});
 
 	$('#chapterRegistBtn').click(function(e){
@@ -278,12 +281,6 @@ $(document).ready(function() {
 
 	$('#chapterModalRegistBtn').click(function(e){
 		registeChapter();
-	});
-	
-
-	$("#editChapterBtn").click(function(e){
-		 // Ajax 호출
-		 $('#myModal').modal('show');
 	});
 
 
@@ -345,7 +342,7 @@ function getChapterListData(){
 	$.ajax({
 		type : 'get',
 		async : false,
-		url : 'http://dev.api.coursevil.org/api/lecture/'+lectureCode+'/chapters',
+		url : 'http://dev.api.coursevil.org/api/chapter/'+lectureCode,
 		cache : false,
 		contentType : "application/json; charset=UTF-8",
 		dataType : "json",
@@ -364,7 +361,7 @@ function registeChapter(){
 
 	var json_val = JSON.stringify($("#chapter-regist-form").serializeObject());
 
-	var urlValue = 'http://dev.api.coursevil.org/api/lecture/'+lectureCode+'/chapter';
+	var urlValue = 'http://dev.api.coursevil.org/api/chapter/'+lectureCode;
 	
 	 $.ajax({
 		type : 'POST',
@@ -468,8 +465,56 @@ function getEvent(){
 	$( "button[name='editChapterBtn']" ).bind( "click", function(e) {
 
 		$('#eidtChapterModal').modal('show');
+		
+		selectedChapterCode = $(this).attr('chapterCode');
+
+		var urlValue = 'http://dev.api.coursevil.org/api/chapter/'+lectureCode+'/'+ selectedChapterCode;
+
+		$.ajax({
+			type : 'get',
+			async : false,
+			url : urlValue,
+			cache : false,
+			contentType : "application/json; charset=UTF-8",
+			dataType : "json",
+			success : function(data) {
+				$('#editChapterName').val(data.data.chapterName);
+				$('#editChapterDescription').val(data.data.chapterDescription);
+			},
+
+			error : function(data, status, err) {
+				//에러처리
+			}
+		});
 		 
 	})
+}
+
+function editChapter(){
+
+   var urlValue = 'http://dev.api.coursevil.org/api/chapter/'+lectureCode+'/'+ selectedChapterCode;
+   var json_val = JSON.stringify($("#chapter-edit-form").serializeObject());
+
+	console.log(urlValue);
+	console.log(json_val);
+
+	 $.ajax({
+		type : 'PUT',
+		async : false,
+		url : urlValue,
+		cache : false,
+		contentType : "application/json; charset=UTF-8",
+		data : json_val,
+		success: function(data, textStatus, jqXHR)
+		{
+			alert(data.message);
+		},
+		error: function (jqXHR, textStatus, errorThrown)
+		{
+			alert(errorThrown);
+		}
+	});
+
 }
 </script>
 
