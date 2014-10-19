@@ -71,7 +71,7 @@ public class LectureChapterController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/chapter/{lecturecode}/{chaptercode}", method = RequestMethod.GET)
+	@RequestMapping(value = "/chapter/{lectureCode}/{chapterCode}", method = RequestMethod.GET)
 	public @ResponseBody
 	RestResponse getChapter(@PathVariable String lectureCode,
 			@PathVariable String chapterCode) {

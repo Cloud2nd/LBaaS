@@ -103,14 +103,6 @@ public class LectureChapterRepositoryDto {
 		this.chapterFile = chapterFile;
 	}
 
-	public int getChapterOrder() {
-		return chapterOrder;
-	}
-
-	public void setChapterOrder(int chapterOrder) {
-		this.chapterOrder = chapterOrder;
-	}
-
 	public Date getCreated() {
 		return created;
 	}
@@ -133,6 +125,14 @@ public class LectureChapterRepositoryDto {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getChapterOrder() {
+		return chapterOrder;
+	}
+
+	public void setChapterOrder(int chapterOrder) {
+		this.chapterOrder = chapterOrder;
 	}
 
 }

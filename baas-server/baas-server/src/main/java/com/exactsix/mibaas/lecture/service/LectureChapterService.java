@@ -132,6 +132,8 @@ public class LectureChapterService {
 
 			LectureChapterRepositoryDto repositoryDto = lectureChapterRepository
 					.findOne(test);
+			
+			System.out.println(repositoryDto.getChapterOrder());
 
 			// setting lecture dto
 			ChapterDto chapterDto = new ChapterDto();
