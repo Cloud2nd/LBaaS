@@ -75,7 +75,7 @@ public class LectureChapterService {
 
 	public RestResponse getChapter(String lecturecode) {
 
-		List<String> keys = search.getChapters();
+		List<String> keys = search.getChapters(lecturecode);
 		String[] tests = keys.toArray(new String[keys.size()]);
 
 		// Get DB
@@ -94,6 +94,9 @@ public class LectureChapterService {
 			chapterDto.setLectureCode(repositoryDto.getLectureCode());
 			chapterDto.setChapterCode(repositoryDto.getChapterCode());
 			chapterDto.setChapterName(repositoryDto.getChapterName());
+			chapterDto.setChapterDescription(repositoryDto
+					.getChapterDescription());
+			chapterDto.setChapterFile(repositoryDto.getChapterFile());
 			chapterList.add(chapterDto);
 		}
 
@@ -109,6 +112,7 @@ public class LectureChapterService {
 				chapterDto.getLectureCode(), chapterDto.getChapterCode()));
 		repositoryDto.setLectureCode(chapterDto.getLectureCode());
 		repositoryDto.setChapterCode(chapterDto.getChapterCode());
+		repositoryDto.setChapterName(chapterDto.getChapterName());
 		repositoryDto.setChapterDescription(chapterDto.getChapterDescription());
 		repositoryDto.setChapterFile(chapterDto.getChapterFile());
 

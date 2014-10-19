@@ -79,7 +79,7 @@ public class LectureElasticSearchService {
 
 	}
 
-	public List<String> getChapters() {
+	public List<String> getChapters(String lectureCode) {
 
 		QueryBuilder queryBuilder = QueryBuilders
 				.boolQuery()
@@ -87,7 +87,7 @@ public class LectureElasticSearchService {
 						.matchQuery("couchbaseDocument.doc._class",
 								"com.exactsix.mibaas.lecture.repository.dto.LectureChapterRepositoryDto"))
 				.must(QueryBuilders.matchQuery(
-						"couchbaseDocument.doc.lectureCode", "test1"));
+						"couchbaseDocument.doc.lectureCode", lectureCode));
 
 		SearchResponse response = client.prepareSearch().setQuery(queryBuilder)
 				.execute().actionGet();
@@ -96,7 +96,6 @@ public class LectureElasticSearchService {
 
 		for (SearchHit hit : response.getHits()) {
 			keys.add(hit.getId());
-			System.out.println(hit.getId());
 		}
 
 		return keys;
