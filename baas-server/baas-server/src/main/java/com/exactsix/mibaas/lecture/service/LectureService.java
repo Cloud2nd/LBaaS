@@ -11,6 +11,7 @@ import com.exactsix.mibaas.lecture.dto.LectureDto;
 import com.exactsix.mibaas.lecture.repository.LectureRepository;
 import com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto;
 import com.exactsix.mibaas.lecture.service.search.LectureElasticSearchService;
+import com.exactsix.mibaas.lecture.util.LectureUtil;
 
 ;
 /**
@@ -60,10 +61,11 @@ public class LectureService {
 	 */
 	public RestResponse createLecture(LectureDto lectureDto) {
 
+		String lectureCode = LectureUtil.getUUID();
 		// make lecture repository data
 		LectureRepositoryDto repositoryDto = new LectureRepositoryDto();
-		repositoryDto.setKey("lecture::" + lectureDto.getLectureCode());
-		repositoryDto.setLectureCode(lectureDto.getLectureCode());
+		repositoryDto.setKey(LectureUtil.getLectureKey(lectureCode));
+		repositoryDto.setLectureCode(lectureCode);
 		repositoryDto.setLectureName(lectureDto.getLectureName());
 		repositoryDto.setLectureType(lectureDto.getLectureType());
 		repositoryDto.setLectureLanguage(lectureDto.getLectureLanguage());
@@ -176,7 +178,7 @@ public class LectureService {
 		List<String> lectureKeys = new ArrayList<String>();
 		for (String key : keys) {
 			String[] tmp = key.split("::");
-			lectureKeys.add(getKey(tmp[1]));
+			lectureKeys.add(LectureUtil.getLectureKey(tmp[1]));
 		}
 		String[] tests = lectureKeys.toArray(new String[lectureKeys.size()]);
 
@@ -204,13 +206,6 @@ public class LectureService {
 
 		// return
 		return response;
-	}
-	
-	private String getKey(String lectureCode) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("lecture::");
-		sb.append(lectureCode);
-		return sb.toString();
 	}
 
 	//

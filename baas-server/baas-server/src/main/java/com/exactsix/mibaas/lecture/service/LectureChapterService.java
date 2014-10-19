@@ -2,7 +2,6 @@ package com.exactsix.mibaas.lecture.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +11,7 @@ import com.exactsix.mibaas.lecture.dto.ChapterDto;
 import com.exactsix.mibaas.lecture.repository.LectureChapterRepository;
 import com.exactsix.mibaas.lecture.repository.dto.LectureChapterRepositoryDto;
 import com.exactsix.mibaas.lecture.service.search.LectureElasticSearchService;
+import com.exactsix.mibaas.lecture.util.LectureUtil;
 
 ;
 /**
@@ -65,7 +65,7 @@ public class LectureChapterService {
 
 		// make response message
 		RestResponse response = new RestResponse();
-		chapterDto.setChapterCode(getUUID());
+		chapterDto.setChapterCode(LectureUtil.getUUID());
 		create(chapterDto);
 		response.setStatus(true);
 		response.setMessage("챕터가 정상적으로 등록되었습니다");
@@ -105,29 +105,16 @@ public class LectureChapterService {
 	private boolean create(ChapterDto chapterDto) {
 
 		LectureChapterRepositoryDto repositoryDto = new LectureChapterRepositoryDto();
-		repositoryDto.setKey(getKey(chapterDto.getLectureCode()));
+		repositoryDto.setKey(LectureUtil.getChapterKey(
+				chapterDto.getLectureCode(), chapterDto.getChapterCode()));
 		repositoryDto.setLectureCode(chapterDto.getLectureCode());
-		repositoryDto.setChapterCode("a001");
+		repositoryDto.setChapterCode(chapterDto.getChapterCode());
 		repositoryDto.setChapterDescription(chapterDto.getChapterDescription());
 		repositoryDto.setChapterFile(chapterDto.getChapterFile());
 
 		// save db
 		repositoryDto = lectureChapterRepository.save(repositoryDto);
-
 		return true;
 	}
 
-	private String getKey(String lectureCode) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("lecture::");
-		sb.append(lectureCode);
-		sb.append("::chapter::");
-		sb.append("a001");
-		return sb.toString();
-	}
-
-	private String getUUID() {
-		UUID idOne = UUID.randomUUID();
-		return idOne.toString();
-	}
 }
