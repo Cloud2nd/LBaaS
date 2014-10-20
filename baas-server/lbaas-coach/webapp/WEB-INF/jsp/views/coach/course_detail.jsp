@@ -211,19 +211,26 @@ var selectedChapterCode = "";
 							<p class="help-block">챕터 설명을 적어주세요</p>
 						</div>
 					</div> <!-- / .form-group -->
+					<div class="form-group">
+						<label for="inputEmail2" class="col-sm-2 control-label">FileName</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="fileName" name="fileName" disabled > 
+							<button type="button" id="uploaddelete" class="btn btn-primary">Delete</button>
+						</div>
+					</div> <!-- / .form-group -->
 				</form>
 
-				<div class="row">
-						<form action="//dummy.html">
+				<div id="fileForm" class="row">
+					<form id="file-upload-form">
 
-							<div class="col-sm-8">
-								<input name="file" type="file" multiple="" />
-							</div>
-							<div class="col-sm-2">
-								<button type="button" id="upload" class="btn btn-primary">Upload</button>
-							</div>
-						</form>
-					</div>
+						<div class="col-sm-8">
+							<input id="uploadfile" name="uploadfile" type="file" multiple="" />
+						</div>
+						<div class="col-sm-2">
+							<button type="button" id="upload" class="btn btn-primary">Upload</button>
+						</div>
+					</form>
+				</div>
 
 				
 			</div> <!-- / .modal-body -->
@@ -246,7 +253,7 @@ var selectedChapterCode = "";
 				<i class="fa fa-check-circle"></i>
 			</div>
 			<div class="modal-title">성공</div>
-			<div class="modal-body">정상적으로 처리되었습니다.</div>
+			<div class="modal-body">등록 요청 되었습니다.</div>
 			<div class="modal-footer">
 				<button type="button" id="successBtn" class="btn btn-success">OK</button>
 			</div>
@@ -292,6 +299,7 @@ $(document).ready(function() {
 
 		$('#chapterName').val("");
 		$('#chapterDescription').text("");
+		$('#uploaddelete').hide();
 		$('#chapterModal').modal('show');
 	});
 
@@ -308,12 +316,50 @@ $(document).ready(function() {
 		 getChapterData();
 	});
 
-    
+    // File Upload
+	$("#upload").click(function(e){
+		 // Ajax 호출
+		uploadFile();
+	});
+
 
 	getDefaultData();
 
 }); 
+
+
+// File Upload
+function uploadFile(){
+
+	var file = document.getElementById("uploadfile");
+
+	var formData = new FormData();
+	formData.append("file", file.files[0]);
+
+	var urlValue = 'http://file.coursevil.org/api/file/save';
 	
+	 $.ajax({
+		type : 'POST',
+		url : urlValue,
+		contentType : false,
+		data : formData,
+		processData: false,
+		success: function(data, textStatus, jqXHR)
+		{
+			var filedata = data.data;
+			$("#fileName").val(filedata.filename);
+			$("#fileForm").hide();
+			$('#uploaddelete').show();
+		},
+		error: function (jqXHR, textStatus, errorThrown)
+		{
+			console.log(errorThrown);
+		}
+	});
+	
+}
+
+// 기본 정보 호출
 function getDefaultData(){
 
 	$.ajax({
@@ -334,6 +380,7 @@ function getDefaultData(){
 	
 }
 
+// 상세 정보 호출
 function getDetailData(){
 	$.ajax({
 		type : 'get',
@@ -353,6 +400,7 @@ function getDetailData(){
 	
 }
 
+// 챕터 리스트 호출
 function getChapterListData(){
 
 	$.ajax({
@@ -373,6 +421,7 @@ function getChapterListData(){
 	
 }
 
+// 챕터 등록
 function registeChapter(){
 
 	var json_val = JSON.stringify($("#chapter-regist-form").serializeObject());
@@ -399,6 +448,7 @@ function registeChapter(){
 	
 }
 
+// 기본정보 세팅
 function generate(data){
 
 	var courseData = data.data;
@@ -409,6 +459,7 @@ function generate(data){
 	$("#lectureTypeValue").html(courseData.lectureType);
 }
 
+// 상세정보 세팅
 function generateDetail(data){
 
 	var detail = data.data;
@@ -418,6 +469,8 @@ function generateDetail(data){
 	$("#lectureDetailFormatValue").html(detail.format);
 }
 
+
+// 챕터 List 세팅
 function generateChapter(data){
 
 	var chapterList = $("#chapterList");
@@ -429,9 +482,12 @@ function generateChapter(data){
 		chapterList.append(getChapterList(index+1, obj.chapterCode, obj.chapterName, obj.chapterDescription));
 	});	
 
+	// Event Binding
 	getEvent();
 }
 
+
+//ChapterList List 생성
 function getChapterList(index, code, name, description){
 	var innerDiv = '';
 	innerDiv = innerDiv + '<tr>';
@@ -452,7 +508,7 @@ function getChapterList(index, code, name, description){
 	return innerDiv
 }
 
-
+// Refresh
 function getRefreshChapter(){
 	$('#uidemo-modals-alerts-success').modal('show');	
 }
