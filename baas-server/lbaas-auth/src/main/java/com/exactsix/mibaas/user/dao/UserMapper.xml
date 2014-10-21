@@ -6,29 +6,44 @@
 <mapper namespace="UserMapper">
 
 	<resultMap id="resultMap" type="com.exactsix.mibaas.user.dto.UserDto">
+		<result property="userid" column="USERID" />
 		<result property="email" column="EMAIL" />
 		<result property="userName" column="USER_NAME" />
 		<result property="passwd" column="PASSWD" />
-		<result property="hassedPasswd" column="HASHED_PASSWD" />
 		<result property="lastLogon" column="LAST_LOGON" />
 	</resultMap>
+	
+	<resultMap id="resultDeviceMap" type="com.exactsix.mibaas.user.dto.DeviceDto">
+		<result property="deviceId" column="DEVICE_ID" />
+		<result property="deviceToken" column="DEVICE_TOKEN" />
+		<result property="pushToken" column="PUSH_TOKEN" />
+	</resultMap>
+
+	<resultMap id="resultUserDeviceMap" type="com.exactsix.mibaas.user.dto.UserDeviceDto">
+		<result property="userid" column="USERID" />
+		<result property="deviceId" column="DEVICE_ID" />
+	</resultMap>
+
 
 	<select id="getUser" parameterType="String" resultMap="resultMap">
-		SELECT EMAIL,USER_NAME from users_tbl where email = #{email}
+		SELECT
+		USERID, EMAIL, USER_NAME, LAST_LOGON from users_tbl where USERID =
+		#{userid}
 	</select>
 
 	<insert id="insertUser" parameterType="com.exactsix.mibaas.user.dto.UserDto">
 		INSERT INTO users_tbl
 		(
-		EMAIL
-		,USER_NAME
-		,PASSWD
-		,HASHED_PASSWD
-		) VALUES (
-		#{email}
-		,#{userName}
-		,#{passwd}
-		,#{hashedPasswd}
+			USERID
+			,EMAIL
+			,USER_NAME
+			,PASSWD
+			) VALUES (
+			#{userid}
+			,#{email}
+			,#{userName}
+			,#{passwd}
+			,#{hashedPasswd}
 		)
 	</insert>
 
@@ -37,9 +52,34 @@
 		SET
 		USER_NAME = #{userName}
 		,PASSWD = #{passwd}
-		,HASHED_PASSWD = #{hashedPasswd}
 		WHERE
-		EMAIL = #{email}
+		USERID = #{userid}
 	</update>
+	
+	<insert id="insertDevice" parameterType="com.exactsix.mibaas.user.dto.DeviceDto">
+		INSERT INTO user_device
+		(
+			DEVICE_ID
+			,DEVICE_TOKEN
+			,PUSH_TOKEN
+			) VALUES (
+			#{deviceId}
+			,#{deviceToken}
+			,#{pushToken}
+		)
+	</insert>
+	
+	<insert id="insertUserDevice" parameterType="com.exactsix.mibaas.user.dto.UserDeviceDto">
+		INSERT INTO user_device
+		(
+			USER_ID
+			,DEVICE_ID
+			) VALUES (
+			#{userid}
+			,#{deviceId}
+		)
+	</insert>
+	
+	
 
 </mapper>

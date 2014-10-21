@@ -212,9 +212,9 @@ var selectedChapterCode = "";
 						</div>
 					</div> <!-- / .form-group -->
 					<div class="form-group">
-						<label for="inputEmail2" class="col-sm-2 control-label">FileName</label>
+						<label for="fileName" class="col-sm-2 control-label">FileName</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="fileName" name="fileName" disabled > 
+							<input type="text" class="form-control" id="chapterFile" name="chapterFile" disabled > 
 							<button type="button" id="uploaddelete" class="btn btn-primary">Delete</button>
 						</div>
 					</div> <!-- / .form-group -->
@@ -426,6 +426,7 @@ function registeChapter(){
 
 	var json_val = JSON.stringify($("#chapter-regist-form").serializeObject());
 
+
 	var urlValue = 'http://dev.api.coursevil.org/api/chapter/'+lectureCode;
 	
 	 $.ajax({
@@ -531,7 +532,8 @@ $.fn.serializeObject = function()
     });
     return o;
 };
- 
+
+
 function getEvent(){
 
 	$( "button[name='editChapterBtn']" ).bind( "click", function(e) {

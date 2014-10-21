@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exactsix.mibaas.common.response.RestResponse;
+import com.exactsix.mibaas.user.dto.DeviceDto;
+import com.exactsix.mibaas.user.dto.UserDeviceDto;
 import com.exactsix.mibaas.user.dto.UserDto;
-import com.exactsix.mibaas.user.service.LoginService;
+import com.exactsix.mibaas.user.service.UserService;
 
 /**
  * <pre>
@@ -30,18 +32,18 @@ import com.exactsix.mibaas.user.service.LoginService;
 public class UserController {
 
 	@Autowired
-	private LoginService loginService;
+	private UserService userService;
 
 	@RequestMapping(value = "/usermanagement/login", method = RequestMethod.POST)
 	public @ResponseBody
 	RestResponse login(@RequestBody UserDto userDto) {
-		return loginService.getLogin(userDto);
+		return userService.getLogin(userDto);
 	}
 
 	@RequestMapping(value = "/usermanagement/{username}", method = RequestMethod.GET)
 	public @ResponseBody
 	RestResponse userList(@PathVariable String username) {
-		return loginService.getUser(username);
+		return userService.getUser(username);
 	}
 
 	@RequestMapping(value = "/usermanagement/{username}", method = RequestMethod.POST)
@@ -50,10 +52,16 @@ public class UserController {
 		return null;
 	}
 
-	@RequestMapping(value = "/usermanagement/test", method = RequestMethod.POST)
+	@RequestMapping(value = "/usermanagement/device", method = RequestMethod.POST)
 	public @ResponseBody
-	RestResponse device() {
-		return null;
+	RestResponse device(@RequestBody DeviceDto device) {
+		return userService.createDevice(device);
+	}
+
+	@RequestMapping(value = "/usermanagement/userdevice", method = RequestMethod.POST)
+	public @ResponseBody
+	RestResponse userDevice(@RequestBody UserDeviceDto userDevice) {
+		return userService.createUserDevice(userDevice);
 	}
 
 }

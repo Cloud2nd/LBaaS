@@ -3,11 +3,13 @@ package com.exactsix.mibaas.user.dao;
 import org.springframework.stereotype.Repository;
 
 import com.exactsix.mibaas.common.dao.AbstractBaseDao;
+import com.exactsix.mibaas.user.dto.DeviceDto;
+import com.exactsix.mibaas.user.dto.UserDeviceDto;
 import com.exactsix.mibaas.user.dto.UserDto;
 
 /**
  * UserDao
- *
+ * 
  * @author Dave
  * @version 1.0
  */
@@ -16,7 +18,7 @@ public class UserDao extends AbstractBaseDao {
 
 	/**
 	 * UserDao
-	 *
+	 * 
 	 * @param
 	 * @exception
 	 */
@@ -33,6 +35,14 @@ public class UserDao extends AbstractBaseDao {
 
 	public void updateUser(UserDto user) {
 		sqlSession.update("UserMapper.updateUser", user);
+	}
+
+	public void insertDevice(DeviceDto device) {
+		sqlSession.update("UserMapper.insertDevice", device);
+	}
+
+	public void insertUserDevice(UserDeviceDto userDevice) {
+		sqlSession.update("UserMapper.insertUserDevice", userDevice);
 	}
 
 }

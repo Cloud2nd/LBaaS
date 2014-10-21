@@ -10,13 +10,21 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class UserDto {
 
+	private String userId;
 	private String email;
 	private String userName;
 	private String passwd;
-	private String hassedPasswd;
 	private Date lastLogon;
 
 	private String userKey;
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public String getEmail() {
 		return email;
@@ -40,14 +48,6 @@ public class UserDto {
 
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
-	}
-
-	public String getHassedPasswd() {
-		return hassedPasswd;
-	}
-
-	public void setHassedPasswd(String hassedPasswd) {
-		this.hassedPasswd = hassedPasswd;
 	}
 
 	public Date getLastLogon() {
