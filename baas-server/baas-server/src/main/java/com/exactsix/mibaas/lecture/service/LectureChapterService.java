@@ -14,6 +14,7 @@ import com.exactsix.mibaas.lecture.dto.ChapterDto;
 import com.exactsix.mibaas.lecture.repository.LectureChapterRepository;
 import com.exactsix.mibaas.lecture.repository.dto.LectureChapterRepositoryDto;
 import com.exactsix.mibaas.lecture.service.search.LectureElasticSearchService;
+import com.exactsix.mibaas.lecture.service.sqs.SqsService;
 import com.exactsix.mibaas.lecture.util.LectureUtil;
 
 ;
@@ -41,6 +42,9 @@ public class LectureChapterService {
 
 	@Autowired
 	private LectureElasticSearchService search;
+
+	@Autowired
+	private SqsService sqsService;
 
 	public LectureChapterService() {
 		super();
@@ -71,6 +75,9 @@ public class LectureChapterService {
 		response.setStatus(true);
 		response.setMessage("챕터가 정상적으로 등록되었습니다");
 
+		if (chapterDto.getChapterFile() != null) {
+			sqsService.sendUpload(chapterDto.getChapterFile());
+		}
 		return response;
 	}
 
@@ -203,18 +210,22 @@ public class LectureChapterService {
 
 		String lectureCode = chapterDto.getLectureCode();
 		String chapterCode = chapterDto.getChapterCode();
-		
+
 		LectureChapterRepositoryDto repositoryDto = lectureChapterRepository
 				.findOne(LectureUtil.getChapterKey(lectureCode, chapterCode));
-		
+
 		repositoryDto.setChapterName(chapterDto.getChapterName());
 		repositoryDto.setChapterDescription(chapterDto.getChapterDescription());
 		repositoryDto.setChapterFile(chapterDto.getChapterFile());
 		repositoryDto.setStatus("edited");
 		repositoryDto.setUpdated(new Date());
-		
+
 		// save db
 		repositoryDto = lectureChapterRepository.save(repositoryDto);
+
+		if (chapterDto.getChapterFile() != null) {
+			sqsService.sendUpload(chapterDto.getChapterFile());
+		}
 
 		return true;
 	}
