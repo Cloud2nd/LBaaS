@@ -1,13 +1,17 @@
-package com.exactsix.mibaas.coach.home.controller;
+package com.exactsix.mibaas.coach.login.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.exactsix.mibaas.auth.client.CourseVilClient;
+import com.exactsix.mibaas.auth.client.UserLogin;
+import com.exactsix.mibaas.auth.client.UserResponse;
 
 /**
  * <pre>
- * Class Name  : HomeController.java
+ * Class Name  : LoginController.java
  * Description :
  * Modification Information
  * 
@@ -15,19 +19,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *    ────────────   ─────────   ───────────────────────────────
  *    2014. 9. 28.   Dave             Dashboard
  * </pre>
- *
+ * 
  * @author Dave
  * @since 2014. 9. 27.
  * @version 1.0
- *
+ * 
  *          Copyright (C) 2012 by ExactSix Lab All right reserved.
  */
-@Controller
-public class HomeController {
+@Service
+public class LoginService {
+
+	@Autowired
+	private CourseVilClient client;
+
 	protected final Log logger = LogFactory.getLog(getClass());
 
-	@RequestMapping("/dashboard")
-	public String welcome() {
-		return "home/home";
+	public UserResponse login(UserLogin login) {
+
+		UserResponse response = client.login(login);
+
+		System.out.println(response.isStatus());
+
+		return response;
 	}
 }

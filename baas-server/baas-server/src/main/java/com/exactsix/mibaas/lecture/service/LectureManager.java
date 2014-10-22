@@ -74,18 +74,26 @@ public class LectureManager {
 		return lectureEntrollService.removeEntrollLecture(entrollDto);
 	}
 
+	public RestResponse updateEntrollStatus(EntrollDto entrollDto) {
+		return lectureEntrollService.updateEntrollStatus(entrollDto);
+	}
+	
+	
+	public RestResponse getLectureUsers(String lecturecode) {
+		return lectureEntrollService.getLectureUsers(lecturecode);
+	}
+	
 	// Chapter
 	public RestResponse createChapter(ChapterDto chapterDto) {
 		return chapterService.createChpater(chapterDto);
 	}
 
-	// Chapter
 	public RestResponse getChapters(String lectureCode) {
 		return chapterService.getChapters(lectureCode);
 	}
-	
+
 	public RestResponse getChapter(String lectureCode, String chapterCode) {
-		return chapterService.getChapter(lectureCode,chapterCode);
+		return chapterService.getChapter(lectureCode, chapterCode);
 	}
 
 	public RestResponse updateChapter(ChapterDto chapterDto) {

@@ -3,6 +3,7 @@ package com.exactsix.mibaas.lecture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,10 +21,9 @@ public class LectureEntrollController {
 
 	@RequestMapping(value = "/entroll/{lecturecode}", method = RequestMethod.POST)
 	public @ResponseBody
-	RestResponse createEntrollLecture(@PathVariable String lecturecode) {
-		EntrollDto entrollDto = new EntrollDto();
+	RestResponse createEntrollLecture(@PathVariable String lecturecode,
+			@RequestBody EntrollDto entrollDto) {
 		entrollDto.setLectureCode(lecturecode);
-		entrollDto.setCustomerCode("dave");
 		return lectureManager.createEntrollLecture(entrollDto);
 	}
 
@@ -34,5 +34,14 @@ public class LectureEntrollController {
 		entrollDto.setLectureCode(lecturecode);
 		entrollDto.setCustomerCode("dave");
 		return lectureManager.removeEntrollLecture(entrollDto);
+	}
+
+	@RequestMapping(value = "/entroll/{lecturecode}", method = RequestMethod.PUT)
+	public @ResponseBody
+	RestResponse updateEntrollLecture(@PathVariable String lecturecode,
+			@RequestBody EntrollDto entrollDto) {
+
+		entrollDto.setLectureCode(lecturecode);
+		return lectureManager.updateEntrollStatus(entrollDto);
 	}
 }

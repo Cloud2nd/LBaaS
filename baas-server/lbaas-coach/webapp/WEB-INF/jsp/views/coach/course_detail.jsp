@@ -46,6 +46,9 @@ var selectedChapterCode = "";
 				<li class="">
 					<a href="#uidemo-tabs-default-demo-home5" data-toggle="tab">수강생관리</a>
 				</li>
+				<li class="">
+					<a href="#uidemo-tabs-default-demo-home5" data-toggle="tab">리뷰관리</a>
+				</li>
 			</ul>
 
 			<div class="tab-content tab-content-bordered">
@@ -120,7 +123,6 @@ var selectedChapterCode = "";
 										<th width="30%">챕터</th>
 										<th>Status</th>
 										<th>Edit</th>
-										<th>Order</th>
 									</tr>
 								</thead>
 								<tbody id="chapterList">
@@ -138,7 +140,7 @@ var selectedChapterCode = "";
 						<img src="/assets/demo/avatars/1.jpg" alt="" class="follower-avatar">
 						<div class="body">
 							<div class="follower-controls">
-								<a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>&nbsp;&nbsp;Following</span></a>
+								<a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>&nbsp;&nbsp;Approve</span></a>
 							</div>
 							<a href="#" class="follower-name">John Doe</a><br>
 							<a href="#" class="follower-username">@jdoe</a>
@@ -201,7 +203,6 @@ var selectedChapterCode = "";
 						<label for="inputEmail2" class="col-sm-2 control-label">챕터명</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="chapterName" name="chapterName" placeholder="챕터명을 입력해주세요">
-							<input type="hidden" class="form-control" id="lectureCode" name="lectureCode" value="${lectureCode}">
 						</div>
 					</div> <!-- / .form-group -->
 					<div class="form-group">
@@ -214,7 +215,10 @@ var selectedChapterCode = "";
 					<div class="form-group">
 						<label for="fileName" class="col-sm-2 control-label">FileName</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="chapterFile" name="chapterFile" disabled > 
+							<input type="text" class="form-control" id="chapterFileDsiplay" name="chapterFileDsiplay" disabled > 
+
+							<input type="hidden" class="form-control" id="lectureCode" name="lectureCode" value="${lectureCode}">
+							<input type="hidden" class="form-control" id="chapterFile" name="chapterFile" > 
 							<button type="button" id="uploaddelete" class="btn btn-primary">Delete</button>
 						</div>
 					</div> <!-- / .form-group -->
@@ -347,7 +351,8 @@ function uploadFile(){
 		success: function(data, textStatus, jqXHR)
 		{
 			var filedata = data.data;
-			$("#fileName").val(filedata.filename);
+			$("#chapterFile").val(filedata.filename);
+			$("#chapterFileDsiplay").val(filedata.filename);
 			$("#fileForm").hide();
 			$('#uploaddelete').show();
 		},
@@ -480,16 +485,15 @@ function generateChapter(data){
 	var chapter = data.data;
 	$.each(chapter, function(index){
 		var obj=chapter[index];
-		chapterList.append(getChapterList(index+1, obj.chapterCode, obj.chapterName, obj.chapterDescription));
+		chapterList.append(getChapterList(index+1, obj.chapterCode, obj.chapterName, obj.chapterDescription, obj.chapterStatus));
 	});	
 
 	// Event Binding
 	getEvent();
 }
 
-
 //ChapterList List 생성
-function getChapterList(index, code, name, description){
+function getChapterList(index, code, name, description, status){
 	var innerDiv = '';
 	innerDiv = innerDiv + '<tr>';
 	innerDiv = innerDiv + '<td>';
@@ -499,12 +503,11 @@ function getChapterList(index, code, name, description){
 	innerDiv = innerDiv + name;
 	innerDiv = innerDiv + '</td>';
 	innerDiv = innerDiv + '<td>';
-	innerDiv = innerDiv + 'intall';
+	innerDiv = innerDiv + status;
 	innerDiv = innerDiv + '</td>';
 	innerDiv = innerDiv + '<td>';
 	innerDiv = innerDiv + '<button class="btn btn-primary" name="editChapterBtn" chapterCode=\"'+code+'\">Edit</button>';
 	innerDiv = innerDiv + '</td>';
-	innerDiv = innerDiv + '<td><button class="btn btn-primary">Up</button>&nbsp;<button class="btn btn-primary">Down</button></td>';
 	innerDiv = innerDiv + '</tr>';
 	return innerDiv
 }

@@ -1,0 +1,58 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/jsp/common/TagLib.jspf" %>
+
+<h1 class="form-header">Sign in to your Account</h1>
+
+
+<!-- Form -->
+<form action="/login/process" id="signin-form_id" class="panel" method="post">
+	<div class="form-group">
+		<input type="text" name="email" id="email" class="form-control input-lg" placeholder="Username or email">
+	</div> <!-- / Username -->
+
+	<div class="form-group signin-password">
+		<input type="password" name="passwd" id="passwd" class="form-control input-lg" placeholder="Password">
+	</div> <!-- / Password -->
+
+	<div class="form-actions">
+		<input type="submit" value="Sign In" class="btn btn-primary btn-block btn-lg">
+	</div> <!-- / .form-actions -->
+</form>
+<!-- / Form -->
+
+
+<!-- Get jQuery from Google CDN -->
+<!--[if !IE]> -->
+	<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script>
+<!-- <![endif]-->
+<!--[if lte IE 9]>
+	<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">'+"<"+"/script>"); </script>
+<![endif]-->
+
+
+<!-- Pixel Admin's javascripts -->
+<script src="/assets/javascripts/bootstrap.min.js"></script>
+<script src="/assets/javascripts/pixel-admin.min.js"></script>
+
+
+<script type="text/javascript">
+	window.PixelAdmin.start([
+	                         
+		function () {
+			
+			$("#signin-form_id").validate({ focusInvalid: true, errorPlacement: function () {} });
+			
+			// Validate username
+			$("#username_id").rules("add", {
+				required: true,
+				minlength: 3
+			});
+
+			// Validate password
+			$("#password_id").rules("add", {
+				required: true,
+				minlength: 6
+			});
+		}
+	]);
+</script>

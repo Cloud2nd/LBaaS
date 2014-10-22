@@ -137,4 +137,10 @@ public class LectureController {
 		return lectureManager.getLectureDetail(lecturecode);
 	}
 
+	@RequestMapping(value = "/lecture/{lecturecode}/users", method = RequestMethod.GET)
+	public @ResponseBody
+	RestResponse getLectureUsers(@PathVariable String lecturecode) {
+		return lectureManager.getLectureUsers(lecturecode);
+	}
+
 }

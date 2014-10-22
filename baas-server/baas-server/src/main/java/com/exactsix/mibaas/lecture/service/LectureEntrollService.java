@@ -1,5 +1,9 @@
 package com.exactsix.mibaas.lecture.service;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +11,7 @@ import com.exactsix.mibaas.common.response.RestResponse;
 import com.exactsix.mibaas.lecture.dto.EntrollDto;
 import com.exactsix.mibaas.lecture.repository.LectureEntrollRepository;
 import com.exactsix.mibaas.lecture.repository.dto.LectureEntrollRepositoryDto;
+import com.exactsix.mibaas.lecture.service.search.LectureElasticSearchService;
 
 /**
  * <pre>
@@ -29,6 +34,9 @@ import com.exactsix.mibaas.lecture.repository.dto.LectureEntrollRepositoryDto;
 public class LectureEntrollService {
 
 	private LectureEntrollRepository lectureEntrollRepository;
+
+	@Autowired
+	private LectureElasticSearchService search;
 
 	public LectureEntrollService() {
 		super();
@@ -55,10 +63,13 @@ public class LectureEntrollService {
 
 		LectureEntrollRepositoryDto repositoryDto = new LectureEntrollRepositoryDto();
 
-		repositoryDto.setKey(getKey(entrollDto.getLectureCode(), entrollDto.getCustomerCode()));
+		repositoryDto.setKey(getKey(entrollDto.getLectureCode(),
+				entrollDto.getCustomerCode()));
 		repositoryDto.setLectureCode(entrollDto.getLectureCode());
 		repositoryDto.setUserCode(entrollDto.getCustomerCode());
-
+		repositoryDto.setStatus("CREATE");
+		repositoryDto.setCreated(new Date());
+		repositoryDto.setUpdated(new Date());
 		// save db
 		repositoryDto = lectureEntrollRepository.save(repositoryDto);
 
@@ -73,7 +84,8 @@ public class LectureEntrollService {
 	public RestResponse removeEntrollLecture(EntrollDto entrollDto) {
 
 		// make lecture repository data
-		String key = getKey(entrollDto.getLectureCode(), entrollDto.getCustomerCode());
+		String key = getKey(entrollDto.getLectureCode(),
+				entrollDto.getCustomerCode());
 
 		// save db
 		lectureEntrollRepository.delete(key);
@@ -83,6 +95,58 @@ public class LectureEntrollService {
 		response.setStatus(true);
 		response.setMessage("수강신청이 정상적으로 취소되었습니다");
 
+		return response;
+	}
+
+	public RestResponse updateEntrollStatus(EntrollDto entrollDto) {
+
+		String keys = getKey(entrollDto.getLectureCode(),
+				entrollDto.getCustomerCode());
+
+		LectureEntrollRepositoryDto repositoryDto = lectureEntrollRepository
+				.findOne(keys);
+
+		repositoryDto.setStatus(entrollDto.getStatus());
+		repositoryDto.setUpdated(new Date());
+		// save db
+		repositoryDto = lectureEntrollRepository.save(repositoryDto);
+
+		// make response message
+		RestResponse response = new RestResponse();
+		response.setStatus(true);
+		response.setMessage("수강신청이 정상적으로 수정되었습니다");
+
+		return response;
+	}
+
+	public RestResponse getLectureUsers(String lecturecode) {
+
+		List<String> keys = search.getLectureUser(lecturecode);
+
+		String[] tests = keys.toArray(new String[keys.size()]);
+
+		// Get DB
+		RestResponse response = new RestResponse();
+		response.setStatus(true);
+		response.setMessage("ok");
+
+		List<EntrollDto> entrollList = new ArrayList<EntrollDto>();
+
+		for (String test : tests) {
+			LectureEntrollRepositoryDto repositoryDto = lectureEntrollRepository
+					.findOne(test);
+
+			EntrollDto entrollDto = new EntrollDto();
+			entrollDto.setLectureCode(repositoryDto.getLectureCode());
+			entrollDto.setCustomerCode(repositoryDto.getUserCode());
+			entrollDto.setStatus(repositoryDto.getStatus());
+
+			entrollList.add(entrollDto);
+		}
+
+		response.setData(entrollList);
+
+		// return
 		return response;
 	}
 

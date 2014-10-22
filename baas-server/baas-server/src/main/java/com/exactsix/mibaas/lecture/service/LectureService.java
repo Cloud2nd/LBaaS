@@ -176,10 +176,12 @@ public class LectureService {
 		List<String> keys = search.getProgressCourse();
 
 		List<String> lectureKeys = new ArrayList<String>();
+
 		for (String key : keys) {
 			String[] tmp = key.split("::");
 			lectureKeys.add(LectureUtil.getLectureKey(tmp[1]));
 		}
+
 		String[] tests = lectureKeys.toArray(new String[lectureKeys.size()]);
 
 		// Get DB

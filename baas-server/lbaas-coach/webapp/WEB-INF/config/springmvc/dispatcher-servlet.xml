@@ -13,7 +13,7 @@
 
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="*" />
+			<mvc:mapping path="/*" />
 			<bean class="com.exactsix.mibaas.coach.interceptor.LoginCheckInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

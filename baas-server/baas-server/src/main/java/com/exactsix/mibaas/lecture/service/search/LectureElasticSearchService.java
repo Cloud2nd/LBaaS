@@ -101,7 +101,6 @@ public class LectureElasticSearchService {
 		return keys;
 
 	}
-	
 
 	public List<String> getLectureUser(String lectureCode) {
 
