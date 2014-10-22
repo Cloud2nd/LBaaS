@@ -8,19 +8,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class DeviceDto {
 
-	private String userId;
 	private String deviceId;
 	private String deviceToken;
 	private String pushToken;
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
+	
 	public String getDeviceId() {
 		return deviceId;
 	}

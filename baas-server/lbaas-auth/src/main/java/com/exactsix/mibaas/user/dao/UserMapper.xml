@@ -12,7 +12,7 @@
 		<result property="passwd" column="PASSWD" />
 		<result property="lastLogon" column="LAST_LOGON" />
 	</resultMap>
-	
+
 	<resultMap id="resultDeviceMap" type="com.exactsix.mibaas.user.dto.DeviceDto">
 		<result property="deviceId" column="DEVICE_ID" />
 		<result property="deviceToken" column="DEVICE_TOKEN" />
@@ -27,23 +27,23 @@
 
 	<select id="getUser" parameterType="String" resultMap="resultMap">
 		SELECT
-		USERID, EMAIL, USER_NAME, LAST_LOGON from users_tbl where USERID =
-		#{userid}
+		USERID, EMAIL, USER_NAME, LAST_LOGON from users_tbl where EMAIL =
+		#{email}
 	</select>
 
 	<insert id="insertUser" parameterType="com.exactsix.mibaas.user.dto.UserDto">
 		INSERT INTO users_tbl
 		(
-			USERID
-			,EMAIL
-			,USER_NAME
-			,PASSWD
-			) VALUES (
-			#{userid}
-			,#{email}
-			,#{userName}
-			,#{passwd}
-			,#{hashedPasswd}
+		USERID
+		,EMAIL
+		,USER_NAME
+		,PASSWD
+		) VALUES (
+		#{userid}
+		,#{email}
+		,#{userName}
+		,#{passwd}
+		,#{hashedPasswd}
 		)
 	</insert>
 
@@ -55,31 +55,30 @@
 		WHERE
 		USERID = #{userid}
 	</update>
-	
+
 	<insert id="insertDevice" parameterType="com.exactsix.mibaas.user.dto.DeviceDto">
-		INSERT INTO user_device
+		INSERT INTO device
 		(
-			DEVICE_ID
-			,DEVICE_TOKEN
-			,PUSH_TOKEN
-			) VALUES (
-			#{deviceId}
-			,#{deviceToken}
-			,#{pushToken}
+		DEVICE_ID
+		,DEVICE_TOKEN
+		) VALUES (
+		#{deviceId}
+		,#{deviceToken}
 		)
 	</insert>
-	
+
 	<insert id="insertUserDevice" parameterType="com.exactsix.mibaas.user.dto.UserDeviceDto">
-		INSERT INTO user_device
+		INSERT INTO
+		user_device
 		(
-			USER_ID
-			,DEVICE_ID
-			) VALUES (
-			#{userid}
-			,#{deviceId}
+		USER_ID
+		,DEVICE_ID
+		) VALUES (
+		#{userid}
+		,#{deviceId}
 		)
 	</insert>
-	
-	
+
+
 
 </mapper>
