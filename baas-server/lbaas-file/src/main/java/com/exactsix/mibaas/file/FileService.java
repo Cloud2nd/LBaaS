@@ -74,7 +74,7 @@ public class FileService {
 
 				byte[] bytes = file.getBytes();
 				BufferedOutputStream buffStream = new BufferedOutputStream(
-						new FileOutputStream(new File("/home/data/" + fileName)));
+						new FileOutputStream(new File("/home/data/" + replaceFileName)));
 				
 				/*BufferedOutputStream buffStream = new BufferedOutputStream(
 						new FileOutputStream(new File("C:/develop/temp/" + replaceFileName)));*/
