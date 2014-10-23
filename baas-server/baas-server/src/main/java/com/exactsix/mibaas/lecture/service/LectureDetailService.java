@@ -94,6 +94,15 @@ public class LectureDetailService {
 	public RestResponse createOrUpdateLectureDetail(
 			LectureDetailDto lectureDetail) {
 
+		System.out.println("#############");
+		System.out.println("#############");
+		System.out.println("#############");
+		System.out.println("#############");
+		System.out.println("#############");
+		System.out.println("#############");
+		System.out.println("#############");
+		System.out.println("#############");
+		System.out.println("#############");
 		// Make couchbase key
 		String key = "lecture::" + lectureDetail.getLectureCode() + "::detail";
 

@@ -44,10 +44,7 @@ var selectedChapterCode = "";
 					<a href="#lecture-chapter" data-toggle="tab">챕터정보</a>
 				</li>
 				<li class="">
-					<a href="#uidemo-tabs-default-demo-home5" data-toggle="tab">수강생관리</a>
-				</li>
-				<li class="">
-					<a href="#uidemo-tabs-default-demo-home5" data-toggle="tab">리뷰관리</a>
+					<a href="#lecture-users" data-toggle="tab">수강생관리</a>
 				</li>
 			</ul>
 
@@ -86,7 +83,11 @@ var selectedChapterCode = "";
 
 				<!-- 강좌 상세 정보 -->
 				<div class="tab-pane fade" id="lectur-detail">
+					<div class="row">
+							&nbsp;&nbsp;&nbsp;<button id="lectureDetailEditBtn" class="btn btn-primary">상세정보수정</button>
+					</div>
 					<div class="panel-body form-horizontal">
+						
 						<div class="form-group">
 							<label for="lectureName" class="col-sm-2 text-right">About</label>
 							<div class="col-sm-10" id="lectureDetailAboutValue">
@@ -135,16 +136,23 @@ var selectedChapterCode = "";
 				</div> <!-- / .tab-pane -->
 
 				<!-- 강좌 기본 정보 -->
-				<div class="tab-pane fade widget-followers" id="uidemo-tabs-default-demo-home5">
-					<div class="follower">
-						<img src="/assets/demo/avatars/1.jpg" alt="" class="follower-avatar">
-						<div class="body">
-							<div class="follower-controls">
-								<a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>&nbsp;&nbsp;Approve</span></a>
-							</div>
-							<a href="#" class="follower-name">John Doe</a><br>
-							<a href="#" class="follower-username">@jdoe</a>
+				<div class="tab-pane fade widget-followers" id="lecture-users">
+					<div>
+						<div class="panel-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>User</th>
+										<th>Status</th>
+										<th>승인</th>
+									</tr>
+								</thead>
+								<tbody id="userList">
+									
+								</tbody>
+							</table>
 						</div>
+						
 					</div>
 				</div> <!-- / .tab-pane -->
 				
@@ -153,7 +161,51 @@ var selectedChapterCode = "";
 	</div>
 </div>
 
+<!-- Edit Detail Modal -->
 
+<div id="eidtDetailModal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">챕터 수정</h4>
+			</div>
+			<div class="modal-body">
+				<form id="detail-edit-form" class="panel form-horizontal">
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="inputEmail2" class="col-sm-2 control-label">개요</label>
+							<div class="col-sm-10">
+								<textarea id="editAbout" name="about" class="form-control"></textarea>
+								<p class="help-block">강의 개요를 적어주세요</p>
+							</div>
+						</div> <!-- / .form-group -->
+						<div class="form-group">
+							<label for="asdasdas" class="col-sm-2 control-label">강의계획서</label>
+							<div class="col-sm-10">
+								<textarea id="editSyllabus" name="syllabus" class="form-control"></textarea>
+								<p class="help-block">강좌 계획서를 적어주세요</p>
+							</div>
+						</div> <!-- / .form-group -->
+						<div class="form-group">
+							<label for="asdasdas" class="col-sm-2 control-label">Format</label>
+							<div class="col-sm-10">
+								<textarea id="editFormat" name="format" class="form-control"></textarea>
+								<p class="help-block">강좌 형식을 적어주세요</p>
+							</div>
+						</div> <!-- / .form-group -->
+					</div>
+				</form>
+			</div> <!-- / .modal-body -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="detailEditBtn" class="btn btn-primary">Save changes</button>
+			</div>
+		</div> <!-- / .modal-content -->
+	</div> <!-- / .modal-dialog -->
+</div> <!-- /.modal -->
+
+<!-- end edit detail modal -->
 
 <div id="eidtChapterModal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
 	<div class="modal-dialog">
@@ -272,8 +324,9 @@ var selectedChapterCode = "";
 
 $(document).ready(function() { 
 
-	$('a[href="#uidemo-tabs-default-demo-home5"]').click(function() { 
-		
+	// Tabl Action
+	$('a[href="#lecture-users"]').click(function() { 
+		getUserListData();
     });
 
 	$('a[href="#lectur-default"]').click(function() { 
@@ -288,9 +341,32 @@ $(document).ready(function() {
 		getChapterListData();
     });
 
+
 	/*$('a[data-toggle="tab"]').click('shown', function (e) {
 		alert(e.target);
-	});*/
+	}); // tabl action*/
+
+	// Button Action
+
+	// Detail
+	$("#lectureDetailEditBtn").click(function(e){
+
+		var aboutValue = $('#lectureDetailAboutValue').text();
+		var syllabusValue = $('#lectureDetailSyllabusValue').text();
+		var formatValue = $('#lectureDetailFormatValue').text();
+		$('#editAbout').val(aboutValue);
+		$('#editSyllabus').val(syllabusValue);
+		$('#editFormat').val(formatValue);
+		$('#eidtDetailModal').modal('show');
+	});
+
+	$("#detailEditBtn").click(function(e){
+		editDetail();
+	});
+
+	
+	// -- end Detail
+
 
 	$("#chapterEditBtn").click(function(e){
 		  //getData();
@@ -426,6 +502,30 @@ function getChapterListData(){
 	
 }
 
+// 유저 리스트 호출
+function getUserListData(){
+
+    var urlValue = 'http://dev.api.coursevil.org/api/lecture/'+lectureCode+'/users';
+
+	$.ajax({
+		type : 'GET',
+		async : false,
+		url : urlValue,
+		cache : false,
+		dataType : "json",
+		success : function(data) {
+			generateUsers(data);
+		},
+
+		error : function(data, status, err) {
+			//에러처리
+			alert(err)
+			console.log(status);
+		}
+	});
+	
+}
+
 // 챕터 등록
 function registeChapter(){
 
@@ -518,25 +618,9 @@ function getRefreshChapter(){
 }
 
 
-/* form data to json */
-$.fn.serializeObject = function()
-{
-    var o = {};
-    var a = this.serializeArray();
-    $.each(a, function() {
-        if (o[this.name] !== undefined) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
-            }
-            o[this.name].push(this.value || '');
-        } else {
-            o[this.name] = this.value || '';
-        }
-    });
-    return o;
-};
 
 
+// Edit 시 정보 가져오기
 function getEvent(){
 
 	$( "button[name='editChapterBtn']" ).bind( "click", function(e) {
@@ -560,13 +644,14 @@ function getEvent(){
 			},
 
 			error : function(data, status, err) {
-				//에러처리
+
 			}
 		});
 		 
 	})
 }
 
+// Edit 시 수정하기
 function editChapter(){
 
    var urlValue = 'http://dev.api.coursevil.org/api/chapter/'+lectureCode+'/'+ selectedChapterCode;
@@ -584,6 +669,7 @@ function editChapter(){
 		data : json_val,
 		success: function(data, textStatus, jqXHR)
 		{
+			getChapterListData();
 			alert(data.message);
 		},
 		error: function (jqXHR, textStatus, errorThrown)
@@ -593,4 +679,127 @@ function editChapter(){
 	});
 
 }
+
+/* form data to json */
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
+
+
+// 챕터 List 세팅
+function generateUsers(data){
+
+	var userList = $("#userList");
+	userList.html("");
+
+	var users = data.data;
+	$.each(users, function(index){
+		var obj=users[index];
+		userList.append(getUserList(obj.customerCode, obj.status));
+	});	
+
+	// Event Binding
+	getUserEvent();
+}
+
+//ChapterList List 생성
+function getUserList(name, status){
+
+	var innerDiv = '';
+	innerDiv = innerDiv + '<tr>';
+	innerDiv = innerDiv + '<td>';
+	innerDiv = innerDiv + name;
+	innerDiv = innerDiv + '</td>';
+	innerDiv = innerDiv + '<td>';
+	innerDiv = innerDiv + status;
+	innerDiv = innerDiv + '</td>';
+	innerDiv = innerDiv + '<td>';
+	if(status!='approve'){
+		innerDiv = innerDiv + '<button class="btn btn-primary" name="userApproveBtn" userCode=\"'+name+'\">Approve</button>';
+	}
+	innerDiv = innerDiv + '</td>';
+	innerDiv = innerDiv + '</tr>';
+	return innerDiv
+}
+
+// Edit 시 정보 가져오기
+function getUserEvent(){
+
+	$( "button[name='userApproveBtn']" ).bind( "click", function(e) {
+		
+		var selectedUserCode = $(this).attr('userCode');
+		
+		var urlValue = 'http://dev.api.coursevil.org/api/entroll/'+lectureCode;
+		var json_val = '{"customerCode":"'+selectedUserCode+'", "status":"approve"}' 
+
+		console.log(json_val);
+		
+		$.ajax({
+			type : 'PUT',
+			async : false,
+			url : urlValue,
+			cache : false,
+			contentType : "application/json; charset=UTF-8",
+			dataType : "json",
+			data : json_val,
+			success : function(data) {
+				getUserListData();
+				alert('승인처리되었습니다');
+
+			},
+
+			error : function(data, status, err) {
+
+			}
+		});
+
+		 
+	})
+}
+
+// Edit Detail
+
+// Edit 시 수정하기
+function editDetail(){
+
+   var urlValue = 'http://dev.api.coursevil.org/api/lecture/'+lectureCode+'/detail';
+   var json_val = JSON.stringify($("#detail-edit-form").serializeObject());
+
+	console.log(urlValue);
+	console.log(json_val);
+
+	 $.ajax({
+		type : 'POST',
+		async : false,
+		url : urlValue,
+		cache : false,
+		contentType : "application/json; charset=UTF-8",
+		data : json_val,
+		success: function(data, textStatus, jqXHR)
+		{
+			alert(data.message);
+		},
+		error: function (jqXHR, textStatus, errorThrown)
+		{
+			alert(errorThrown);
+		}
+	});
+}
+
+
+
 </script>

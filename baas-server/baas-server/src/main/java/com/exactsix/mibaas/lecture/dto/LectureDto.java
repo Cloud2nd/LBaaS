@@ -10,6 +10,7 @@ public class LectureDto {
 	private String lectureLanguage;
 	private String lectureType;
 	private String lectureThumbnail;
+	private int needApprove;
 
 	public String getLectureCode() {
 		return lectureCode;
@@ -49,6 +50,14 @@ public class LectureDto {
 
 	public void setLectureThumbnail(String lectureThumbnail) {
 		this.lectureThumbnail = lectureThumbnail;
+	}
+
+	public int getNeedApprove() {
+		return needApprove;
+	}
+
+	public void setNeedApprove(int needApprove) {
+		this.needApprove = needApprove;
 	}
 
 }

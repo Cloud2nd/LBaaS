@@ -118,8 +118,10 @@ public class LectureController {
 
 	@RequestMapping(value = "/lecture/{lecturecode}/detail", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
-	RestResponse createOrUpdateLectureDetail(
+	RestResponse createOrUpdateLectureDetail(@PathVariable String lecturecode, 
 			@RequestBody LectureDetailDto lectureDetail) {
+		
+		lectureDetail.setLectureCode(lecturecode);
 		return lectureManager.createOrUpdateLectureDetail(lectureDetail);
 	}
 

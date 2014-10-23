@@ -83,36 +83,6 @@ public class LectureService {
 
 	public RestResponse getLecture(String lecturecode) {
 
-		/*
-		 * SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(
-		 * matchAllQuery()).build();
-		 */
-
-		/*
-		 * SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(
-		 * queryString
-		 * ("couchbaseDocument.doc.lectureCode").field("test1")).build();
-		 * 
-		 * List<LectureEsDto> sampleEntities = search.queryForList(searchQuery,
-		 * LectureEsDto.class);
-		 * 
-		 * System.out.println("***********************");
-		 * System.out.println("***********************");
-		 * System.out.println(sampleEntities.size());
-		 */
-
-		/*
-		 * QueryBuilder qb =
-		 * QueryBuilders.multiMatchQuery("kimchy elasticsearch", "user",
-		 * "message");
-		 */
-		/*
-		 * Query query = new Query();
-		 * query.setKey(ComplexKey.of("lecture::aaa")); List<LectureDto>
-		 * allUsers = lectureRepository.findByLectureCode(query);
-		 * System.out.println(allUsers);
-		 */
-
 		// Get DB
 		RestResponse response = new RestResponse();
 		response.setStatus(true);
@@ -162,6 +132,12 @@ public class LectureService {
 			lectureDto.setLectureCode(repositoryDto.getLectureCode());
 			lectureDto.setLectureLanguage(repositoryDto.getLectureLanguage());
 			lectureDto.setLectureType(repositoryDto.getLectureType());
+			
+			// Need Approve
+			List<String> needApproveKeys = search.getNotApproveUser(repositoryDto.getLectureCode());
+			lectureDto.setNeedApprove(needApproveKeys.size());
+			
+			System.out.println(needApproveKeys.size());
 			lectureList.add(lectureDto);
 		}
 

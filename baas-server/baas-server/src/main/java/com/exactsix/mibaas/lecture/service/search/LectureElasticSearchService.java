@@ -125,4 +125,29 @@ public class LectureElasticSearchService {
 
 	}
 
+	public List<String> getNotApproveUser(String lectureCode) {
+
+		QueryBuilder queryBuilder = QueryBuilders
+				.boolQuery()
+				.must(QueryBuilders
+						.matchQuery("couchbaseDocument.doc._class",
+								"com.exactsix.mibaas.lecture.repository.dto.LectureEntrollRepositoryDto"))
+				.must(QueryBuilders.matchQuery(
+						"couchbaseDocument.doc.lectureCode", lectureCode))
+				.mustNot(QueryBuilders.matchQuery(
+						"couchbaseDocument.doc.status", "approve"));
+
+		SearchResponse response = client.prepareSearch().setQuery(queryBuilder)
+				.setFrom(0).setSize(200).execute().actionGet();
+
+		List<String> keys = new ArrayList<String>();
+
+		for (SearchHit hit : response.getHits()) {
+			keys.add(hit.getId());
+		}
+
+		return keys;
+
+	}
+
 }

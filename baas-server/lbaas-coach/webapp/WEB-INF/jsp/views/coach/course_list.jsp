@@ -94,11 +94,11 @@ function generate(data){
 	var course = data.data;
 	$.each(course, function(index){
 		var obj=course[index];
-		cousreList.append(getCourseList(obj.lectureCode, obj.lectureName, obj.lectureLanguage, obj.lectureType, obj.lectureThumbnail));
+		cousreList.append(getCourseList(obj.lectureCode, obj.lectureName, obj.lectureLanguage, obj.lectureType, obj.lectureThumbnail, obj.needApprove));
 	});	
 }
 
-function getCourseList(code, name, language, type, thumbnail){
+function getCourseList(code, name, language, type, thumbnail, notapprove){
 	var innerDiv = '';
 	innerDiv = innerDiv + '<tr>';
 	innerDiv = innerDiv + '<td>';
@@ -114,7 +114,7 @@ function getCourseList(code, name, language, type, thumbnail){
 	innerDiv = innerDiv + type;
 	innerDiv = innerDiv + '</td>';
 	innerDiv = innerDiv + '<td>';
-	innerDiv = innerDiv + '0';
+	innerDiv = innerDiv + notapprove;
 	innerDiv = innerDiv + '</td>';
 	innerDiv = innerDiv + '<td>';
 	innerDiv = innerDiv + '시작';
