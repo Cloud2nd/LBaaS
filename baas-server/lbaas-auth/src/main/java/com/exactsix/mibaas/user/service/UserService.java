@@ -17,7 +17,6 @@ public class UserService {
 
 	public RestResponse getLogin(UserDto user) {
 
-		System.out.println(user.getEmail());
 		RestResponse response = new RestResponse();
 		user = userDao.getUserLogin(user);
 
