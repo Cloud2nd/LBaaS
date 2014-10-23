@@ -27,8 +27,14 @@
 
 	<select id="getUser" parameterType="String" resultMap="resultMap">
 		SELECT
-		USERID, EMAIL, USER_NAME, LAST_LOGON from users_tbl where EMAIL =
+		USERID, EMAIL, USER_NAME, LAST_LOGON from users where EMAIL =
 		#{email}
+	</select>
+	
+	<select id="getUserLogin" parameterType="com.exactsix.mibaas.user.dto.UserDto" resultMap="resultMap">
+		SELECT
+		USERID, EMAIL, USER_NAME, LAST_LOGON from users where EMAIL =
+		#{email} and PASSWD = #{passwd}
 	</select>
 
 	<insert id="insertUser" parameterType="com.exactsix.mibaas.user.dto.UserDto">

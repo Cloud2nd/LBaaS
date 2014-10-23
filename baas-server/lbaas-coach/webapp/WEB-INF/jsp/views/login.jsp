@@ -3,15 +3,39 @@
 
 <h1 class="form-header">Sign in to your Account</h1>
 
+<script>var init = [];</script>
+
+<script>
+	init.push(function () {
+
+		// Setup validation
+		$("#signin-form_id").validate({
+			ignore: '.ignore, .select2-input',
+			focusInvalid: false,
+			rules: {
+				'email': {
+				  required: true,
+				  email: true,
+				  minlength: 2
+				},
+
+				'passwd':{
+				  required: true,
+				  minlength: 2
+				}
+			}
+		});
+	});
+</script>
 
 <!-- Form -->
-<form action="/login/process" id="signin-form_id" class="panel" method="post">
+<form action="/login/process" id="signin-form_id" class="panel">
 	<div class="form-group">
 		<input type="text" name="email" id="email" class="form-control input-lg" placeholder="Username or email">
 	</div> <!-- / Username -->
 
 	<div class="form-group signin-password">
-		<input type="password" name="passwd" id="passwd" class="form-control input-lg" placeholder="Password">
+		<input type="password" name="passwd" id="password_id" class="form-control input-lg" placeholder="Password">
 	</div> <!-- / Password -->
 
 	<div class="form-actions">
@@ -19,7 +43,6 @@
 	</div> <!-- / .form-actions -->
 </form>
 <!-- / Form -->
-
 
 <!-- Get jQuery from Google CDN -->
 <!--[if !IE]> -->
@@ -31,28 +54,13 @@
 
 
 <!-- Pixel Admin's javascripts -->
-<script src="/assets/javascripts/bootstrap.min.js"></script>
-<script src="/assets/javascripts/pixel-admin.min.js"></script>
-
+<script src="assets/javascripts/bootstrap.min.js"></script>
+<script src="assets/javascripts/pixel-admin.min.js"></script>
 
 <script type="text/javascript">
-	window.PixelAdmin.start([
-	                         
-		function () {
-			
-			$("#signin-form_id").validate({ focusInvalid: true, errorPlacement: function () {} });
-			
-			// Validate username
-			$("#username_id").rules("add", {
-				required: true,
-				minlength: 3
-			});
-
-			// Validate password
-			$("#password_id").rules("add", {
-				required: true,
-				minlength: 6
-			});
-		}
-	]);
+	init.push(function () {
+		// Javascript code here
+	})
+	window.PixelAdmin.start(init);
 </script>
+

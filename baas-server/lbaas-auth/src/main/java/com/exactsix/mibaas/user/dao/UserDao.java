@@ -32,6 +32,10 @@ public class UserDao extends AbstractBaseDao {
 	public UserDto getUser(String email) {
 		return sqlSession.selectOne("UserMapper.getUser", email);
 	}
+	
+	public UserDto getUserLogin(UserDto dto) {
+		return sqlSession.selectOne("UserMapper.getUserLogin", dto);
+	}
 
 	public void updateUser(UserDto user) {
 		sqlSession.update("UserMapper.updateUser", user);

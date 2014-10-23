@@ -44,6 +44,9 @@ public class LoginController {
 	@RequestMapping("/login/process")
 	public String loginProcess(UserLogin login, HttpServletRequest request) {
 
+		System.out.println(login.getEmail());
+		System.out.println(login.getPasswd());
+		
 		UserResponse response = service.login(login);
 
 		if (!response.isStatus()) {

@@ -17,11 +17,18 @@ public class UserService {
 
 	public RestResponse getLogin(UserDto user) {
 
+		System.out.println(user.getEmail());
 		RestResponse response = new RestResponse();
-		user = userDao.getUser(user.getEmail());
-		response.setStatus(true);
-		response.setMessage("success login");
-		response.setData(user);
+		user = userDao.getUserLogin(user);
+
+		if (user != null) {
+			response.setStatus(true);
+			response.setMessage("success login");
+			response.setData(user);
+		}else{
+			response.setStatus(false);
+			response.setMessage("login fail");
+		}
 		return response;
 	}
 
