@@ -368,6 +368,7 @@ $(document).ready(function() {
 	// -- end Detail
 
 
+	//
 	$("#chapterEditBtn").click(function(e){
 		  //getData();
 		 //$('#myModal').modal('hide');
@@ -378,8 +379,11 @@ $(document).ready(function() {
 	$('#chapterRegistBtn').click(function(e){
 
 		$('#chapterName').val("");
-		$('#chapterDescription').text("");
+		$('#chapterDescription').val("");
 		$('#uploaddelete').hide();
+		$("#chapterFile").val("");
+		$("#chapterFileDsiplay").val("");
+		$("#fileForm").show();
 		$('#chapterModal').modal('show');
 	});
 
@@ -393,7 +397,7 @@ $(document).ready(function() {
 		 $('#uidemo-modals-alerts-success').modal('hide');
 
 		 // 현재탭 확인하여 
-		 getChapterData();
+		 getChapterListData();
 	});
 
     // File Upload
