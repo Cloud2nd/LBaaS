@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 
@@ -66,16 +67,29 @@ public class FileService {
 			try {
 				fileName = file.getOriginalFilename();
 
+				String origin = fileName;
+				String uuid = getUUID();
+				String extension = getExtensionFileName(origin);
+				String replaceFileName = uuid + "." + extension;
+
 				byte[] bytes = file.getBytes();
 				BufferedOutputStream buffStream = new BufferedOutputStream(
 						new FileOutputStream(new File("/home/data/" + fileName)));
+				
+				/*BufferedOutputStream buffStream = new BufferedOutputStream(
+						new FileOutputStream(new File("C:/develop/temp/" + replaceFileName)));*/
 				buffStream.write(bytes);
 				buffStream.close();
+
+				String type = file.getContentType();
+				int size = (int) file.getSize();
+
 				response.setStatus(true);
 				FileDto fileDto = new FileDto();
-				fileDto.setFilename(fileName);
+				fileDto.setFilename(replaceFileName);
+				fileDto.setOriginNmae(fileName);
 
-				uploadS3(fileName);
+				// uploadS3(fileName);
 
 				response.setData(fileDto);
 
@@ -114,5 +128,23 @@ public class FileService {
 
 		return signedUrl;
 
+	}
+
+	public String getUUID() {
+		return UUID.randomUUID().toString();
+	}
+
+	private String getExtensionFileName(String fileName) {
+
+		String extension = "";
+
+		int fileIndex = fileName.lastIndexOf('.');
+
+		// 파일명과 확장자를 분리
+		if (fileIndex != -1) {
+			extension = fileName.substring(fileIndex + 1);
+		}
+
+		return extension;
 	}
 }
