@@ -6,7 +6,7 @@
 <mapper namespace="UserMapper">
 
 	<resultMap id="resultMap" type="com.exactsix.mibaas.user.dto.UserDto">
-		<result property="userid" column="USERID" />
+		<result property="userId" column="USERID" />
 		<result property="email" column="EMAIL" />
 		<result property="userName" column="USER_NAME" />
 		<result property="passwd" column="PASSWD" />
@@ -32,9 +32,11 @@
 	</select>
 	
 	<select id="getUserLogin" parameterType="com.exactsix.mibaas.user.dto.UserDto" resultMap="resultMap">
+		
 		SELECT
 		USERID, EMAIL, USER_NAME, LAST_LOGON from users where EMAIL =
 		#{email} and PASSWD = #{passwd}
+		
 	</select>
 
 	<insert id="insertUser" parameterType="com.exactsix.mibaas.user.dto.UserDto">
