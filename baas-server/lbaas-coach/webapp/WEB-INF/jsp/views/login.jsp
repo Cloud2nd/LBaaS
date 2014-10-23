@@ -29,7 +29,7 @@
 </script>
 
 <!-- Form -->
-<form action="/login/process" id="signin-form_id" class="panel">
+<form action="/login/process" id="signin-form_id" class="panel" method="post">
 	<div class="form-group">
 		<input type="text" name="email" id="email" class="form-control input-lg" placeholder="Username or email">
 	</div> <!-- / Username -->

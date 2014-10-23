@@ -37,9 +37,6 @@ public class LoginService {
 	public UserResponse login(UserLogin login) {
 
 		UserResponse response = client.login(login);
-
-		System.out.println(response.isStatus());
-
 		return response;
 	}
 }
