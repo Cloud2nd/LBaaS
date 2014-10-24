@@ -59,7 +59,7 @@ public class LectureElasticSearchService {
 				.setQuery(
 						QueryBuilders
 								.matchQuery("couchbaseDocument.doc._class",
-										"com.exactsix.mibaas.lecture.repository.dto.LectureRepositoryDto"))
+										"com.exactsix.mibaas.lecture.repository.dto.LectureEntrollRepositoryDto"))
 				.setQuery(
 						QueryBuilders.matchQuery(
 								"couchbaseDocument.doc.status", "approve"))
