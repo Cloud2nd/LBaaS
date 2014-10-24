@@ -74,10 +74,14 @@ public class FileService {
 
 				byte[] bytes = file.getBytes();
 				BufferedOutputStream buffStream = new BufferedOutputStream(
-						new FileOutputStream(new File("/home/data/" + replaceFileName)));
-				
-				/*BufferedOutputStream buffStream = new BufferedOutputStream(
-						new FileOutputStream(new File("C:/develop/temp/" + replaceFileName)));*/
+						new FileOutputStream(new File("/home/data/"
+								+ replaceFileName)));
+
+				/*
+				 * BufferedOutputStream buffStream = new BufferedOutputStream(
+				 * new FileOutputStream(new File("C:/develop/temp/" +
+				 * replaceFileName)));
+				 */
 				buffStream.write(bytes);
 				buffStream.close();
 
@@ -90,6 +94,55 @@ public class FileService {
 				fileDto.setOriginNmae(fileName);
 
 				// uploadS3(fileName);
+
+				response.setData(fileDto);
+
+			} catch (Exception e) {
+				response.setStatus(false);
+			}
+		} else {
+			response.setStatus(false);
+		}
+
+		return response;
+	}
+
+	public RestResponse thumnail(MultipartFile file) {
+
+		RestResponse response = new RestResponse();
+
+		String fileName = null;
+		if (!file.isEmpty()) {
+			try {
+				fileName = file.getOriginalFilename();
+
+				String origin = fileName;
+				String uuid = getUUID();
+				String extension = getExtensionFileName(origin);
+				String replaceFileName = uuid + "." + extension;
+
+				byte[] bytes = file.getBytes();
+				BufferedOutputStream buffStream = new BufferedOutputStream(
+						new FileOutputStream(new File("/home/data/"
+								+ replaceFileName)));
+
+				/*
+				 * BufferedOutputStream buffStream = new BufferedOutputStream(
+				 * new FileOutputStream(new File("C:/develop/temp/" +
+				 * replaceFileName)));
+				 */
+				buffStream.write(bytes);
+				buffStream.close();
+
+				String type = file.getContentType();
+				int size = (int) file.getSize();
+
+				response.setStatus(true);
+				FileDto fileDto = new FileDto();
+				fileDto.setFilename(replaceFileName);
+				fileDto.setOriginNmae(fileName);
+
+				uploadS3(fileName);
 
 				response.setData(fileDto);
 

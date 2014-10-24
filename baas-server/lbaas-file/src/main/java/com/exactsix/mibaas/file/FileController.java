@@ -37,5 +37,13 @@ public class FileController {
 		return service.fileSave(file);
 
 	}
+	
+	@RequestMapping(value = "/file/thumnail/save", method = RequestMethod.POST)
+	public @ResponseBody
+	RestResponse thumnail(@RequestParam("file") MultipartFile file) {
+
+		return service.fileSave(file);
+
+	}
 
 }
