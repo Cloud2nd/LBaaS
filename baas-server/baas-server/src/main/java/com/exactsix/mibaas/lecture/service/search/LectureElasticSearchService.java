@@ -54,19 +54,20 @@ public class LectureElasticSearchService {
 
 	public List<String> getProgressCourse() {
 
-		SearchResponse response = client
-				.prepareSearch()
-				.setQuery(
-						QueryBuilders
-								.matchQuery("couchbaseDocument.doc._class",
-										"com.exactsix.mibaas.lecture.repository.dto.LectureEntrollRepositoryDto"))
-				.setQuery(
-						QueryBuilders.matchQuery(
-								"couchbaseDocument.doc.status", "approve"))
-				.setQuery(
-						QueryBuilders.matchQuery(
-								"couchbaseDocument.doc.userCode", "dave"))
+		
+		QueryBuilder queryBuilder = QueryBuilders
+				.boolQuery()
+				.must(QueryBuilders
+						.matchQuery("couchbaseDocument.doc._class",
+								"com.exactsix.mibaas.lecture.repository.dto.LectureEntrollRepositoryDto"))
+				.must(QueryBuilders.matchQuery(
+						"couchbaseDocument.doc.userCode", "dave"))
+				.must(QueryBuilders.matchQuery(
+						"couchbaseDocument.doc.status", "approve"));
+
+		SearchResponse response = client.prepareSearch().setQuery(queryBuilder)
 				.setFrom(0).setSize(200).execute().actionGet();
+		
 
 		List<String> keys = new ArrayList<String>();
 
