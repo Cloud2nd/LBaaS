@@ -77,6 +77,12 @@ var selectedChapterCode = "";
 							<div class="col-sm-10" id="lectureTypeValue">
 							</div>
 						</div> <!-- / .form-group -->
+
+						<div class="form-group">
+							<label for="lectureName" class="col-sm-2 text-right">thumNamil</label>
+							<div class="col-sm-10" id="lectureThumbnailValue">
+							</div>
+						</div> <!-- / .form-group -->
 					</div>
 				</div> <!-- / .tab-pane -->
 
@@ -567,6 +573,11 @@ function generate(data){
 	$("#lectureNameValue").html(courseData.lectureName);
 	$("#lectureLanguageValue").html(courseData.lectureLanguage);
 	$("#lectureTypeValue").html(courseData.lectureType);
+
+	if(courseData.lectureThumbnail!='undefined' && courseData.lectureThumbnail!=null){
+		var html = '<img src="http://d3kiw56smicmwo.cloudfront.net/'+ courseData.lectureThumbnail+'"/>';
+		$("#lectureThumbnailValue").html(html);
+	}
 }
 
 // 상세정보 세팅

@@ -81,13 +81,43 @@
 					</div> <!-- / .col-sm-10 -->
 				</div> <!-- / .form-group -->
 
-				<div class="form-group" style="margin-bottom: 0;">
+				
+				<div class="form-group">
+					<label for="fileName" class="col-sm-2 control-label">Thumnail</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="lectureThumbnailDisplay" name="lectureThumbnailDisplay" disabled > 
+							<input type="hidden" class="form-control" id="lectureThumbnail" name="lectureThumbnail" > 
+						</div>
+					</div> <!-- / .form-group -->
+				</form>
+
+				<div id="fileForm" class="row">
+					<label for="fileName" class="col-sm-2 control-label"></label>
+					<div class="col-sm-10">
+						<form id="file-upload-form">
+
+							<div class="col-sm-8">
+								<input id="uploadfile" name="uploadfile" type="file" multiple="" />
+							</div>
+							<div class="col-sm-2">
+								<button type="button" id="upload" class="btn btn-primary">Upload</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+				<div class="form-group right" style="margin-bottom: 0;">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="button" id="lectureRegistBtn" class="btn btn-primary">강좌 등록</button>
 					</div>
 				</div> <!-- / .form-group -->
 			</div>
-		</form>
+		
+
+				
+
+				
 	<!-- /10. $FORM_EXAMPLE -->
 
 	</div>
@@ -121,7 +151,46 @@ $(document).ready(function() {
 		});
 	});
     
+
+	$("#upload").click(function(e){
+		 // Ajax 호출
+		uploadFile();
+	});
+
 }); 
+
+
+
+// File Upload
+function uploadFile(){
+
+	var file = document.getElementById("uploadfile");
+
+	var formData = new FormData();
+	formData.append("file", file.files[0]);
+
+	var urlValue = 'http://file.coursevil.org/api/file/thumnail/save';
+	
+	 $.ajax({
+		type : 'POST',
+		url : urlValue,
+		contentType : false,
+		data : formData,
+		processData: false,
+		success: function(data, textStatus, jqXHR)
+		{
+			var filedata = data.data;
+			$("#lectureThumbnail").val(filedata.filename);
+			$("#lectureThumbnailDisplay").val(filedata.filename);
+			$("#fileForm").hide();
+		},
+		error: function (jqXHR, textStatus, errorThrown)
+		{
+			console.log(errorThrown);
+		}
+	});
+	
+}
 
 function onSuccess(json, status){alert($.trim(json));}
 

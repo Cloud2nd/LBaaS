@@ -70,6 +70,11 @@ public class LectureService {
 		repositoryDto.setLectureType(lectureDto.getLectureType());
 		repositoryDto.setLectureLanguage(lectureDto.getLectureLanguage());
 
+		if (lectureDto.getLectureThumbnail() != null
+				&& lectureDto.getLectureThumbnail() != "") {
+			repositoryDto.setLectureThumbnail(lectureDto.getLectureThumbnail());
+		}
+		
 		// save db
 		repositoryDto = lectureRepository.save(repositoryDto);
 
@@ -96,6 +101,7 @@ public class LectureService {
 		lectureDto.setLectureCode(repositoryDto.getLectureCode());
 		lectureDto.setLectureLanguage(repositoryDto.getLectureLanguage());
 		lectureDto.setLectureType(repositoryDto.getLectureType());
+		lectureDto.setLectureThumbnail(repositoryDto.getLectureThumbnail());
 		response.setData(lectureDto);
 
 		// return
@@ -132,11 +138,12 @@ public class LectureService {
 			lectureDto.setLectureCode(repositoryDto.getLectureCode());
 			lectureDto.setLectureLanguage(repositoryDto.getLectureLanguage());
 			lectureDto.setLectureType(repositoryDto.getLectureType());
-			
+
 			// Need Approve
-			List<String> needApproveKeys = search.getNotApproveUser(repositoryDto.getLectureCode());
+			List<String> needApproveKeys = search
+					.getNotApproveUser(repositoryDto.getLectureCode());
 			lectureDto.setNeedApprove(needApproveKeys.size());
-			
+
 			System.out.println(needApproveKeys.size());
 			lectureList.add(lectureDto);
 		}
