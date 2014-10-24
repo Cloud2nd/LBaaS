@@ -142,7 +142,7 @@ public class FileService {
 				fileDto.setFilename(replaceFileName);
 				fileDto.setOriginNmae(fileName);
 
-				uploadS3(fileName);
+				uploadS3(replaceFileName);
 
 				response.setData(fileDto);
 
