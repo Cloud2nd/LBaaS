@@ -25,13 +25,13 @@ Uploads chart
 <script>
 	init.push(function () {
 		var uploads_data = [
-			{ day: '2014-03-10', v: 20 },
-			{ day: '2014-03-11', v: 10 },
-			{ day: '2014-03-12', v: 15 },
-			{ day: '2014-03-13', v: 12 },
-			{ day: '2014-03-14', v: 5  },
-			{ day: '2014-03-15', v: 5  },
-			{ day: '2014-03-16', v: 20 }
+			{ day: '2014-10-17', v: 0 },
+			{ day: '2014-10-18', v: 0 },
+			{ day: '2014-10-19', v: 0 },
+			{ day: '2014-10-20', v: 0 },
+			{ day: '2014-10-21', v: 0  },
+			{ day: '2014-10-22', v: 0  },
+			{ day: '2014-10-23', v: 1 }
 		];
 		Morris.Line({
 			element: 'hero-graph',
@@ -63,10 +63,10 @@ Uploads chart
 			<!-- Without margin -->
 			<ul class="list-group no-margin">
 				<li class="list-group-item no-border-hr padding-xs-hr no-bg no-border-radius">
-					Course <span class="label label-pa-purple pull-right">34</span>
+					Course <span class="label label-pa-purple pull-right">2</span>
 				</li> <!-- / .list-group-item -->
 				<li class="list-group-item no-border-hr padding-xs-hr no-bg">
-					Chapters <span class="label label-danger pull-right">128</span>
+					Chapters <span class="label label-danger pull-right">4</span>
 				</li> <!-- / .list-group-item -->
 			</ul>
 		</div> <!-- /.stat-cell -->
@@ -120,7 +120,7 @@ Uploads chart
 					<!-- Bordered, without top border, without horizontal padding -->
 					<div class="stat-cell bordered no-border-t no-padding-hr">
 						<div class="pie-chart" data-percent="43" id="easy-pie-chart-1">
-							<div class="pie-chart-label">12.3TB</div>
+							<div class="pie-chart-label">1.2GB</div>
 						</div>
 					</div>
 				</div> <!-- /.stat-row -->
@@ -131,14 +131,14 @@ Uploads chart
 				<div class="stat-row">
 					<!-- Dark gray background, small padding, extra small text, semibold text -->
 					<div class="stat-cell bg-dark-gray padding-sm text-xs text-semibold">
-						<i class="fa fa-flash"></i>&nbsp;&nbsp;PICK LOAD
+						<i class="fa fa-flash"></i>&nbsp;&nbsp;최대 CPU
 					</div>
 				</div> <!-- /.stat-row -->
 				<div class="stat-row">
 					<!-- Bordered, without top border, without horizontal padding -->
 					<div class="stat-cell bordered no-border-t no-padding-hr">
 						<div class="pie-chart" data-percent="93" id="easy-pie-chart-2">
-							<div class="pie-chart-label">93%</div>
+							<div class="pie-chart-label">23%</div>
 						</div>
 					</div>
 				</div> <!-- /.stat-row -->
@@ -149,14 +149,14 @@ Uploads chart
 				<div class="stat-row">
 					<!-- Dark gray background, small padding, extra small text, semibold text -->
 					<div class="stat-cell bg-dark-gray padding-sm text-xs text-semibold">
-						<i class="fa fa-cloud"></i>&nbsp;&nbsp;USED RAM
+						<i class="fa fa-cloud"></i>&nbsp;&nbsp;DISK
 					</div>
 				</div> <!-- /.stat-row -->
 				<div class="stat-row">
 					<!-- Bordered, without top border, without horizontal padding -->
 					<div class="stat-cell bordered no-border-t no-padding-hr">
 						<div class="pie-chart" data-percent="75" id="easy-pie-chart-3">
-							<div class="pie-chart-label">12GB</div>
+							<div class="pie-chart-label">3.2GB</div>
 						</div>
 					</div>
 				</div> <!-- /.stat-row -->
@@ -180,7 +180,7 @@ Uploads chart
 					<!-- Stat panel bg icon -->
 					<i class="fa fa-trophy bg-icon"></i>
 					<!-- Extra large text -->
-					<span class="text-xlg"><span class="text-lg text-slim">$</span><strong>147</strong></span><br>
+					<span class="text-xlg"><span class="text-lg text-slim">$</span><strong>0</strong></span><br>
 					<!-- Big text -->
 					<span class="text-bg">Earned today</span><br>
 					<!-- Small text -->
@@ -199,7 +199,7 @@ Uploads chart
 				<!-- Javascript -->
 				<script>
 					init.push(function () {
-						$("#stats-sparklines-3").pixelSparkline([275,490,397,487,339,403,402,312,300], {
+						$("#stats-sparklines-3").pixelSparkline([0,0,0,0,0,0,0,0,0], {
 							type: 'line',
 							width: '100%',
 							height: '45px',
@@ -233,21 +233,21 @@ Uploads chart
 							<!-- Small padding, without horizontal padding -->
 							<div class="stat-cell col-xs-4 padding-sm no-padding-hr">
 								<!-- Big text -->
-								<span class="text-bg"><strong>312</strong></span><br>
+								<span class="text-bg"><strong>0</strong></span><br>
 								<!-- Extra small text -->
 								<span class="text-xs text-muted">TWEETS</span>
 							</div>
 							<!-- Small padding, without horizontal padding -->
 							<div class="stat-cell col-xs-4 padding-sm no-padding-hr">
 								<!-- Big text -->
-								<span class="text-bg"><strong>1000</strong></span><br>
+								<span class="text-bg"><strong>0</strong></span><br>
 								<!-- Extra small text -->
 								<span class="text-xs text-muted">FOLLOWERS</span>
 							</div>
 							<!-- Small padding, without horizontal padding -->
 							<div class="stat-cell col-xs-4 padding-sm no-padding-hr">
 								<!-- Big text -->
-								<span class="text-bg"><strong>523</strong></span><br>
+								<span class="text-bg"><strong>0</strong></span><br>
 								<!-- Extra small text -->
 								<span class="text-xs text-muted">FOLLOWING</span>
 							</div>

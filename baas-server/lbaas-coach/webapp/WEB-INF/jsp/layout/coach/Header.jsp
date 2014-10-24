@@ -11,7 +11,7 @@
   <div class="navbar-header">
 	<a href="/dashboard" class="navbar-brand">
 	  <div><img alt="CourseVil Admin" src="/assets/images/pixel-admin/main-navbar-logo.png"></div>
-	  CourseVil Admin
+	  CourseVil Teacher
 	</a>
 	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse">
 	  <i class="navbar-icon fa fa-bars"></i>
