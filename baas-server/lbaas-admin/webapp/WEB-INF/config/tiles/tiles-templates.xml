@@ -1,0 +1,21 @@
+<!--?xml version="1.0" encoding="UTF-8"? -->  
+<!DOCTYPE tiles-definitions PUBLIC  
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <definition name="coach.base.layout" template="/WEB-INF/jsp/layout/coach/Layout.jsp">
+        <put-attribute name="title" value="SpringMVC" />
+        <put-attribute name="header" value="/WEB-INF/jsp/layout/coach/Header.jsp" />
+        <put-attribute name="body" value="" />
+    </definition>
+    
+    <definition name="user.base.layout" template="/WEB-INF/jsp/layout/user/Layout.jsp">
+        <put-attribute name="title" value="SpringMVC" />
+        <put-attribute name="header" value="/WEB-INF/jsp/layout/user/Header.jsp" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+
+    
+</tiles-definitions>
