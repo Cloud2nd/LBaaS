@@ -138,13 +138,14 @@ public class LectureService {
 			lectureDto.setLectureCode(repositoryDto.getLectureCode());
 			lectureDto.setLectureLanguage(repositoryDto.getLectureLanguage());
 			lectureDto.setLectureType(repositoryDto.getLectureType());
+			lectureDto.setLectureThumbnail(repositoryDto.getLectureThumbnail());
+
 
 			// Need Approve
 			List<String> needApproveKeys = search
 					.getNotApproveUser(repositoryDto.getLectureCode());
 			lectureDto.setNeedApprove(needApproveKeys.size());
 
-			System.out.println(needApproveKeys.size());
 			lectureList.add(lectureDto);
 		}
 
