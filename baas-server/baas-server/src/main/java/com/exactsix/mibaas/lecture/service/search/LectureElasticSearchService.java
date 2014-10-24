@@ -73,7 +73,6 @@ public class LectureElasticSearchService {
 
 		for (SearchHit hit : response.getHits()) {
 			keys.add(hit.getId());
-			System.out.println(hit.getId());
 		}
 
 		return keys;

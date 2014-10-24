@@ -59,6 +59,21 @@ public class LectureEntrollService {
 	 */
 	public RestResponse createEntrollLecture(EntrollDto entrollDto) {
 
+		RestResponse response = new RestResponse();
+
+		String key = getKey(entrollDto.getLectureCode(),
+				entrollDto.getCustomerCode());
+
+		System.out.println(key);
+		LectureEntrollRepositoryDto checkRepositoryDto = lectureEntrollRepository
+				.findOne(key);
+
+		if (checkRepositoryDto != null) {
+			response.setStatus(false);
+			response.setMessage("이미 수강신청중 입니다");
+			return response;
+		}
+
 		// make lecture repository data
 
 		LectureEntrollRepositoryDto repositoryDto = new LectureEntrollRepositoryDto();
@@ -74,7 +89,6 @@ public class LectureEntrollService {
 		repositoryDto = lectureEntrollRepository.save(repositoryDto);
 
 		// make response message
-		RestResponse response = new RestResponse();
 		response.setStatus(true);
 		response.setMessage("수강신청이 정상적으로 등록되었습니다");
 
