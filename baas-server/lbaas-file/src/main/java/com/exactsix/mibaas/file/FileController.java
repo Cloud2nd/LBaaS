@@ -42,7 +42,7 @@ public class FileController {
 	public @ResponseBody
 	RestResponse thumnail(@RequestParam("file") MultipartFile file) {
 
-		return service.fileSave(file);
+		return service.thumnail(file);
 
 	}
 
