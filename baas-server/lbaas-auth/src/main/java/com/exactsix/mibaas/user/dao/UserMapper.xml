@@ -24,6 +24,10 @@
 		<result property="deviceId" column="DEVICE_ID" />
 	</resultMap>
 
+	<select id="getUsers" parameterType="String" resultMap="resultMap">
+		SELECT
+		USERID, EMAIL, USER_NAME, LAST_LOGON from users
+	</select>
 
 	<select id="getUser" parameterType="String" resultMap="resultMap">
 		SELECT

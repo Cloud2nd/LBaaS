@@ -64,4 +64,10 @@ public class UserController {
 		return userService.createUserDevice(userDevice);
 	}
 
+	@RequestMapping(value = "/usermanagement", method = RequestMethod.GET)
+	public @ResponseBody
+	RestResponse getUser() {
+		return userService.getUsers();
+	}
+
 }

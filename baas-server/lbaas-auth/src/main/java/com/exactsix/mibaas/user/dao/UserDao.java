@@ -1,5 +1,7 @@
 package com.exactsix.mibaas.user.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.exactsix.mibaas.common.dao.AbstractBaseDao;
@@ -32,7 +34,11 @@ public class UserDao extends AbstractBaseDao {
 	public UserDto getUser(String email) {
 		return sqlSession.selectOne("UserMapper.getUser", email);
 	}
-	
+
+	public List<UserDto> getUsers() {
+		return sqlSession.selectList("UserMapper.getUsers");
+	}
+
 	public UserDto getUserLogin(UserDto dto) {
 		return sqlSession.selectOne("UserMapper.getUserLogin", dto);
 	}

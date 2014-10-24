@@ -1,5 +1,7 @@
 package com.exactsix.mibaas.user.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,7 @@ public class UserService {
 			response.setStatus(true);
 			response.setMessage("success login");
 			response.setData(user);
-		}else{
+		} else {
 			response.setStatus(false);
 			response.setMessage("login fail");
 		}
@@ -36,6 +38,25 @@ public class UserService {
 		RestResponse response = new RestResponse();
 
 		UserDto user = userDao.getUser(email);
+
+		if (user == null) {
+			response.setStatus(false);
+			response.setMessage("login error");
+			response.setCode("100");
+		} else {
+			response.setStatus(true);
+			response.setMessage("success");
+			response.setData(user);
+		}
+
+		return response;
+	}
+
+	public RestResponse getUsers() {
+
+		RestResponse response = new RestResponse();
+
+		List<UserDto> user = userDao.getUsers();
 
 		if (user == null) {
 			response.setStatus(false);
