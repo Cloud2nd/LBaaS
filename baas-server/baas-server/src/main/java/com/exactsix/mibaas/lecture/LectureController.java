@@ -55,11 +55,11 @@ public class LectureController {
 		return lectureManager.getLectureList();
 	}
 
-	@RequestMapping(value = "/lecture/inprogress", method = RequestMethod.GET)
+	@RequestMapping(value = "/lecture/inprogress/{customercode}", method = RequestMethod.GET)
 	public @ResponseBody
-	RestResponse getProgressCourseList() {
+	RestResponse getProgressCourseList(@PathVariable String customercode) {
 		//
-		return lectureManager.getProgressCourseList();
+		return lectureManager.getProgressCourseList(customercode);
 	}
 
 	/**

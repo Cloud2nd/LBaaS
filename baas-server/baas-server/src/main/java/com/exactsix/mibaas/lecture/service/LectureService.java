@@ -155,9 +155,9 @@ public class LectureService {
 		return response;
 	}
 
-	public RestResponse getProgressCourseList() {
+	public RestResponse getProgressCourseList(String customercode) {
 
-		List<String> keys = search.getProgressCourse();
+		List<String> keys = search.getProgressCourse(customercode);
 
 		List<String> lectureKeys = new ArrayList<String>();
 
@@ -185,6 +185,7 @@ public class LectureService {
 			lectureDto.setLectureCode(repositoryDto.getLectureCode());
 			lectureDto.setLectureLanguage(repositoryDto.getLectureLanguage());
 			lectureDto.setLectureType(repositoryDto.getLectureType());
+			lectureDto.setLectureThumbnail(repositoryDto.getLectureThumbnail());
 			lectureList.add(lectureDto);
 		}
 

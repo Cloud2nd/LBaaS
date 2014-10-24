@@ -52,7 +52,7 @@ public class LectureElasticSearchService {
 
 	}
 
-	public List<String> getProgressCourse() {
+	public List<String> getProgressCourse(String customercode) {
 
 		
 		QueryBuilder queryBuilder = QueryBuilders
@@ -61,7 +61,7 @@ public class LectureElasticSearchService {
 						.matchQuery("couchbaseDocument.doc._class",
 								"com.exactsix.mibaas.lecture.repository.dto.LectureEntrollRepositoryDto"))
 				.must(QueryBuilders.matchQuery(
-						"couchbaseDocument.doc.userCode", "dave"))
+						"couchbaseDocument.doc.userCode", customercode))
 				.must(QueryBuilders.matchQuery(
 						"couchbaseDocument.doc.status", "approve"));
 
