@@ -27,12 +27,10 @@ public class LectureEntrollController {
 		return lectureManager.createEntrollLecture(entrollDto);
 	}
 
-	@RequestMapping(value = "/entroll/{lecturecode}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/entroll/{lecturecode}/cancel", method = RequestMethod.POST)
 	public @ResponseBody
-	RestResponse removeEntrollLecture(@PathVariable String lecturecode) {
-		EntrollDto entrollDto = new EntrollDto();
+	RestResponse removeEntrollLecture(@PathVariable String lecturecode, @RequestBody EntrollDto entrollDto) {
 		entrollDto.setLectureCode(lecturecode);
-		entrollDto.setCustomerCode("dave");
 		return lectureManager.removeEntrollLecture(entrollDto);
 	}
 
