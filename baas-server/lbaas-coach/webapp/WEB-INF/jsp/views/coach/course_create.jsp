@@ -169,7 +169,7 @@ function uploadFile(){
 	var formData = new FormData();
 	formData.append("file", file.files[0]);
 
-	var urlValue = 'http://file.coursevil.org/api/file/thumnail/save';
+	var urlValue = 'http://file.coursevil.org:8080/api/file/thumnail/save';
 	
 	 $.ajax({
 		type : 'POST',
