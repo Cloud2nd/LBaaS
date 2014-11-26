@@ -126,11 +126,11 @@ public class FileService {
 						new FileOutputStream(new File("/home/data/"
 								+ replaceFileName)));
 
-				/*
-				 * BufferedOutputStream buffStream = new BufferedOutputStream(
-				 * new FileOutputStream(new File("C:/develop/temp/" +
-				 * replaceFileName)));
-				 */
+				
+				 /* BufferedOutputStream buffStream = new BufferedOutputStream(
+				  new FileOutputStream(new File("C:/develop/temp/" +
+				  replaceFileName)));*/
+				 
 				buffStream.write(bytes);
 				buffStream.close();
 

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/TagLib.jspf" %>
 
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/jquery.fileupload.css">
+
 <ul class="breadcrumb breadcrumb-page">
   <div class="breadcrumb-label text-light-gray">
 	You are here:
@@ -87,24 +91,28 @@
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="lectureThumbnailDisplay" name="lectureThumbnailDisplay" disabled > 
 							<input type="hidden" class="form-control" id="lectureThumbnail" name="lectureThumbnail" > 
+							<div id="uploadform">
+							<span class="btn btn-success fileinput-button">
+							<i class="glyphicon glyphicon-plus"></i>
+							<span>Select files...</span>
+							<!-- The file input field used as target for the file upload widget -->
+							<input id="file" type="file" name="file" multiple>
+							</span>
+							<br>
+							<br>
+							<!-- The global progress bar -->
+							<div id="progress" class="progress">
+							<div class="progress-bar progress-bar-success"></div>
+							</div>
+							</div>
+
 						</div>
-					</div> <!-- / .form-group -->
+						
+
+				</div> <!-- / .form-group -->
 				</form>
 
-				<div id="fileForm" class="row">
-					<label for="fileName" class="col-sm-2 control-label"></label>
-					<div class="col-sm-10">
-						<form id="file-upload-form">
-
-							<div class="col-sm-8">
-								<input id="uploadfile" name="uploadfile" type="file" multiple="" />
-							</div>
-							<div class="col-sm-2">
-								<button type="button" id="upload" class="btn btn-primary">Upload</button>
-							</div>
-						</form>
-					</div>
-				</div>
+				 <!-- The fileinput-button span is used to style the file input field as button -->
 
 
 				<div class="form-group right" style="margin-bottom: 0;">
@@ -114,20 +122,22 @@
 				</div> <!-- / .form-group -->
 			</div>
 		
-
-				
-
-				
-	<!-- /10. $FORM_EXAMPLE -->
-
-	</div>
+   
 </div>
 
+
+<script src="/assets/js/vendor/jquery.ui.widget.js"></script>
+<script src="/assets/js/jquery.iframe-transport.js"></script>
+<script src="/assets/js/jquery.fileupload.js"></script>
 
 
 <script type="text/javascript">
 
 $(document).ready(function() { 
+
+
+	$("#lectureThumbnailDisplay").hide();
+	$("#uploadform").show();
 	
 	$("#lectureRegistBtn").click(function(e){
 
@@ -142,7 +152,8 @@ $(document).ready(function() {
 			data : json_val,
 			success: function(data, textStatus, jqXHR)
 			{
-			   alert("강좌 등록 요청되었습니다.");
+				var url = "/course/list";    
+				$(location).attr('href',url);
 			},
 			error: function (jqXHR, textStatus, errorThrown)
 			{
@@ -159,42 +170,6 @@ $(document).ready(function() {
 
 }); 
 
-
-
-// File Upload
-function uploadFile(){
-
-	var file = document.getElementById("uploadfile");
-
-	var formData = new FormData();
-	formData.append("file", file.files[0]);
-
-	var urlValue = 'http://file.coursevil.org:8080/api/file/thumnail/save';
-	
-	 $.ajax({
-		type : 'POST',
-		url : urlValue,
-		contentType : false,
-		data : formData,
-		processData: false,
-		success: function(data, textStatus, jqXHR)
-		{
-			var filedata = data.data;
-			$("#lectureThumbnail").val(filedata.filename);
-			$("#lectureThumbnailDisplay").val(filedata.filename);
-			$("#fileForm").hide();
-		},
-		error: function (jqXHR, textStatus, errorThrown)
-		{
-			console.log(errorThrown);
-		}
-	});
-	
-}
-
-function onSuccess(json, status){alert($.trim(json));}
-
-function onError(data, status){alert("error");}
 
 /* form data to json */
 $.fn.serializeObject = function()
@@ -215,6 +190,45 @@ $.fn.serializeObject = function()
 };
  
 
+$(function () {
+    'use strict';
+    // Change this to the location of your server-side upload handler:
+    var url = "http://file.coursevil.org:8080/api/file/thumnail/save";
+     
+    $('#file').fileupload({
+        url: url,
+        dataType: 'json',
+        
+        add: function(e, data){
+
+        	var uploadFile = data.files[0];
+        	
+			if (!(/png|jpe?g|gif/i).test(uploadFile.name)) {
+                alert('png, jpg, gif 만 가능합니다');
+                goUpload = false;
+            } else if (uploadFile.size > 5000000) { // 5mb
+                alert('파일 용량은 5메가를 초과할 수 없습니다.');
+            }
+           
+            data.submit();
+        },
+        done: function (e, data) {
+
+			var filedata = data.result.data;
+			$("#lectureThumbnail").val(filedata.filename);
+			$("#lectureThumbnailDisplay").val(filedata.filename);
+			$("#lectureThumbnailDisplay").show();
+			$("#uploadform").hide();
+
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css('width',progress + '%');
+        }
+       
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
 
 
 </script>
