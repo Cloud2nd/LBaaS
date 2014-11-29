@@ -96,21 +96,17 @@ var selectedChapterCode = "";
 						
 						<div class="form-group">
 							<label for="lectureName" class="col-sm-2 text-right">About</label>
-							<div class="col-sm-10" id="lectureDetailAboutValue">
-								<p>lectureName</p>
-							</div>
+							<div class="col-sm-10" id="lectureDetailAboutValue"></div>
 						</div> <!-- / .form-group -->
 
 						<div class="form-group">
 							<label for="lectureName" class="col-sm-2 text-right">Syllabus</label>
-							<div class="col-sm-10" id="lectureDetailSyllabusValue">
-							</div>
+							<div class="col-sm-10" id="lectureDetailSyllabusValue"></div>
 						</div> <!-- / .form-group -->
 
 						<div class="form-group">
 							<label for="lectureName" class="col-sm-2 text-right">Format</label>
-							<div class="col-sm-10" id="lectureDetailFormatValue">
-							</div>
+							<div class="col-sm-10" id="lectureDetailFormatValue"></div>
 						</div> <!-- / .form-group -->
 					</div>
 				</div> <!-- / .tab-pane -->
@@ -168,7 +164,6 @@ var selectedChapterCode = "";
 </div>
 
 <!-- Edit Detail Modal -->
-
 <div id="eidtDetailModal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -210,7 +205,6 @@ var selectedChapterCode = "";
 		</div> <!-- / .modal-content -->
 	</div> <!-- / .modal-dialog -->
 </div> <!-- /.modal -->
-
 <!-- end edit detail modal -->
 
 <div id="eidtChapterModal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
@@ -426,7 +420,7 @@ function uploadFile(){
 	var formData = new FormData();
 	formData.append("file", file.files[0]);
 
-	var urlValue = 'http://file.coursevil.org/api/file/save';
+	var urlValue = 'http://file.coursevil.org:8080/api/file/save';
 	
 	 $.ajax({
 		type : 'POST',
@@ -685,7 +679,6 @@ function editChapter(){
 		success: function(data, textStatus, jqXHR)
 		{
 			getChapterListData();
-			alert(data.message);
 		},
 		error: function (jqXHR, textStatus, errorThrown)
 		{
@@ -806,7 +799,8 @@ function editDetail(){
 		data : json_val,
 		success: function(data, textStatus, jqXHR)
 		{
-			alert(data.message);
+			getDetailData();
+			$('#eidtDetailModal').modal('hide');
 		},
 		error: function (jqXHR, textStatus, errorThrown)
 		{

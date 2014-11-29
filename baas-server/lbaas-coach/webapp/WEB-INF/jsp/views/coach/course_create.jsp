@@ -125,6 +125,22 @@
    
 </div>
 
+<!-- Success -->
+<div id="uidemo-modals-alerts-success" class="modal modal-alert modal-success fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<i class="fa fa-check-circle"></i>
+			</div>
+			<div class="modal-title">성공</div>
+			<div class="modal-body">등록 요청 되었습니다.</div>
+			<div class="modal-footer">
+				<button type="button" id="successBtn" class="btn btn-success">OK</button>
+			</div>
+		</div> <!-- / .modal-content -->
+	</div> <!-- / .modal-dialog -->
+</div> <!-- / .modal -->
+<!-- / Success -->
 
 <script src="/assets/js/vendor/jquery.ui.widget.js"></script>
 <script src="/assets/js/jquery.iframe-transport.js"></script>
@@ -152,8 +168,8 @@ $(document).ready(function() {
 			data : json_val,
 			success: function(data, textStatus, jqXHR)
 			{
-				var url = "/course/list";    
-				$(location).attr('href',url);
+				$('#uidemo-modals-alerts-success').modal('show');	
+
 			},
 			error: function (jqXHR, textStatus, errorThrown)
 			{
@@ -166,6 +182,14 @@ $(document).ready(function() {
 	$("#upload").click(function(e){
 		 // Ajax 호출
 		uploadFile();
+	});
+
+
+	$("#successBtn").click(function(e){
+		 // Ajax 호출
+		 $('#uidemo-modals-alerts-success').modal('hide');
+		 var url = "/course/list";    
+		 $(location).attr('href',url);
 	});
 
 }); 
@@ -231,4 +255,4 @@ $(function () {
 });
 
 
-</script>
+</script>				

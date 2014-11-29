@@ -1,5 +1,7 @@
 package com.exactsix.mibaas.lecture.repository.dto;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
@@ -24,6 +26,15 @@ public class LectureRepositoryDto {
 
 	@Field
 	private String lectureThumbnail;
+
+	@Field
+	private String status;
+
+	@Field
+	private Date created;
+
+	@Field
+	private Date updated;
 
 	public LectureRepositoryDto() {
 		super();
@@ -84,6 +95,30 @@ public class LectureRepositoryDto {
 
 	public void setLectureThumbnail(String lectureThumbnail) {
 		this.lectureThumbnail = lectureThumbnail;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 
 }
